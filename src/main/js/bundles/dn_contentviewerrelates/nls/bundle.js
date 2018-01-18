@@ -16,7 +16,7 @@
 define({
     root: ({
         bundleName: "ContentViewer Relates",
-        bundleDescription: "The ContentViewer Relates Bundle expands the ContentViewer to display data from related tables."
+        bundleDescription: "The ContentViewer Relates bundle expands the ContentViewer to display data from related tables."
     }),
     "de": true
 });

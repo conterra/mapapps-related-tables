@@ -46,7 +46,7 @@
           "toolClass": "ctInfo",
           "togglable": true,
           "widgetSettings": {
-            "content": "This app shows the functionality of the ContentViewer Relates Bundle. It expands the ContentViewer to display data from related tables",
+            "content": "This app shows the functionality of the ContentViewer Relates bundle. It expands the ContentViewer to display data from related tables",
             "window": {
               "title": "Information",
               "marginBox": {
