@@ -1,0 +1,208 @@
+{
+  "properties": {
+    "amdPackages": "apprt@^3.x",
+    "title": "ContentViewer Relates Sample"
+  },
+  "load": {
+    "bundleLocations": [
+      "localbundles",
+      "bundles"
+    ],
+    "allowedBundles": [
+      "system@^3.x",
+      "splashscreen@^3.x",
+      "map@^3.x",
+      "themes@^3.x",
+      "templates@^3.x",
+      "templatelayout@^3.x",
+      "windowmanager@^3.x",
+      "toolset@^3.x",
+      "toolrules@^3.x",
+      "banner@^3.x",
+      "featureinfo@^3.x",
+      "contenviewer@^3.x",
+      "custominfo@^3.x",
+      "dn_contentviewerrelates"
+    ],
+    "skipBundles": []
+  },
+  "bundles": {
+    "banner": {
+      "BannerWidget": {
+        "label": "Developer Network",
+        "image": "https://www.conterra.de/~/media/conterra/images/site_logos/conterra-logo.ashx",
+        "imagePosition": "above",
+        "link": "http://developernetwork.conterra.de"
+      }
+    },
+    "custominfo": {
+      "CustomInfoToggleTool": [
+        {
+          "id": "customInfoTool",
+          "activateOnStartup": true,
+          "title": "Information",
+          "tooltip": "Information",
+          "iconClass": "icon-custom-info-info",
+          "toolClass": "ctInfo",
+          "togglable": true,
+          "widgetSettings": {
+            "content": "This app shows the functionality of the ContentViewer Relates Bundle. It expands the ContentViewer to display data from related tables",
+            "window": {
+              "title": "Information",
+              "marginBox": {
+                "w": 300,
+                "h": 100,
+                "l": 20,
+                "b": 120
+              },
+              "draggable": true,
+              "closable": true,
+              "modal": false,
+              "maximizable": false,
+              "resizable": false
+            }
+          }
+        }
+      ]
+    },
+    "toolset": {
+      "ToolsetManager": {
+        "toolsets": [
+          {
+            "id": "toolset_1450282105829",
+            "title": "Werkzeuge",
+            "container": "map",
+            "window": {
+              "closable": true
+            },
+            "tooltip": "Werkzeuge",
+            "__isDirty": true,
+            "cssClass": "notitle",
+            "windowType": "fixed",
+            "position": {
+              "rel_l": 20,
+              "rel_b": 80
+            },
+            "tools": [
+              "*"
+            ]
+          }
+        ]
+      },
+      "enabled": true
+    },
+    "templates": {
+      "TemplateSelector": {
+        "componentEnabled": false
+      },
+      "TemplateModel": {
+        "_selectedTemplate": "seasons",
+        "_templates": [
+          {
+            "name": "seasons",
+            "widgets": [
+            ]
+          }
+        ]
+      }
+    },
+    "map": {
+      "MapState": {
+        "initialExtent": {
+          "xmin": -14141501.185507398,
+          "xmax": -9445210.167667415,
+          "ymin": 3344532.8349257456,
+          "ymax": 5572825.083494612,
+          "spatialReference": {
+            "wkid": 3857
+          }
+        }
+      },
+      "MapModelFactory": {
+        "_configData": {
+          "maps": [
+            {
+              "id": "default",
+              "glass_pane": [],
+              "operationalLayer": [
+                {
+                  "id": "petroleum",
+                  "title": "Petroleum",
+                  "enabled": true,
+                  "service": "service_petroleum",
+                  "category": {
+                    "title": "Petroleum",
+                    "description": "This sample service represents oil and gas fields and wells in the State of Kansas.  Data was provided by the Kansas Geological Survey, http://www.kgs.ku.edu/ .  This is a sample service hosted by ESRI, powered by ArcGIS Server. ESRI reserves the right to change or remove this service at any time and without notice.",
+                    "imgUrl": ""
+                  },
+                  "layers": [
+                    "*"
+                  ],
+                  "opacity": 1
+                }
+              ],
+              "baseLayer": [
+                {
+                  "title": "Streets",
+                  "service": "streets",
+                  "enabled": false
+                },
+                {
+                  "title": "Topo",
+                  "service": "worldTopo",
+                  "enabled": false
+                },
+                {
+                  "title": "Dark Canvas",
+                  "service": "darkcanvas",
+                  "enabled": true
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "MappingResourceRegistryFactory": {
+        "_knownServices": {
+          "services": [
+            {
+              "id": "worldTopo",
+              "type": "AGS_TILED",
+              "url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"
+            },
+            {
+              "id": "streets",
+              "type": "AGS_TILED",
+              "url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"
+            },
+            {
+              "id": "darkcanvas",
+              "type": "AGS_TILED",
+              "url": "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer"
+            },
+            {
+              "id": "service_petroleum",
+              "url": "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer",
+              "type": "AGS_DYNAMIC",
+              "title": "Petroleum",
+              "description": "This sample service represents oil and gas fields and wells in the State of Kansas.  Data was provided by the Kansas Geological Survey, http://www.kgs.ku.edu/ .  This is a sample service hosted by ESRI, powered by ArcGIS Server. ESRI reserves the right to change or remove this service at any time and without notice.",
+              "layers": [
+                {
+                  "id": "0",
+                  "title": "Wells",
+                  "minScale": 350000,
+                  "enabled": true
+                },
+                {
+                  "id": "1",
+                  "title": "Fields",
+                  "enabled": true
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

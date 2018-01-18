@@ -1,0 +1,47 @@
+{
+  "Bundle-SymbolicName": "dn_contentviewerrelates",
+  "Bundle-Version": "1.0.0-SNAPSHOT",
+  "Bundle-Name": "${bundleName}",
+  "Bundle-Description": "${bundleDescription}",
+  "Bundle-Vendor": "con terra GmbH",
+  "Bundle-Category": [],
+  "Product-Name": "devnet-mapapps-contentviewer-relates",
+  "Require-Bundle": [
+    {
+      "name": "contentviewer",
+      "version": "3.x"
+    }
+  ],
+  "layout-widgets": [],
+  "Components": [
+    {
+      "name": "QueryController",
+      "properties": {
+        "url": "http://vsdev1839.esri-de.com:6080/arcgis/rest/services/Bistum/Bistum_Einrichtungen/MapServer/6",
+        "idOeffnungszeit": "orgUnitID",
+        "idEinrichtung": "orgUnitID"
+      },
+      "provides": "bistummuenster_contentviewerenhancer.QueryController",
+      "references": [
+        {
+          "name": "_mapModel",
+          "providing": "ct.mapping.map.MapModel"
+        }
+      ]
+    },
+    {
+      "name": "ContentViewerEnhancer",
+      "properties": {},
+      "references": [
+        {
+          "name": "_queryController",
+          "providing": "bistummuenster_contentviewerenhancer.QueryController"
+        },
+        {
+          "name": "_windowManager",
+          "providing": "ct.framework.api.WindowManager"
+        }
+      ]
+    }
+  ]
+}
