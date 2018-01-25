@@ -96,10 +96,10 @@ define([
                                 filterDuringKeyUp: true,
                                 showPager: true,
                                 showViewButtons: false,
-                                itemsPerPage: 10,
+                                itemsPerPage: 25,
                                 DGRID: {
                                     noDataMessage: "-",
-                                    checkboxSelection: true,
+                                    checkboxSelection: false,
                                     columns: columns
                                 }
                             });
