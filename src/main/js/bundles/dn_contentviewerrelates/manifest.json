@@ -16,8 +16,7 @@
   "Components": [
     {
       "name": "QueryController",
-      "properties": {
-      },
+      "properties": {},
       "provides": "bistummuenster_contentviewerenhancer.QueryController",
       "references": [
         {
