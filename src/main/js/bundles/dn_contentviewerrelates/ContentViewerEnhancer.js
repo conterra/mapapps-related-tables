@@ -97,11 +97,6 @@ define([
                                 }
                             });
 
-                            var dateOptions = {
-                                formatLength: 'short',
-                                selector: "datetime"
-                            };
-
                             var dataView = new DataView({
                                 showFilter: true,
                                 filterDuringKeyUp: true,
