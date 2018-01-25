@@ -51,7 +51,7 @@ define([
             return ct_when(this.getMetadata(mapModelNodeId), function (metadata) {
                 var relationships = this.relationships = metadata.relationships;
                 var requests = d_array.map(relationships, function (relationship) {
-                    var relatedTableId = relationship && relationship.id;
+                    var relatedTableId = relationship && relationship.relatedTableId;
                     return apprt_request(url + "/" + relatedTableId, {
                         query: {
                             f: 'json'

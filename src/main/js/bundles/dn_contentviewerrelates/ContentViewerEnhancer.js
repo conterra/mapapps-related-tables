@@ -55,6 +55,8 @@ define([
                 return arguments;
             }));
 
+            var that = this;
+
             if (this.context.source !== "maptip") {
                 ct_when(queryController.getRelatedMetadata(this.context.mapModelNodeId || this.context.storeProperties.mapModelNodeId), function (metadatas) {
                     ct_when(queryController.findRelatedRecords(this.content, this.context.mapModelNodeId || this.context.storeProperties.mapModelNodeId), function (results) {
@@ -72,10 +74,14 @@ define([
                             });
 
                             var metadata = metadatas[index][1];
+                            results = d_array.map(results, function (result) {
+                                result =  that.dateAndDomainReplacer._replaceDomainValues(result, metadata);
+                                return that.dateAndDomainReplacer._replaceDateValues(result, metadata);
+                            });
                             var store = new ComplexMemory({
                                 idProperty: "OBJECTID",
                                 data: results,
-                                metadata: {displayField: metadata.displayField, fields: result[1].fields}
+                                metadata: {displayField: metadata.displayField, fields: metadata.fields}
                             });
 
                             var model = new DataViewModel({
@@ -90,6 +96,11 @@ define([
                                     title: field.alias
                                 }
                             });
+
+                            var dateOptions = {
+                                formatLength: 'short',
+                                selector: "datetime"
+                            };
 
                             var dataView = new DataView({
                                 showFilter: true,
