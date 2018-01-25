@@ -16,7 +16,7 @@
 define([
     ".",
     "./ContentViewerEnhancer",
-    "ct/store/ComplexMemory",
     "./QueryController",
+    "ct/store/ComplexMemory",
     "ct/tools/Tool"
 ], {});

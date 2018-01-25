@@ -17,9 +17,6 @@
     {
       "name": "QueryController",
       "properties": {
-        "url": "http://vsdev1839.esri-de.com:6080/arcgis/rest/services/Bistum/Bistum_Einrichtungen/MapServer/6",
-        "idOeffnungszeit": "orgUnitID",
-        "idEinrichtung": "orgUnitID"
       },
       "provides": "bistummuenster_contentviewerenhancer.QueryController",
       "references": [
