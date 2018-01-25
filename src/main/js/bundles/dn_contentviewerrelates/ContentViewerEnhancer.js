@@ -60,12 +60,12 @@ define([
             if (this.context.source !== "maptip") {
                 ct_when(queryController.getRelatedMetadata(this.context.mapModelNodeId || this.context.storeProperties.mapModelNodeId), function (metadatas) {
                     ct_when(queryController.findRelatedRecords(this.content, this.context.mapModelNodeId || this.context.storeProperties.mapModelNodeId), function (results) {
-                        if (results && results.length > 0) {
-                            var headline = domConstruct.toDom("<div>" + i18n.relatedTables + "</div>");
-                            domConstruct.place(headline, this.centerPane.domNode, "first");
-                        }
                         d_array.forEach(results, function (result, index) {
                             var relatedRecordGroups = result[1].relatedRecordGroups;
+                            if (relatedRecordGroups && relatedRecordGroups.length > 0) {
+                                var headline = domConstruct.toDom("<div>" + i18n.relatedTables + "</div>");
+                                domConstruct.place(headline, this.centerPane.domNode, "first");
+                            }
                             var results = [];
                             d_array.forEach(relatedRecordGroups, function (relatedRecordGroup) {
                                 d_array.forEach(relatedRecordGroup.relatedRecords, function (record) {
@@ -75,7 +75,7 @@ define([
 
                             var metadata = metadatas[index][1];
                             results = d_array.map(results, function (result) {
-                                result =  that.dateAndDomainReplacer._replaceDomainValues(result, metadata);
+                                result = that.dateAndDomainReplacer._replaceDomainValues(result, metadata);
                                 return that.dateAndDomainReplacer._replaceDateValues(result, metadata);
                             });
                             var store = new ComplexMemory({

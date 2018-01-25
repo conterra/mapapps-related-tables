@@ -41,7 +41,11 @@ define([
                         handleAs: 'json'
                     });
                 });
-                return new DeferredList(requests);
+                if (requests.length > 0) {
+                    return new DeferredList(requests);
+                } else {
+                    return null;
+                }
             }, this);
         },
 
