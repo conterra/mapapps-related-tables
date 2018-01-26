@@ -109,13 +109,11 @@
     "map": {
       "MapState": {
         "initialExtent": {
-          "xmin": -14141501.185507398,
-          "xmax": -9445210.167667415,
-          "ymin": 3344532.8349257456,
-          "ymax": 5572825.083494612,
-          "spatialReference": {
-            "wkid": 3857
-          }
+          "xmax": 867792.4915261895,
+          "ymax": 6802085.106900126,
+          "xmin": 831102.7179493543,
+          "ymin": 6783090.505371286,
+          "wkid": 3857
         }
       },
       "MapModelFactory": {
@@ -126,13 +124,13 @@
               "glass_pane": [],
               "operationalLayer": [
                 {
-                  "id": "petroleum",
-                  "title": "Petroleum",
+                  "id": "stoerungen",
+                  "title": "Störungen",
                   "enabled": true,
-                  "service": "service_petroleum",
+                  "service": "service_stoerung",
                   "category": {
-                    "title": "Petroleum",
-                    "description": "This sample service represents oil and gas fields and wells in the State of Kansas.  Data was provided by the Kansas Geological Survey, http://www.kgs.ku.edu/ .  This is a sample service hosted by ESRI, powered by ArcGIS Server. ESRI reserves the right to change or remove this service at any time and without notice.",
+                    "title": "Störungen",
+                    "description": "Störungen",
                     "imgUrl": ""
                   },
                   "layers": [
@@ -181,21 +179,20 @@
               "url": "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer"
             },
             {
-              "id": "service_petroleum",
-              "url": "https://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer",
+              "id": "service_stoerung",
+              "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
               "type": "AGS_DYNAMIC",
-              "title": "Petroleum",
+              "title": "Störungen",
               "description": "This sample service represents oil and gas fields and wells in the State of Kansas.  Data was provided by the Kansas Geological Survey, http://www.kgs.ku.edu/ .  This is a sample service hosted by ESRI, powered by ArcGIS Server. ESRI reserves the right to change or remove this service at any time and without notice.",
               "layers": [
                 {
                   "id": "0",
-                  "title": "Wells",
-                  "minScale": 350000,
+                  "title": "Störungen",
                   "enabled": true
                 },
                 {
                   "id": "1",
-                  "title": "Fields",
+                  "title": "Status",
                   "enabled": true
                 }
               ]
