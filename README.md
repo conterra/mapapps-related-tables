@@ -5,6 +5,8 @@ Sample App
 ------------------
 https://demos.conterra.de/mapapps/resources/apps/downloads_contentviewerrelates/index.html
 
+![Screenshot Sample App Welcome](https://github.com/conterra/mapapps-welcome/blob/master/Screenshot.PNG)
+
 Installation Guide
 ------------------
 **Requirement: map.apps 3.x**
