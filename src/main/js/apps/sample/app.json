@@ -19,14 +19,54 @@
       "toolset@^3.x",
       "toolrules@^3.x",
       "banner@^3.x",
-      "featureinfo@^3.x",
       "contenviewer@^3.x",
       "custominfo@^3.x",
+      "featureinfo@^3.x",
+      "navigationtoolset@^3.x",
       "dn_contentviewerrelates"
     ],
     "skipBundles": []
   },
   "bundles": {
+    "featureinfo": {
+      "MapModelStoreHelper": {
+        "ignoreLayers": [
+          "stoerungen/1"
+        ]
+      },
+      "FeatureInfoController": {
+        "clickTolerance": 15
+      }
+    },
+    "contentviewer": {
+      "ContentRegistration": {
+        "contentRules": [
+          {
+            "info": {
+              "type": "Grid",
+              "showDetailsButton": false,
+              "valueNotFoundString": "-"
+            },
+            "windowSize": {
+              "w": 400,
+              "h": 300
+            },
+            "matches": {
+              "context": {
+                "$or": [
+                  {
+                    "mapModelNodeId": "stoerungen/0"
+                  }
+                ]
+              }
+            },
+            "title": "Störungen",
+            "onlyShowDetail": false,
+            "type": "Grid"
+          }
+        ]
+      }
+    },
     "banner": {
       "BannerWidget": {
         "label": "Developer Network",
@@ -53,7 +93,7 @@
                 "w": 300,
                 "h": 100,
                 "l": 20,
-                "b": 120
+                "b": 70
               },
               "draggable": true,
               "closable": true,
@@ -69,23 +109,19 @@
       "ToolsetManager": {
         "toolsets": [
           {
-            "id": "toolset_1450282105829",
-            "title": "Werkzeuge",
-            "container": "map",
-            "window": {
-              "closable": true
-            },
-            "tooltip": "Werkzeuge",
-            "__isDirty": true,
-            "cssClass": "notitle",
-            "windowType": "fixed",
-            "position": {
-              "rel_l": 20,
-              "rel_b": 80
-            },
+            "id": "mapview_tools",
+            "title": "Tools",
+            "tooltip": "Tools",
             "tools": [
-              "*"
-            ]
+              "zoomInClickTool",
+              "zoomOutClickTool",
+              "customInfoTool"
+            ],
+            "container": "map",
+            "max_horizontal": 1,
+            "windowType": "css_positioned",
+            "cssClass": "notitle muted mapview_tools",
+            "deactivateToolsOnHide": true
           }
         ]
       },
@@ -107,6 +143,29 @@
       }
     },
     "map": {
+      "MapWidgetFactory": {
+        "esriMapOpts": {
+          "slider": false,
+          "nav": false,
+          "logo": true,
+          "sliderStyle": "small",
+          "doubleClickZoom": true,
+          "clickRecenter": true,
+          "pan": true,
+          "rubberBandZoom": true,
+          "keyboardNavigation": true,
+          "scrollWheelZoom": true,
+          "sliderPosition": "bottom-right",
+          "displayGraphicsOnPan": true,
+          "fadeOnZoom": true,
+          "showAttribution": true,
+          "sliderOrientation": "vertical",
+          "sliderLabels": [
+            ""
+          ],
+          "navigationMode": "css-transforms"
+        }
+      },
       "MapState": {
         "initialExtent": {
           "xmax": 867792.4915261895,
