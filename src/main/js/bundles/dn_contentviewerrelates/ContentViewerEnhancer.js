@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 con terra GmbH (info@conterra.de)
+ * Copyright (C) 2018 con terra GmbH (info@conterra.de)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,11 +60,14 @@ define([
             if (this.context.source !== "maptip") {
                 ct_when(queryController.getRelatedMetadata(this.context.mapModelNodeId || this.context.storeProperties.mapModelNodeId), function (metadatas) {
                     ct_when(queryController.findRelatedRecords(this.content, this.context.mapModelNodeId || this.context.storeProperties.mapModelNodeId), function (results) {
+                        var container = null;
                         d_array.forEach(results, function (result, index) {
                             var relatedRecordGroups = result[1].relatedRecordGroups;
-                            if (relatedRecordGroups && relatedRecordGroups.length > 0) {
+                            if (relatedRecordGroups && relatedRecordGroups.length > 0 && index === 0) {
+                                container = domConstruct.toDom("<div></div>");
                                 var headline = domConstruct.toDom("<div>" + i18n.relatedTables + "</div>");
-                                domConstruct.place(headline, this.centerPane.domNode, "first");
+                                domConstruct.place(container, this.centerPane.domNode, "first");
+                                domConstruct.place(headline, container, "first");
                             }
                             var results = [];
                             d_array.forEach(relatedRecordGroups, function (relatedRecordGroup) {
@@ -132,7 +135,9 @@ define([
                                     windowManager.createWindow(windowProperties).show();
                                 }
                             });
-                            loadButton.placeAt(headline, "after");
+                            if (container) {
+                                loadButton.placeAt(container, "last");
+                            }
                             enclosingWidget.resize(this.dim);
                         }, this);
                     }, this);
