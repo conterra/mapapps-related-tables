@@ -1,13 +1,9 @@
-# Query Builder Bundle
+# ContentViewer Relates Bundle
 The ContentViewer Relates Bundle expands the ContentViewer to display data from related tables.
 
 Sample App
 ------------------
 https://demos.conterra.de/mapapps/resources/apps/downloads_contentviewerrelates/index.html
-
-Video Tutorial
-------------------
-https://youtu.be/yP2quHAXXPI
 
 Installation Guide
 ------------------
