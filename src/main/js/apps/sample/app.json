@@ -210,8 +210,8 @@
                   "enabled": false
                 },
                 {
-                  "title": "Dark Canvas",
-                  "service": "darkcanvas",
+                  "title": "Light Canvas",
+                  "service": "lightcanvas",
                   "enabled": true
                 }
               ]
@@ -233,9 +233,9 @@
               "url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"
             },
             {
-              "id": "darkcanvas",
+              "id": "lightcanvas",
               "type": "AGS_TILED",
-              "url": "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer"
+              "url": "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer"
             },
             {
               "id": "service_stoerung",
