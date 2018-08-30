@@ -17,7 +17,7 @@
     {
       "name": "QueryController",
       "properties": {},
-      "provides": "bistummuenster_contentviewerenhancer.QueryController",
+      "provides": "contentviewerrelates.QueryController",
       "references": [
         {
           "name": "_mapModel",
@@ -31,7 +31,7 @@
       "references": [
         {
           "name": "_queryController",
-          "providing": "bistummuenster_contentviewerenhancer.QueryController"
+          "providing": "contentviewerrelates.QueryController"
         },
         {
           "name": "_windowManager",
