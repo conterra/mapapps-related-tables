@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 define(({
-    bundleName: "ContentViewer Relates",
-    bundleDescription: "Das ContentViewer Relates Bundle erweitert den ContentViewer um die M\u00f6glichkeit Daten aus verkn\u00fcpften Tabellen anzuzeigen.",
+    bundleName: "Related Tables",
+    bundleDescription: "Das Related Tables Bundle erweitert den ContentViewer um die M\u00f6glichkeit Daten aus verkn\u00fcpften Tabellen anzuzeigen.",
     relatedTables: "Verkn\u00fcpfte Tabellen:"
 }));

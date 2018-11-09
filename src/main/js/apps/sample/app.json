@@ -1,7 +1,7 @@
 {
   "properties": {
     "amdPackages": "apprt@^3.x",
-    "title": "ContentViewer Relates Sample"
+    "title": "Related Tables Sample"
   },
   "load": {
     "bundleLocations": [
@@ -19,11 +19,10 @@
       "toolset@^3.x",
       "toolrules@^3.x",
       "banner@^3.x",
-      "contenviewer@^3.x",
       "custominfo@^3.x",
       "featureinfo@^3.x",
       "navigationtoolset@^3.x",
-      "dn_contentviewerrelates"
+      "dn_relatedtables"
     ],
     "skipBundles": []
   },

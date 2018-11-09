@@ -11,7 +11,7 @@ Installation Guide
 ------------------
 **Requirement: map.apps 3.x**
 
-Simply add the dn_contentviewerrelates bundle to your app.
+Simply add the dn_relatedtables bundle to your app.
 
 Development Guide
 ------------------
