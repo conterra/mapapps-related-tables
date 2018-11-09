@@ -1,5 +1,5 @@
-# ContentViewer Relates Bundle
-The ContentViewer Relates Bundle expands the ContentViewer to display data from related tables.
+# Related Tables
+The Related Tables bundle expands the ContentViewer to display data from related tables.
 
 Sample App
 ------------------
