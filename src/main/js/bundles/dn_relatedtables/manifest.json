@@ -5,7 +5,7 @@
   "Bundle-Description": "${bundleDescription}",
   "Bundle-Vendor": "con terra GmbH",
   "Bundle-Category": [],
-  "Product-Name": "devnet-mapapps-related-Tables",
+  "Product-Name": "devnet-mapapps-related-tables",
   "Require-Bundle": [
     {
       "name": "contentviewer",
