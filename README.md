@@ -3,7 +3,7 @@ The Related Tables bundle expands the ContentViewer to display data from related
 
 Sample App
 ------------------
-https://demos.conterra.de/mapapps/resources/apps/downloads_contentviewerrelates/index.html
+https://demos.conterra.de/mapapps/resources/apps/downloads_relatedtables/index.html
 
 ![Screenshot Sample App ContentViewer Relates](https://github.com/conterra/mapapps-contentviewer-relates/blob/master/Screenshot.PNG)
 
