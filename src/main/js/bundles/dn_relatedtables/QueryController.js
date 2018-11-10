@@ -13,81 +13,55 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-define([
-    "dojo/_base/declare", "dojo/DeferredList", "dojo/_base/array", "apprt-request", "ct/array", "ct/_when"
-], function (declare, DeferredList, d_array, apprt_request, ct_array, ct_when) {
+import all from "dojo/promise/all";
+import apprt_request from "apprt-request";
 
-    return declare([], {
+export default class QueryController {
 
-        findRelatedRecords: function (content, mapModelNodeId) {
-            var objectid = content.OBJECTID || content.objectid;
-            var objectIds = [objectid];
+    findRelatedRecords(objectId, url, metadata) {
+        let relationships = this.relationships = metadata.relationships;
+        let requests = relationships.map((relationship) => {
+            let relationshipId = relationship && relationship.id;
+            return apprt_request(url + "/queryRelatedRecords", {
+                query: {
+                    objectIds: [objectId],
+                    relationshipId: relationshipId,
+                    outFields: "*",
+                    returnGeometry: true,
+                    returnCountOnly: false,
+                    f: 'json'
+                },
+                handleAs: 'json'
+            });
+        });
+        if (requests.length > 0) {
+            return all(requests);
+        } else {
+            return null;
+        }
+    }
 
-            var url = this.getLayerUrl(mapModelNodeId);
-            var layerId = this.getLayerId(mapModelNodeId);
-            return ct_when(this.getMetadata(mapModelNodeId), function (metadata) {
-                var relationships = this.relationships = metadata.relationships;
-                var requests = d_array.map(relationships, function (relationship) {
-                    var relatedTableId = relationship && relationship.id;
-                    return apprt_request(url + "/" + layerId + "/queryRelatedRecords", {
-                        query: {
-                            objectIds: objectIds,
-                            relationshipId: relatedTableId,
-                            outFields: "*",
-                            returnGeometry: true,
-                            returnCountOnly: false,
-                            f: 'json'
-                        },
-                        handleAs: 'json'
-                    });
-                });
-                if (requests.length > 0) {
-                    return new DeferredList(requests);
-                } else {
-                    return null;
-                }
-            }, this);
-        },
-
-        getRelatedMetadata: function (mapModelNodeId) {
-            var url = this.getLayerUrl(mapModelNodeId);
-            var layerId = this.getLayerId(mapModelNodeId);
-            return ct_when(this.getMetadata(mapModelNodeId), function (metadata) {
-                var relationships = this.relationships = metadata.relationships;
-                var requests = d_array.map(relationships, function (relationship) {
-                    var relatedTableId = relationship && relationship.relatedTableId;
-                    return apprt_request(url + "/" + relatedTableId, {
-                        query: {
-                            f: 'json'
-                        },
-                        handleAs: 'json'
-                    });
-                });
-                return new DeferredList(requests);
-            }, this);
-        },
-
-        getLayerId: function (mapModelNodeId) {
-            var layer = this._mapModel.getNodeById(mapModelNodeId);
-            return layer.layer.layerId;
-        },
-
-        getLayerUrl: function (mapModelNodeId) {
-            var layer = this._mapModel.getNodeById(mapModelNodeId);
-            var service = layer.parent.service;
-            return service.serviceUrl;
-        },
-
-        getMetadata: function (mapModelNodeId) {
-            var url = this.getLayerUrl(mapModelNodeId);
-            var layerId = this.getLayerId(mapModelNodeId);
-
-            return apprt_request(url + "/" + layerId, {
+    getRelatedMetadata(url, metadata) {
+        url = url.substr(0, url.lastIndexOf("/"));
+        let relationships = this.relationships = metadata.relationships;
+        let requests = relationships.map((relationship) => {
+            let relatedTableId = relationship && relationship.relatedTableId;
+            return apprt_request(url + "/" + relatedTableId, {
                 query: {
                     f: 'json'
                 },
                 handleAs: 'json'
             });
-        }
-    });
-});
+        });
+        return all(requests);
+    }
+
+    getMetadata(url) {
+        return apprt_request(url, {
+            query: {
+                f: 'json'
+            },
+            handleAs: 'json'
+        });
+    }
+}

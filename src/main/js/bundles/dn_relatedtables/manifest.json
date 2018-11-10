@@ -1,43 +1,53 @@
 {
-  "Bundle-SymbolicName": "dn_relatedtables",
-  "Bundle-Version": "2.0.1-SNAPSHOT",
-  "Bundle-Name": "${bundleName}",
-  "Bundle-Description": "${bundleDescription}",
-  "Bundle-Vendor": "con terra GmbH",
-  "Bundle-Category": [],
-  "Product-Name": "devnet-mapapps-related-tables",
-  "Require-Bundle": [
-    {
-      "name": "contentviewer",
-      "version": "3.x"
-    }
-  ],
-  "layout-widgets": [],
-  "Components": [
-    {
-      "name": "QueryController",
-      "properties": {},
-      "provides": "relatedtables.QueryController",
-      "references": [
-        {
-          "name": "_mapModel",
-          "providing": "ct.mapping.map.MapModel"
-        }
-      ]
+    "name": "dn_relatedtables",
+    "version": "3.0.0-SNAPSHOT",
+    "title": "${bundleName}",
+    "description": "${bundleDescription}",
+    "vendor": "con terra GmbH",
+    "productName": "devnet-mapapps-related-tables",
+    "layer": "module",
+    "dependencies": {
+        "popups": "^4.4.2",
+        "resultcenter": "^4.4.2"
     },
-    {
-      "name": "ContentViewerEnhancer",
-      "properties": {},
-      "references": [
+    "CSS-Themes-Extension": [
         {
-          "name": "_queryController",
-          "providing": "relatedtables.QueryController"
+            "name": "*",
+            "files": [
+                "./css/styles.css"
+            ]
+        }
+    ],
+    "layout-widgets": [],
+    "Components": [
+        {
+            "name": "PopupDefinitionFactory",
+            "provides": "popups.PopupDefinitionFactory",
+            "properties": {
+                "hideFields": [
+                    "OBJECTID"
+                ]
+            },
+            "references": [
+                {
+                    "name": "_popupWidgetFactory",
+                    "providing": "relatedTablesPopup.PopupWidgetFactory"
+                },
+                {
+                    "name": "_queryController",
+                    "providing": "relatedTablesPopup.QueryController"
+                }
+            ]
         },
         {
-          "name": "_windowManager",
-          "providing": "ct.framework.api.WindowManager"
+            "name": "PopupWidgetFactory",
+            "provides": [
+                "relatedTablesPopup.PopupWidgetFactory"
+            ]
+        },
+        {
+            "name": "QueryController",
+            "provides": "relatedTablesPopup.QueryController"
         }
-      ]
-    }
-  ]
+    ]
 }

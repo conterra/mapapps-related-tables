@@ -1,263 +1,162 @@
 {
-  "properties": {
-    "amdPackages": "apprt@^3.x",
-    "title": "Related Tables Sample"
-  },
-  "load": {
-    "bundleLocations": [
-      "localbundles",
-      "bundles"
-    ],
-    "allowedBundles": [
-      "system@^3.x",
-      "splashscreen@^3.x",
-      "map@^3.x",
-      "themes@^3.x",
-      "templates@^3.x",
-      "templatelayout@^3.x",
-      "windowmanager@^3.x",
-      "toolset@^3.x",
-      "toolrules@^3.x",
-      "banner@^3.x",
-      "custominfo@^3.x",
-      "featureinfo@^3.x",
-      "navigationtoolset@^3.x",
-      "dn_relatedtables"
-    ],
-    "skipBundles": []
-  },
-  "bundles": {
-    "featureinfo": {
-      "MapModelStoreHelper": {
-        "ignoreLayers": [
-          "stoerungen/1"
+    "properties": {
+        "title": "${apptitle}"
+    },
+    "load": {
+        "bundleLocations": [
+            "localbundles",
+            "bundles"
+        ],
+        "allowedBundles": [
+            "system",
+            "console",
+            "notifier",
+            "splashscreen",
+            "templatelayout",
+            "template-seasons",
+            "theme-everlasting",
+            "theme-winter",
+            "theme-spring",
+            "theme-summer",
+            "theme-autumn",
+            "map-init",
+            "toolset",
+            "banner",
+            "custominfo",
+            "mapnavigation",
+            "legend",
+            "scalebar",
+            "locateme",
+            "dn_relatedtables"
+        ],
+        "require": [
+            "${app}.app"
+        ],
+        "i18n": [
+            "bundle"
         ]
-      },
-      "FeatureInfoController": {
-        "clickTolerance": 15
-      }
     },
-    "contentviewer": {
-      "ContentRegistration": {
-        "contentRules": [
-          {
-            "info": {
-              "type": "Grid",
-              "showDetailsButton": false,
-              "valueNotFoundString": "-"
-            },
-            "windowSize": {
-              "w": 400,
-              "h": 300
-            },
-            "matches": {
-              "context": {
-                "$or": [
-                  {
-                    "mapModelNodeId": "stoerungen/0"
-                  }
-                ]
-              }
-            },
-            "title": "Störungen",
-            "onlyShowDetail": false,
-            "type": "Grid"
-          }
-        ]
-      }
-    },
-    "banner": {
-      "BannerWidget": {
-        "label": "Developer Network",
-        "image": "https://www.conterra.de/~/media/conterra/images/site_logos/conterra-logo.ashx",
-        "imagePosition": "above",
-        "link": "http://developernetwork.conterra.de"
-      }
-    },
-    "custominfo": {
-      "CustomInfoToggleTool": [
-        {
-          "id": "customInfoTool",
-          "activateOnStartup": true,
-          "title": "Information",
-          "tooltip": "Information",
-          "iconClass": "icon-custom-info-info",
-          "toolClass": "ctInfo",
-          "togglable": true,
-          "widgetSettings": {
-            "content": "This app shows the functionality of the ContentViewer Relates bundle. It expands the ContentViewer to display data from related tables",
-            "window": {
-              "title": "Information",
-              "marginBox": {
-                "w": 300,
-                "h": 100,
-                "l": 20,
-                "b": 70
-              },
-              "draggable": true,
-              "closable": true,
-              "modal": false,
-              "maximizable": false,
-              "resizable": false
+    "bundles": {
+        "popups": {
+            "Config": {
+                "defaultPopupType": "related-tables-popup",
+                "defaultPopupEnabled": true,
+                "highlightEnabled": true,
+                "autoCloseEnabled": false,
+                "collapseEnabled": false,
+                "dockingForced": true,
+                "dockingDisabled": false,
+                "dockEnabled": false,
+                "dockPosition": "auto",
+                "dockButtonEnabled": true,
+                "dockBreakpoint": true
             }
-          }
-        }
-      ]
-    },
-    "toolset": {
-      "ToolsetManager": {
-        "toolsets": [
-          {
-            "id": "mapview_tools",
-            "title": "Tools",
-            "tooltip": "Tools",
-            "tools": [
-              "zoomInClickTool",
-              "zoomOutClickTool",
-              "customInfoTool"
-            ],
-            "container": "map",
-            "max_horizontal": 1,
-            "windowType": "css_positioned",
-            "cssClass": "notitle muted mapview_tools",
-            "deactivateToolsOnHide": true
-          }
-        ]
-      },
-      "enabled": true
-    },
-    "templates": {
-      "TemplateSelector": {
-        "componentEnabled": false
-      },
-      "TemplateModel": {
-        "_selectedTemplate": "seasons",
-        "_templates": [
-          {
-            "name": "seasons",
-            "widgets": [
+        },
+        "banner": {
+            "BannerWidget": {
+                "label": "Developer Network",
+                "image": "https://www.conterra.de/~/media/conterra/images/site_logos/conterra-logo.ashx",
+                "imagePosition": "above",
+                "link": "http://developernetwork.conterra.de"
+            }
+        },
+        "custominfo": {
+            "CustomInfoToggleTool": [
+                {
+                    "id": "customInfoTool",
+                    "activateOnStartup": true,
+                    "title": "Information",
+                    "tooltip": "Information",
+                    "iconClass": "icon-custom-info-info",
+                    "toolClass": "ctInfo",
+                    "togglable": true,
+                    "widgetSettings": {
+                        "content": "This app shows the functionality of the Related Tables bundle that provides a special popup that shows related table data.",
+                        "window": {
+                            "title": "Information",
+                            "marginBox": {
+                                "w": 300,
+                                "h": 140,
+                                "l": 20,
+                                "b": 120
+                            },
+                            "draggable": true,
+                            "closable": true,
+                            "modal": false,
+                            "maximizable": false,
+                            "resizable": false
+                        }
+                    }
+                }
             ]
-          }
-        ]
-      }
-    },
-    "map": {
-      "MapWidgetFactory": {
-        "esriMapOpts": {
-          "slider": false,
-          "nav": false,
-          "logo": true,
-          "sliderStyle": "small",
-          "doubleClickZoom": true,
-          "clickRecenter": true,
-          "pan": true,
-          "rubberBandZoom": true,
-          "keyboardNavigation": true,
-          "scrollWheelZoom": true,
-          "sliderPosition": "bottom-right",
-          "displayGraphicsOnPan": true,
-          "fadeOnZoom": true,
-          "showAttribution": true,
-          "sliderOrientation": "vertical",
-          "sliderLabels": [
-            ""
-          ],
-          "navigationMode": "css-transforms"
-        }
-      },
-      "MapState": {
-        "initialExtent": {
-          "xmax": 867792.4915261895,
-          "ymax": 6802085.106900126,
-          "xmin": 831102.7179493543,
-          "ymin": 6783090.505371286,
-          "wkid": 3857
-        }
-      },
-      "MapModelFactory": {
-        "_configData": {
-          "maps": [
-            {
-              "id": "default",
-              "glass_pane": [],
-              "operationalLayer": [
-                {
-                  "id": "stoerungen",
-                  "title": "Störungen",
-                  "enabled": true,
-                  "service": "service_stoerung",
-                  "category": {
-                    "title": "Störungen",
-                    "description": "Störungen",
-                    "imgUrl": ""
-                  },
-                  "layers": [
-                    "*"
-                  ],
-                  "opacity": 1
-                }
-              ],
-              "baseLayer": [
-                {
-                  "title": "Streets",
-                  "service": "streets",
-                  "enabled": false
+        },
+        "map-init": {
+            "Config": {
+                "map": {
+                    "layers": [
+                        {
+                            "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
+                            "type": "AGS_DYNAMIC",
+                            "title": "Störungen",
+                            "sublayers": [
+                                {
+                                    "id": 0,
+                                    "title": "Störungen",
+                                    "visible": true,
+                                    "popupTemplate": {
+                                        "popupType": "related-tables-popup"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "basemap": "streets",
+                    "ground": {
+                        "url": "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer",
+                        "type": "ELEVATION"
+                    }
                 },
-                {
-                  "title": "Topo",
-                  "service": "worldTopo",
-                  "enabled": false
-                },
-                {
-                  "title": "Light Canvas",
-                  "service": "lightcanvas",
-                  "enabled": true
+                "view": {
+                    "viewmode": "2D",
+                    "extent": {
+                        "xmin": 831102.7179493543,
+                        "ymin": 6783090.505371286,
+                        "xmax": 867792.4915261895,
+                        "ymax": 6802085.106900126,
+                        "spatialReference": 3857
+                    }
                 }
-              ]
             }
-          ]
-        }
-      },
-      "MappingResourceRegistryFactory": {
-        "_knownServices": {
-          "services": [
-            {
-              "id": "worldTopo",
-              "type": "AGS_TILED",
-              "url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"
+        },
+        "themes": {
+            "ThemeModel": {
+                "_selectedTheme": "everlasting"
             },
-            {
-              "id": "streets",
-              "type": "AGS_TILED",
-              "url": "http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"
-            },
-            {
-              "id": "lightcanvas",
-              "type": "AGS_TILED",
-              "url": "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer"
-            },
-            {
-              "id": "service_stoerung",
-              "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
-              "type": "AGS_DYNAMIC",
-              "title": "Störungen",
-              "description": "This sample service represents oil and gas fields and wells in the State of Kansas.  Data was provided by the Kansas Geological Survey, http://www.kgs.ku.edu/ .  This is a sample service hosted by ESRI, powered by ArcGIS Server. ESRI reserves the right to change or remove this service at any time and without notice.",
-              "layers": [
-                {
-                  "id": "0",
-                  "title": "Störungen",
-                  "enabled": true
-                },
-                {
-                  "id": "1",
-                  "title": "Status",
-                  "enabled": true
-                }
-              ]
+            "ThemeSelector": {
+                "componentEnabled": true
             }
-          ]
+        },
+        "toolset": {
+            "ToolsetManager": {
+                "toolsets": [
+                    {
+                        "id": "mapview_tools",
+                        "tools": [
+                            "locateMeTool",
+                            "zoomInTool",
+                            "zoomOutTool",
+                            "compassTool",
+                            "restoreInitialViewTool"
+                        ],
+                        "registerWidget": {
+                            "widgetRole": "mapview_tools"
+                        },
+                        "container": "ignore",
+                        "windowType": "container",
+                        "cssClass": "muted"
+                    }
+                ]
+            }
         }
-      }
     }
-  }
 }

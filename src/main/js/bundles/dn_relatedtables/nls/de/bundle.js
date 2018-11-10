@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-define(({
+module.exports = {
     bundleName: "Related Tables",
-    bundleDescription: "Das Related Tables Bundle erweitert den ContentViewer um die M\u00f6glichkeit Daten aus verkn\u00fcpften Tabellen anzuzeigen.",
-    relatedTables: "Verkn\u00fcpfte Tabellen:"
-}));
+    bundleDescription: "Related Tables",
+    ui: {
+        attributes: "Attribute",
+        field: "Feld",
+        value: "Wert"
+    }
+};

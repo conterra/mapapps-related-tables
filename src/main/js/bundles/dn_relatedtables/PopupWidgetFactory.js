@@ -13,15 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module.exports = {
-    root: ({
-        bundleName: "Related Tables",
-        bundleDescription: "Related Tables",
-        ui: {
-            attributes: "Attributes",
-            field: "Field",
-            value: "Value"
-        }
-    }),
-    "de": true
-};
+import Vue from "apprt-vue/Vue";
+import VueDijit from "apprt-vue/VueDijit";
+import Binding from "apprt-binding/Binding";
+import PopupWidget from "./PopupWidget.vue";
+
+export default class PopupWidgetFactory {
+
+    getWidget() {
+        let vm = this.vm = new Vue(PopupWidget);
+        let i18n = vm.i18n = this._i18n.get().ui;
+
+        vm.headers = [
+            {text: i18n.field, value: 'field'},
+            {text: i18n.value, value: 'value'}
+        ];
+
+        Binding
+            .create()
+            .syncAll()
+            .enable();
+
+        return VueDijit(vm);
+    }
+}

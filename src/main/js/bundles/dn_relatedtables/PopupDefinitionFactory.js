@@ -13,15 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module.exports = {
-    root: ({
-        bundleName: "Related Tables",
-        bundleDescription: "Related Tables",
-        ui: {
-            attributes: "Attributes",
-            field: "Field",
-            value: "Value"
+const TYPE = "related-tables-popup";
+import PopupDefinition from "./PopupDefinition";
+
+export default class PopupDefinitionFactory {
+
+    createPopupDefinition(type) {
+        if (type !== TYPE) {
+            throw new Error(`unsupported type ${type}`);
         }
-    }),
-    "de": true
-};
+        return new PopupDefinition(this._popupWidgetFactory, this._queryController, this._properties);
+    }
+
+    getTypes() {
+        return [TYPE];
+    }
+}

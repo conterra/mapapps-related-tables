@@ -13,15 +13,4 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module.exports = {
-    root: ({
-        bundleName: "Related Tables",
-        bundleDescription: "Related Tables",
-        ui: {
-            attributes: "Attributes",
-            field: "Field",
-            value: "Value"
-        }
-    }),
-    "de": true
-};
+import i18n from "dojo/i18n!./nls/bundle";

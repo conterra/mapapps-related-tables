@@ -9,7 +9,7 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_relatedtables/index.h
 
 Installation Guide
 ------------------
-**Requirement: map.apps 3.x**
+**Requirement: map.apps 4.4.2**
 
 Simply add the dn_relatedtables bundle to your app.
 

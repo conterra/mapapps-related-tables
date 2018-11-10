@@ -14,14 +14,5 @@
  * limitations under the License.
  */
 module.exports = {
-    root: ({
-        bundleName: "Related Tables",
-        bundleDescription: "Related Tables",
-        ui: {
-            attributes: "Attributes",
-            field: "Field",
-            value: "Value"
-        }
-    }),
-    "de": true
+    apptitle: "Related Tables Sample"
 };
