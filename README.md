@@ -2,9 +2,12 @@
 The Related Tables bundle adds a new popup to the app to display data from related tables.
 
 ## Sample App
-https://demos.conterra.de/mapapps/resources/apps/downloads_relatedtables/index.html
+https://demos.conterra.de/mapapps/resources/apps/downloads_relatedtables4/index.html
 
 ![Screenshot Sample App ContentViewer Relates](https://github.com/conterra/mapapps-contentviewer-relates/blob/master/Screenshot.PNG)
+
+The Related Tables bundle for Linie 3 can be found in the 3.x branch:
+https://github.com/conterra/mapapps-related-tables/tree/3.x
 
 ## Installation Guide
 **Requirement: map.apps 4.4.2**
