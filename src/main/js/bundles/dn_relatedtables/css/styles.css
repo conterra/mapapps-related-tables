@@ -15,6 +15,10 @@
     color: #6e6e6e;
 }
 
+_:-ms-input-placeholder, :root .ctAppRoot .esri-popup__content .relatedTablesPopup .tabs__item {
+    flex-basis : auto;
+}
+
 .ctAppRoot .esri-popup__content .relatedTablesPopup .datatable {
     background-color: #fff;
     color: #6e6e6e;
