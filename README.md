@@ -10,7 +10,7 @@ The Related Tables bundle for Linie 3 can be found in the 3.x branch:
 https://github.com/conterra/mapapps-related-tables/tree/3.x
 
 ## Installation Guide
-**Requirement: map.apps 4.4.2**
+**Requirement: map.apps 4.6.0**
 
 1. Add the dn_relatedtables bundle to your app.
 2. Use the related-tables-popup as selected popupTemplate for each layer that has related tables.

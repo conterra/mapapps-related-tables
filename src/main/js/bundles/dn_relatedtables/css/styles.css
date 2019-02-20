@@ -2,44 +2,44 @@
     background-color: #fff !important;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .card__title {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-card__title {
     background-color: #fff !important;
     color: #6e6e6e;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .tabs__bar {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-tabs__bar {
     background-color: #fff;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .tabs__item {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-tabs__item {
     color: #6e6e6e;
 }
 
-_:-ms-input-placeholder, :root .ctAppRoot .esri-popup__content .relatedTablesPopup .tabs__item {
+_:-ms-input-placeholder, :root .ctAppRoot .esri-popup__content .relatedTablesPopup .v-tabs__item {
     flex-basis : auto;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .datatable {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-datatable {
     background-color: #fff;
     color: #6e6e6e;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .datatable .column {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-datatable .column {
     color: #6e6e6e !important;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .datatable .column.active {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-datatable .column.active {
     color: #6e6e6e !important;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .datatable .column.hover {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-datatable .column.hover {
     color: #6e6e6e !important;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .datatable .column .icon {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-datatable .column .v-icon {
     color: #6e6e6e !important;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .datatable tr {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-datatable tr {
     border-bottom: 1px solid rgba(0,0,0,.12) !important;
 }
