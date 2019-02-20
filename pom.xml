@@ -897,7 +897,7 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>local
+                    </plugin>
                 </plugins>
             </build>
         </profile>
