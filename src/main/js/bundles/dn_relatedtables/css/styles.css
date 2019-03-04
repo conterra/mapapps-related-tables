@@ -15,8 +15,12 @@
     color: #6e6e6e;
 }
 
-_:-ms-input-placeholder, :root .ctAppRoot .esri-popup__content .relatedTablesPopup .v-tabs__item {
-    flex-basis : auto;
+.ctAppRoot.ctEnv_IE_11 .esri-popup__content .relatedTablesPopup .v-tabs__item {
+    flex-basis: auto;
+}
+
+.ctAppRoot .esri-popup__main-container {
+    overflow: auto;
 }
 
 .ctAppRoot .esri-popup__content .relatedTablesPopup .v-datatable {
@@ -41,5 +45,5 @@ _:-ms-input-placeholder, :root .ctAppRoot .esri-popup__content .relatedTablesPop
 }
 
 .ctAppRoot .esri-popup__content .relatedTablesPopup .v-datatable tr {
-    border-bottom: 1px solid rgba(0,0,0,.12) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, .12) !important;
 }
