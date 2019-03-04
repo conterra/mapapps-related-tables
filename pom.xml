@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.conterra.devnet</groupId>
     <artifactId>mapapps-related-tables</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.1.0</version>
     <packaging>jar</packaging>
     <repositories>
         <repository>
@@ -529,7 +529,7 @@
         <connection>scm:git:https://github.com/conterra/mapapps-related-tables.git</connection>
         <developerConnection>scm:git:https://github.com/conterra/mapapps-related-tables.git</developerConnection>
         <url>https://github.com/conterra/mapapps-related-tables</url>
-        <tag>HEAD</tag>
+        <tag>3.1.0</tag>
     </scm>
     <distributionManagement>
         <repository>
