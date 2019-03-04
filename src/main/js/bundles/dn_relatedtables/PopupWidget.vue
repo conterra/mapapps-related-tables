@@ -1,7 +1,13 @@
 <template>
     <div class="relatedTablesPopup">
-        <v-progress-linear v-if="loading" :active="loading" :indeterminate="true" class="pa-0 ma-0"></v-progress-linear>
-        <v-tabs v-model="active" slider-color="primary">
+        <v-progress-linear
+            v-if="loading"
+            :active="loading"
+            :indeterminate="true"
+            class="pa-0 ma-0"/>
+        <v-tabs
+            v-model="active"
+            slider-color="primary">
             <v-tab ripple>
                 {{ i18n.attributes }}
             </v-tab>
@@ -13,15 +19,23 @@
                 {{ relatedRecordsTab.title }}
             </v-tab>
             <v-tab-item>
-                <v-data-table :headers="headers" :items="items" hide-actions>
-                    <template slot="items" slot-scope="props">
+                <v-data-table
+                    :headers="headers"
+                    :items="items"
+                    hide-actions>
+                    <template
+                        slot="items"
+                        slot-scope="props">
                         <td class>{{ props.item.name }}</td>
                         <td class>{{ props.item.value }}</td>
                     </template>
                 </v-data-table>
             </v-tab-item>
-            <v-tab-item v-for="relatedRecordsTab in relatedRecordsTabs" :key="relatedRecordsTab.id">
-                <v-tabs v-model="relatedRecordsTab.active">
+            <v-tab-item
+                v-for="relatedRecordsTab in relatedRecordsTabs"
+                :key="relatedRecordsTab.id">
+                <v-tabs
+                    v-model="relatedRecordsTab.active">
                     <v-tab
                         v-for="tab in relatedRecordsTab.tabs"
                         :key="tab.id"
@@ -29,10 +43,17 @@
                     >
                         {{ tab.title }}
                     </v-tab>
-                    <v-tab-item v-for="tab in relatedRecordsTab.tabs" :key="tab.id">
+                    <v-tab-item
+                        v-for="tab in relatedRecordsTab.tabs"
+                        :key="tab.id">
                         <v-card flat>
-                            <v-data-table :headers="headers" :items="tab.items" hide-actions>
-                                <template slot="items" slot-scope="props">
+                            <v-data-table
+                                :headers="headers"
+                                :items="tab.items"
+                                hide-actions>
+                                <template
+                                    slot="items"
+                                    slot-scope="props">
                                     <td class>{{ props.item.name }}</td>
                                     <td class>{{ props.item.value }}</td>
                                 </template>
