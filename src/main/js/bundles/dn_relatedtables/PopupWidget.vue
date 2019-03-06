@@ -27,7 +27,13 @@
                         slot="items"
                         slot-scope="props">
                         <td class>{{ props.item.name }}</td>
-                        <td class>{{ props.item.value }}</td>
+                        <td v-if="isUrl(props.item.value)" class>
+                            <a
+                                href="{{props.item.value}}"
+                                target="_blank"
+                            >Open URL</a>
+                        </td>
+                        <td v-else class>{{props.item.value}}</td>
                     </template>
                 </v-data-table>
             </v-tab-item>
@@ -55,7 +61,13 @@
                                     slot="items"
                                     slot-scope="props">
                                     <td class>{{ props.item.name }}</td>
-                                    <td class>{{ props.item.value }}</td>
+                                    <td v-if="isUrl(props.item.value)" class>
+                                        <a
+                                            href="{{props.item.value}}"
+                                            target="_blank"
+                                        >Open URL</a>
+                                    </td>
+                                    <td v-else class>{{props.item.value}}</td>
                                 </template>
                             </v-data-table>
                         </v-card>
@@ -78,6 +90,17 @@
                 headers: [],
                 relatedRecordsTabs: [],
                 active: null
+            };
+        },
+        methods() {
+            return {
+                isUrl: function (string) {
+                    return (
+                        new RegExp(
+                            "^((?:[a-zA-Z\\d]+:(\\/{2,3})?([\\w-]+(:[^@]+)?@)?[\\w]([\\w-]*[\\w])?(\\.[\\w]([\\w-]*[\\w])?)*)|(?:([\\w-]+(:[^@]+)?@)?[\\w]([\\w-]*[\\w])?(\\.[\\w]([\\w-]*[\\w])?)+))((\\/|\\?|#)[\\w/?#[\\]@:$&'()*+,;=.~!%-]*)?$"
+                        )
+                    ).test(string);
+                }
             };
         }
     };
