@@ -34,7 +34,9 @@
                             <a
                                 :href="props.item.value"
                                 target="_blank"
-                            >Open URL</a>
+                            >
+                                {{ props.item.value }}
+                            </a>
                         </td>
                         <td
                             v-else
@@ -76,7 +78,9 @@
                                         <a
                                             :href="props.item.value"
                                             target="_blank"
-                                        >Open URL</a>
+                                        >
+                                            {{ props.item.value }}
+                                        </a>
                                     </td>
                                     <td
                                         v-else
