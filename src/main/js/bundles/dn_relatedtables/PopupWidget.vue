@@ -40,9 +40,7 @@
                     :headers="headers"
                     :items="items"
                     hide-actions>
-                    <template
-                        slot="items"
-                        slot-scope="props">
+                    <template v-slot:items="props">
                         <td class>{{ props.item.alias }}</td>
                         <td
                             v-if="isUrl(props.item.value)"
@@ -85,9 +83,7 @@
                                 :headers="headers"
                                 :items="tab.items"
                                 hide-actions>
-                                <template
-                                    slot="items"
-                                    slot-scope="props">
+                                <template v-slot:items="props">
                                     <td class>{{ props.item.alias }}</td>
                                     <td
                                         v-if="isUrl(props.item.value)"
