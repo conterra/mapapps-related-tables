@@ -105,7 +105,7 @@ export default class CustomPopupDefinition {
                     id: metadata.id,
                     title: metadata.name,
                     tabs: tabs,
-                    active: null
+                    active: 0
                 });
             });
             widget.set("loading", false);

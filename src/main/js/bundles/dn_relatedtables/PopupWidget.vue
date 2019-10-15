@@ -19,11 +19,10 @@
     <div class="relatedTablesPopup">
         <v-progress-linear
             v-if="loading"
-            :active="loading"
             :indeterminate="true"
             class="pa-0 ma-0"/>
         <v-tabs
-            v-model="active"
+            v-model="activeTab"
             slider-color="primary">
             <v-tab ripple>
                 {{ i18n.attributes }}
@@ -118,12 +117,12 @@
         mixins: [Bindable],
         data() {
             return {
-                title: null,
+                title: "",
                 loading: true,
                 items: [],
                 headers: [],
                 relatedRecordsTabs: [],
-                active: null
+                activeTab: 0
             };
         },
         methods: {
