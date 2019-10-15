@@ -68,7 +68,8 @@
                 v-for="relatedRecordsTab in relatedRecordsTabs"
                 :key="relatedRecordsTab.id">
                 <v-tabs
-                    v-model="relatedRecordsTab.active">
+                    v-model="relatedRecordsTab.active"
+                    slider-color="primary">
                     <v-tab
                         v-for="tab in relatedRecordsTab.tabs"
                         :key="tab.id"
