@@ -25,8 +25,8 @@ export default class PopupWidgetFactory {
         const i18n = vm.i18n = this._i18n.get().ui;
 
         vm.headers = [
-            {text: i18n.field, value: 'field'},
-            {text: i18n.value, value: 'value'}
+            {text: i18n.field, value: 'field', sortable: false},
+            {text: i18n.value, value: 'value', sortable: false}
         ];
 
         Binding
