@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import all from "dojo/promise/all";
 import apprt_request from "apprt-request";
 
 export default class QueryController {
@@ -35,7 +34,7 @@ export default class QueryController {
             });
         });
         if (requests.length > 0) {
-            return all(requests);
+            return Promise.all(requests);
         } else {
             return null;
         }
@@ -53,7 +52,7 @@ export default class QueryController {
                 handleAs: 'json'
             });
         });
-        return all(requests);
+        return Promise.all(requests);
     }
 
     getMetadata(url) {
