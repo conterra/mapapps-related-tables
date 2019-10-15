@@ -88,12 +88,11 @@ export default class CustomPopupDefinition {
             results.forEach((result, i) => {
                 const tabs = [];
                 const metadata = relatedMetadata[i];
-                const fields = result.fields;
                 const relatedRecordGroups = result.relatedRecordGroups;
                 relatedRecordGroups.forEach((relatedRecordGroup) => {
                     relatedRecordGroup.relatedRecords.forEach((record) => {
                         const attributes = record.attributes;
-                        const items = this._lookupFieldNamesToAttributes(fields, attributes);
+                        const items = this._lookupFieldNamesToAttributes(metadata.fields, attributes);
                         const objectIdField = this._getObjectIdField(metadata.fields);
                         tabs.push({
                             id: metadata.id + "_" + attributes[objectIdField.name],
