@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ct_when from "ct/_when";
 import ct_array from "ct/array";
 import moment from "esri/moment";
 
@@ -33,7 +32,7 @@ export default class CustomPopupDefinition {
             url = url + "/" + layerId;
         }
         const queryController = this.queryController;
-        return ct_when(queryController.getMetadata(url), (metadata) => {
+        return queryController.getMetadata(url).then((metadata) => {
             if (metadata.fields) {
                 const fields = metadata.fields;
                 const fieldNames = fields.map(f => f.name);
@@ -63,7 +62,7 @@ export default class CustomPopupDefinition {
                             widget.set("items", items);
                             widget.set("relatedRecordsTabs", []);
 
-                            ct_when(that.getRelatedRecordsTabs(graphic.sourceLayer, objectId, widget), (relatedRecordsTabs) => {
+                            that.getRelatedRecordsTabs(graphic.sourceLayer, objectId, widget).then((relatedRecordsTabs) => {
                                 widget.set("relatedRecordsTabs", relatedRecordsTabs);
                             });
                             return widget;
@@ -83,7 +82,7 @@ export default class CustomPopupDefinition {
         widget.set("loading", true);
 
         const queryController = this.queryController;
-        return ct_when(queryController.getMetadata(url), (metadata) => ct_when(queryController.getRelatedMetadata(url, metadata), (relatedMetadata) => ct_when(queryController.findRelatedRecords(objectId, url, metadata), (results) => {
+        return queryController.getMetadata(url).then((metadata) => queryController.getRelatedMetadata(url, metadata).then((relatedMetadata) => queryController.findRelatedRecords(objectId, url, metadata).then((results) => {
             const relatedRecordsTabs = [];
             if (!results) {
                 widget.set("loading", false);
