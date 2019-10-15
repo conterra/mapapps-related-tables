@@ -43,7 +43,7 @@
                     <template
                         slot="items"
                         slot-scope="props">
-                        <td class>{{ props.item.name }}</td>
+                        <td class>{{ props.item.alias }}</td>
                         <td
                             v-if="isUrl(props.item.value)"
                             class
@@ -88,7 +88,7 @@
                                 <template
                                     slot="items"
                                     slot-scope="props">
-                                    <td class>{{ props.item.name }}</td>
+                                    <td class>{{ props.item.alias }}</td>
                                     <td
                                         v-if="isUrl(props.item.value)"
                                         class
