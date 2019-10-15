@@ -99,8 +99,9 @@ export default class CustomPopupDefinition {
                             relatedRecordGroup.relatedRecords.forEach((record) => {
                                 let attributes = record.attributes;
                                 let items = this.lookupFieldNamesToAttributes(fields, attributes);
+                                const objectIdField = this.getObjectIdField(metadata.fields);
                                 tabs.push({
-                                    id: metadata.id + "_" + attributes[metadata.objectIdField],
+                                    id: metadata.id + "_" + attributes[objectIdField.name],
                                     title: attributes[metadata.displayField],
                                     items: items
                                 });
@@ -131,6 +132,12 @@ export default class CustomPopupDefinition {
             }
         });
         return result;
+    }
+
+    getObjectIdField(fields) {
+        return fields.find((field) => {
+            return field.type === "esriFieldTypeOID";
+        });
     }
 
     cleanupPopupTemplate(layer) {
