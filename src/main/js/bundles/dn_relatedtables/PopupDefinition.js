@@ -15,6 +15,7 @@
  */
 import ct_when from "ct/_when";
 import ct_array from "ct/array";
+import moment from "esri/moment";
 
 export default class CustomPopupDefinition {
 
@@ -57,7 +58,7 @@ export default class CustomPopupDefinition {
                             const objectId = graphic.attributes[objectIdField];
 
                             const title = graphic.attributes[displayField];
-                            const items = that.lookupFieldNamesToAttributes(fields, graphic.attributes);
+                            const items = that._lookupFieldNamesToAttributes(fields, graphic.attributes);
                             widget.set("title", title);
                             widget.set("items", items);
                             widget.set("relatedRecordsTabs", []);
@@ -96,8 +97,8 @@ export default class CustomPopupDefinition {
                 relatedRecordGroups.forEach((relatedRecordGroup) => {
                     relatedRecordGroup.relatedRecords.forEach((record) => {
                         const attributes = record.attributes;
-                        const items = this.lookupFieldNamesToAttributes(fields, attributes);
-                        const objectIdField = this.getObjectIdField(metadata.fields);
+                        const items = this._lookupFieldNamesToAttributes(fields, attributes);
+                        const objectIdField = this._getObjectIdField(metadata.fields);
                         tabs.push({
                             id: metadata.id + "_" + attributes[objectIdField.name],
                             title: attributes[metadata.displayField],
@@ -117,20 +118,43 @@ export default class CustomPopupDefinition {
         })));
     }
 
-    lookupFieldNamesToAttributes(fields, attributes) {
+    _lookupFieldNamesToAttributes(fields, attributes) {
         const result = [];
         fields.forEach((field) => {
             if (!this.properties.hideFields.includes(field.name)) {
+                let value = attributes[field.name];
+                if (field.domain && field.domain.codedValues) {
+                    const codedValues = field.domain.codedValues;
+                    value = this._getCodedValue(value, codedValues);
+                }
+                if (field.type === "esriFieldTypeDate") {
+                    value = this._getDate(value);
+                }
                 result.push({
-                    name: field.alias,
-                    value: attributes[field.name]
+                    name: field.name,
+                    alias: field.alias,
+                    value: value
                 });
             }
         });
         return result;
     }
 
-    getObjectIdField(fields) {
+    _getCodedValue(value, codedValues) {
+        const v = codedValues.find((codedValue) => value === codedValue.code);
+        if (v) {
+            return v.name;
+        } else {
+            return value;
+        }
+    }
+
+    _getDate(value) {
+        const date = moment(value);
+        return date.format('dddd, Do MMMM YYYY HH:mm');
+    }
+
+    _getObjectIdField(fields) {
         return fields.find((field) => field.type === "esriFieldTypeOID");
     }
 
