@@ -25,7 +25,8 @@
             "provides": "popups.PopupDefinitionFactory",
             "properties": {
                 "hideFields": [
-                    "OBJECTID"
+                    "OBJECTID",
+                    "shape"
                 ]
             },
             "references": [
