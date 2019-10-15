@@ -21,8 +21,8 @@ import PopupWidget from "./PopupWidget.vue";
 export default class PopupWidgetFactory {
 
     getWidget() {
-        let vm = this.vm = new Vue(PopupWidget);
-        let i18n = vm.i18n = this._i18n.get().ui;
+        const vm = this.vm = new Vue(PopupWidget);
+        const i18n = vm.i18n = this._i18n.get().ui;
 
         vm.headers = [
             {text: i18n.field, value: 'field'},
