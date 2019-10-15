@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import ct_array from "ct/array";
 import moment from "esri/moment";
 
 export default class CustomPopupDefinition {
@@ -37,9 +36,7 @@ export default class CustomPopupDefinition {
                 const fields = metadata.fields;
                 const fieldNames = fields.map(f => f.name);
                 let displayField = metadata.displayField;
-                let objectIdField = ct_array.arraySearchFirst(metadata.fields, {
-                    type: "esriFieldTypeOID"
-                }).name;
+                let objectIdField = this._getObjectIdField(metadata.fields).name;
                 return {
                     fields: fieldNames,
                     title: "{" + displayField + "}",
