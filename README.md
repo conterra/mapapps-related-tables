@@ -4,7 +4,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
 ## Sample App
 https://demos.conterra.de/mapapps/resources/apps/downloads_relatedtables4/index.html
 
-![Screenshot Sample App ContentViewer Relates](https://github.com/conterra/mapapps-contentviewer-relates/blob/master/screenshot.png)
+![Screenshot Sample App](https://github.com/conterra/mapapps-contentviewer-relates/blob/master/screenshot.png)
 
 The Related Tables bundle for Linie 3 can be found in the 3.x branch:
 https://github.com/conterra/mapapps-related-tables/tree/3.x
@@ -34,6 +34,23 @@ https://github.com/conterra/mapapps-related-tables/tree/3.x
     }
 ]
 ```
+
+### Configurable Components of dn_relatedtables:
+
+#### PopupDefinitionFactory:
+```
+"PopupDefinitionFactory": {
+    "hideFields": [
+        "OBJECTID",
+        "objectid",
+        "shape"
+    ]
+}
+```
+
+| Property                        | Type    | Possible Values                                                       | Default                     | Description                                                                                                                            |
+|---------------------------------|---------|-----------------------------------------------------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| hideFields                      | Boolean |                                                                       | ```[]```                    | List of hided fields                                                                                                                   |
 
 ## Development Guide
 ### Define the mapapps remote base
