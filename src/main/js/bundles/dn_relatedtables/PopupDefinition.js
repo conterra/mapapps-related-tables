@@ -90,7 +90,7 @@ export default class CustomPopupDefinition {
                 return relatedRecordsTabs;
             }
             results.forEach((result, i) => {
-                const tabs = [];
+                const relatedRecords = [];
                 const metadata = relatedMetadata[i];
                 const relatedRecordGroups = result.relatedRecordGroups;
                 relatedRecordGroups.forEach((relatedRecordGroup) => {
@@ -98,7 +98,7 @@ export default class CustomPopupDefinition {
                         const attributes = record.attributes;
                         const items = this._lookupFieldNamesToAttributes(metadata.fields, attributes);
                         const objectIdField = this._getObjectIdField(metadata.fields);
-                        tabs.push({
+                        relatedRecords.push({
                             id: metadata.id + "_" + attributes[objectIdField.name],
                             title: attributes[metadata.displayField],
                             items: items
@@ -108,7 +108,7 @@ export default class CustomPopupDefinition {
                 relatedRecordsTabs.push({
                     id: metadata.id,
                     title: metadata.name,
-                    tabs: tabs,
+                    relatedRecords: relatedRecords,
                     active: 0
                 });
             });

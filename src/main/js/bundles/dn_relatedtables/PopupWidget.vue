@@ -68,14 +68,14 @@
                     v-model="relatedRecordsTab.active"
                     slider-color="primary">
                     <v-tab
-                        v-for="tab in relatedRecordsTab.tabs"
+                        v-for="tab in relatedRecordsTab.relatedRecords"
                         :key="tab.id"
                         ripple
                     >
                         {{ tab.title }}
                     </v-tab>
                     <v-tab-item
-                        v-for="tab in relatedRecordsTab.tabs"
+                        v-for="tab in relatedRecordsTab.relatedRecords"
                         :key="tab.id">
                         <v-card flat>
                             <v-data-table
