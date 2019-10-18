@@ -23,6 +23,7 @@
             class="pa-0 ma-0"/>
         <v-tabs
             v-model="activeTab"
+            show-arrows
             slider-color="primary">
             <v-tab ripple>
                 {{ i18n.attributes }}
@@ -64,48 +65,41 @@
             <v-tab-item
                 v-for="relatedRecordsTab in relatedRecordsTabs"
                 :key="relatedRecordsTab.id">
-                <v-tabs
+                <v-autocomplete
                     v-model="relatedRecordsTab.active"
-                    slider-color="primary">
-                    <v-tab
-                        v-for="tab in relatedRecordsTab.relatedRecords"
-                        :key="tab.id"
-                        ripple
-                    >
-                        {{ tab.title }}
-                    </v-tab>
-                    <v-tab-item
-                        v-for="tab in relatedRecordsTab.relatedRecords"
-                        :key="tab.id">
-                        <v-card flat>
-                            <v-data-table
-                                :headers="headers"
-                                :items="tab.items"
-                                hide-actions>
-                                <template v-slot:items="props">
-                                    <td class>{{ props.item.alias }}</td>
-                                    <td
-                                        v-if="isUrl(props.item.value)"
-                                        class
-                                    >
-                                        <a
-                                            :href="props.item.value"
-                                            target="_blank"
-                                        >
-                                            {{ props.item.value }}
-                                        </a>
-                                    </td>
-                                    <td
-                                        v-else
-                                        class
-                                    >
-                                        {{ props.item.value }}
-                                    </td>
-                                </template>
-                            </v-data-table>
-                        </v-card>
-                    </v-tab-item>
-                </v-tabs>
+                    :items="relatedRecordsTab.relatedRecords"
+                    :label="i18n.relatedRecord"
+                    :menu-props="{ contentClass: 'relatedTableMenu' }"
+                    class="px-2"
+                    return-object
+                    hide-details
+                    item-text="title"
+                ></v-autocomplete>
+                <v-data-table
+                    :headers="headers"
+                    :items="relatedRecordsTab.active ? relatedRecordsTab.active.items : []"
+                    hide-actions>
+                    <template v-slot:items="props">
+                        <td class>{{ props.item.alias }}</td>
+                        <td
+                            v-if="isUrl(props.item.value)"
+                            class
+                        >
+                            <a
+                                :href="props.item.value"
+                                target="_blank"
+                            >
+                                {{ props.item.value }}
+                            </a>
+                        </td>
+                        <td
+                            v-else
+                            class
+                        >
+                            {{ props.item.value }}
+                        </td>
+                    </template>
+                </v-data-table>
             </v-tab-item>
         </v-tabs>
     </div>

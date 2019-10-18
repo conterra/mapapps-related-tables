@@ -109,7 +109,7 @@ export default class CustomPopupDefinition {
                     id: metadata.id,
                     title: metadata.name,
                     relatedRecords: relatedRecords,
-                    active: 0
+                    active: relatedRecords[0]
                 });
             });
             widget.set("loading", false);

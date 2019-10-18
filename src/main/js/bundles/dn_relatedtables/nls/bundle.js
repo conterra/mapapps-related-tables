@@ -20,7 +20,8 @@ module.exports = {
         ui: {
             attributes: "Attributes",
             field: "Field",
-            value: "Value"
+            value: "Value",
+            relatedRecord: "Related Record"
         }
     }),
     "de": true

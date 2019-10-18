@@ -19,6 +19,7 @@ module.exports = {
     ui: {
         attributes: "Attribute",
         field: "Feld",
-        value: "Wert"
+        value: "Wert",
+        relatedRecord: "Verknüpfter Datensatz"
     }
 };
