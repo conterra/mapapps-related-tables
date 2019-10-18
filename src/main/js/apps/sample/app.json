@@ -37,6 +37,15 @@
         ]
     },
     "bundles": {
+        "dn_relatedtables": {
+            "PopupDefinitionFactory": {
+                "hideFields": [
+                    "OBJECTID",
+                    "objectid",
+                    "shape"
+                ]
+            }
+        },
         "popups": {
             "Config": {
                 "defaultPopupType": "related-tables-popup",
