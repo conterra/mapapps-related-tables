@@ -42,12 +42,16 @@ export default class CustomPopupDefinition {
                     title: "{" + displayField + "}",
                     content({graphic}) {
                         if (fields) {
-                            let widget = layerOrSublayer._$popup_widget;
+                            /*let widget = layerOrSublayer._$popup_widget;
                             if (!widget) {
                                 widget = layerOrSublayer._$popup_widget = that.popupWidgetFactory.getWidget();
                                 widget.startup();
-                            }
+                            }*/
+                            const widget = that.popupWidgetFactory.getWidget();
+                            widget.startup();
 
+                            // The Esri API assumes that this function returns a new widget with each call.
+                            // This leads to a high ram consumption
                             const sourceLayer = graphic.sourceLayer;
                             displayField = displayField || sourceLayer.displayField;
                             objectIdField = objectIdField || sourceLayer.objectIdField;
