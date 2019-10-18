@@ -43,6 +43,12 @@
                     "OBJECTID",
                     "objectid",
                     "shape"
+                ],
+                "relationNameReplacer": [
+                    {
+                        "name": "Aktivitäten",
+                        "newName": "Störungsaktivitäten"
+                    }
                 ]
             }
         },

@@ -28,7 +28,8 @@
                     "OBJECTID",
                     "objectid",
                     "shape"
-                ]
+                ],
+                "relationNameReplacer": []
             },
             "references": [
                 {

@@ -44,13 +44,20 @@ https://github.com/conterra/mapapps-related-tables/tree/3.x
         "OBJECTID",
         "objectid",
         "shape"
+    ],
+    "relationNameReplacer": [
+        {
+            "name": "Aktivitäten",
+            "newName": "Störungsaktivitäten"
+        }
     ]
 }
 ```
 
 | Property                        | Type    | Possible Values                                                       | Default                     | Description                                                                                                                            |
 |---------------------------------|---------|-----------------------------------------------------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| hideFields                      | Boolean |                                                                       | ```[]```                    | List of hided fields                                                                                                                   |
+| hideFields                      | Array   |                                                                       | ```[]```                    | List of hided fields                                                                                                                   |
+| relationNameReplacer            | Array   |                                                                       | ```[]```                    | List of name replacer                                                                                                                  |
 
 ## Development Guide
 ### Define the mapapps remote base

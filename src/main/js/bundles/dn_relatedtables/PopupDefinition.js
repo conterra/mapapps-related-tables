@@ -107,7 +107,7 @@ export default class CustomPopupDefinition {
                 });
                 relatedRecordsTabs.push({
                     id: metadata.id,
-                    title: metadata.name,
+                    title: this._replaceRelationName(metadata.name),
                     relatedRecords: relatedRecords,
                     active: relatedRecords[0]
                 });
@@ -137,6 +137,16 @@ export default class CustomPopupDefinition {
             }
         });
         return result;
+    }
+
+    _replaceRelationName(name) {
+        const relationNameReplacer = this.properties.relationNameReplacer;
+        const replacerObject = relationNameReplacer.find((replacer) => replacer.name === name);
+        if (replacerObject) {
+            return replacerObject.newName;
+        } else {
+            return name;
+        }
     }
 
     _getCodedValue(value, codedValues) {
