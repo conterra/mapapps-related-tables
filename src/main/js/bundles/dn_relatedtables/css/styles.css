@@ -1,3 +1,7 @@
+.ctAppRoot .esri-popup__main-container {
+    overflow: auto;
+}
+
 .ctAppRoot .esri-popup__content .relatedTablesPopup {
     background-color: #fff !important;
 }
@@ -31,14 +35,6 @@
     border-color: #6e6e6e;
 }
 
-.ctAppRoot.ctEnv_IE_11 .esri-popup__content .relatedTablesPopup .v-tabs__item {
-    flex-basis: auto;
-}
-
-.ctAppRoot .esri-popup__main-container {
-    overflow: auto;
-}
-
 .ctAppRoot .esri-popup__content .relatedTablesPopup .v-datatable {
     background-color: #fff;
     color: #6e6e6e;
@@ -60,10 +56,17 @@
     color: #6e6e6e !important;
 }
 
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-select .v-icon {
+    color: #6e6e6e !important;
+}
+
 .ctAppRoot .esri-popup__content .relatedTablesPopup .v-datatable tr {
     border-bottom: 1px solid rgba(0, 0, 0, .12) !important;
 }
 
+/**
+Menu in Popup
+ */
 .ctAppRoot .vuetify-menues .relatedTableMenu .v-list {
     background-color: #fff;
     color: #6e6e6e;
@@ -77,4 +80,8 @@
 .ctAppRoot .vuetify-menues .relatedTableMenu .v-list__tile--highlighted {
     background-color: #fff;
     color: #6e6e6e;
+}
+
+.ctAppRoot.ctEnv_IE_11 .esri-popup__content .relatedTablesPopup .v-tabs__item {
+    flex-basis: auto;
 }
