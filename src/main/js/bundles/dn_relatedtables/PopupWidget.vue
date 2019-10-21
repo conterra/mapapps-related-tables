@@ -70,7 +70,7 @@
                     :items="relatedRecordsTab.relatedRecords"
                     :label="i18n.relatedRecord"
                     :menu-props="{ contentClass: 'relatedTableMenu' }"
-                    class="pt-3 pb-2"
+                    class="mt-3 pb-2"
                     return-object
                     hide-details
                     item-text="title"
