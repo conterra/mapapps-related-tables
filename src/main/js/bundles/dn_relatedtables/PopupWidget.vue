@@ -80,11 +80,8 @@
                     :items="relatedRecordsTab.active ? relatedRecordsTab.active.items : []"
                     hide-actions>
                     <template v-slot:items="props">
-                        <td class>{{ props.item.alias }}</td>
-                        <td
-                            v-if="isUrl(props.item.value)"
-                            class
-                        >
+                        <td>{{ props.item.alias }}</td>
+                        <td v-if="isUrl(props.item.value)">
                             <a
                                 :href="props.item.value"
                                 target="_blank"
@@ -92,10 +89,7 @@
                                 {{ props.item.value }}
                             </a>
                         </td>
-                        <td
-                            v-else
-                            class
-                        >
+                        <td v-else>
                             {{ props.item.value }}
                         </td>
                     </template>
