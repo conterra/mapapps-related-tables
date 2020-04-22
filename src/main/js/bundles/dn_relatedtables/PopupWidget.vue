@@ -16,7 +16,7 @@
 
 -->
 <template>
-    <div class="relatedTablesPopup">
+    <div>
         <v-progress-linear
             v-if="loading"
             :indeterminate="true"

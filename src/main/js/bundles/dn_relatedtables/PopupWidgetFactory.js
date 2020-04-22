@@ -29,6 +29,6 @@ export default class PopupWidgetFactory {
             {text: i18n.value, value: 'value', sortable: false}
         ];
 
-        return VueDijit(vm);
+        return VueDijit(vm, {class: "relatedTablesPopup"});
     }
 }
