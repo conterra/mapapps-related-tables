@@ -29,11 +29,6 @@ export default class PopupWidgetFactory {
             {text: i18n.value, value: 'value', sortable: false}
         ];
 
-        Binding
-            .create()
-            .syncAll()
-            .enable();
-
         return VueDijit(vm);
     }
 }
