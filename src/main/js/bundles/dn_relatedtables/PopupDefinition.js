@@ -100,7 +100,7 @@ export default class CustomPopupDefinition {
                         const objectIdField = this._getObjectIdField(metadata.fields);
                         relatedRecords.push({
                             id: metadata.id + "_" + attributes[objectIdField.name],
-                            title: attributes[metadata.displayField],
+                            title: attributes[this._replaceDisplayField(metadata)],
                             items: items
                         });
                     });
@@ -146,6 +146,16 @@ export default class CustomPopupDefinition {
             return replacerObject.newName;
         } else {
             return name;
+        }
+    }
+
+    _replaceDisplayField(metadata) {
+        const displayfieldReplacer = this.properties.displayfieldReplacer;
+        const replacerObject = displayfieldReplacer.find((replacer) => replacer.name === metadata.name);
+        if (replacerObject) {
+            return replacerObject.newField;
+        } else {
+            return metadata.displayField;
         }
     }
 

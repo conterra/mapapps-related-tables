@@ -50,6 +50,12 @@ https://github.com/conterra/mapapps-related-tables/tree/3.x
             "name": "Aktivitäten",
             "newName": "Störungsaktivitäten"
         }
+    ],
+    "displayfieldReplacer": [
+        {
+            "name": "Aktivitäten",
+            "newField": "Name"
+        }
     ]
 }
 ```
@@ -58,6 +64,7 @@ https://github.com/conterra/mapapps-related-tables/tree/3.x
 |---------------------------------|---------|-----------------------------------------------------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
 | hideFields                      | Array   |                                                                       | ```[]```                    | List of hided fields                                                                                                                   |
 | relationNameReplacer            | Array   |                                                                       | ```[]```                    | List of name replacer                                                                                                                  |
+| displayfieldReplacer            | Array   |                                                                       | ```[]```                    | List of displayField replacer                                                                                                          |
 
 ## Development Guide
 ### Define the mapapps remote base
