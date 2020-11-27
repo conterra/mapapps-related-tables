@@ -15,6 +15,17 @@
  */
 import moment from "moment";
 
+function buildTitle(layer) {
+    const preconfiguredTitle = layer.popupTemplate?.title;
+    if (preconfiguredTitle) {
+        return preconfiguredTitle;
+    }
+    const titleFromDefaultPopup = layer.defaultPopupTemplate?.title;
+    if (titleFromDefaultPopup) {
+        return titleFromDefaultPopup;
+    }
+}
+
 export default class CustomPopupDefinition {
 
     constructor(popupWidgetFactory, queryController, properties) {
@@ -36,10 +47,11 @@ export default class CustomPopupDefinition {
                 const fields = metadata.fields;
                 const fieldNames = fields.map(f => f.name);
                 let displayField = metadata.displayField;
+                const preconfiguredTitle = buildTitle(layerOrSublayer)
                 let objectIdField = this._getObjectIdField(metadata.fields).name;
                 return {
                     fields: fieldNames,
-                    title: "{" + displayField + "}",
+                    title: preconfiguredTitle || "{" + displayField + "}",
                     content({graphic}) {
                         if (fields) {
                             /*let widget = layerOrSublayer._$popup_widget;
