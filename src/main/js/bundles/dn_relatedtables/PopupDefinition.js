@@ -64,7 +64,7 @@ export default class CustomPopupDefinition {
 
                             // The Esri API assumes that this function returns a new widget with each call.
                             // This leads to a high ram consumption
-                            const sourceLayer = graphic.sourceLayer;
+                            const sourceLayer = graphic.sourceLayer || layerOrSublayer;
                             displayField = displayField || sourceLayer.displayField;
                             objectIdField = objectIdField || sourceLayer.objectIdField;
                             const objectId = graphic.attributes[objectIdField];
@@ -75,7 +75,7 @@ export default class CustomPopupDefinition {
                             widget.set("items", items);
                             widget.set("relatedRecordsTabs", []);
 
-                            that.getRelatedRecordsTabs(graphic.sourceLayer, objectId, widget).then((relatedRecordsTabs) => {
+                            that.getRelatedRecordsTabs(sourceLayer, objectId, widget).then((relatedRecordsTabs) => {
                                 widget.set("relatedRecordsTabs", relatedRecordsTabs);
                             });
                             return widget;
