@@ -15,7 +15,6 @@
  */
 import Vue from "apprt-vue/Vue";
 import VueDijit from "apprt-vue/VueDijit";
-import Binding from "apprt-binding/Binding";
 import PopupWidget from "./PopupWidget.vue";
 
 export default class PopupWidgetFactory {
