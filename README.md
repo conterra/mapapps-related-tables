@@ -56,7 +56,8 @@ https://github.com/conterra/mapapps-related-tables/tree/3.x
             "name": "Aktivitäten",
             "newField": "Name"
         }
-    ]
+    ],
+    "dateFormat": "dddd, Do MMMM YYYY HH:mm"
 }
 ```
 
@@ -65,6 +66,7 @@ https://github.com/conterra/mapapps-related-tables/tree/3.x
 | hideFields                      | Array   |                                                                       | ```[]```                    | List of hided fields                                                                                                                   |
 | relationNameReplacer            | Array   |                                                                       | ```[]```                    | List of name replacer                                                                                                                  |
 | displayfieldReplacer            | Array   |                                                                       | ```[]```                    | List of displayField replacer                                                                                                          |
+| dateFormat                      | String  | *https://momentjs.com/docs*                                           | ```"dddd, Do MMMM YYYY HH:mm"``` | moment.js dateFormat definition                                                                                                   |
 
 ## Development Guide
 ### Define the mapapps remote base

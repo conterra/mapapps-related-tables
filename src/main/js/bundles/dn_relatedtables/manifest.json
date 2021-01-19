@@ -1,6 +1,6 @@
 {
     "name": "dn_relatedtables",
-    "version": "3.5.2-SNAPSHOT",
+    "version": "3.5.1",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
     "vendor": "con terra GmbH",
@@ -30,7 +30,8 @@
                     "shape"
                 ],
                 "relationNameReplacer": [],
-                "displayfieldReplacer": []
+                "displayfieldReplacer": [],
+                "dateFormat": "dddd, Do MMMM YYYY HH:mm"
             },
             "references": [
                 {

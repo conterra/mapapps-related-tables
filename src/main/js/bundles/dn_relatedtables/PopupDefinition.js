@@ -181,8 +181,9 @@ export default class CustomPopupDefinition {
     }
 
     _getDate(value) {
+        const dateFormat = this.properties.dateFormat || 'dddd, Do MMMM YYYY HH:mm';
         const date = moment(value);
-        return date.format('dddd, Do MMMM YYYY HH:mm');
+        return date.format(dateFormat);
     }
 
     _getObjectIdField(fields) {
