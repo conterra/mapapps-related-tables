@@ -24,11 +24,6 @@
             "name": "PopupDefinitionFactory",
             "provides": "popups.PopupDefinitionFactory",
             "properties": {
-                "hideFields": [
-                    "OBJECTID",
-                    "objectid",
-                    "shape"
-                ],
                 "relationNameReplacer": [],
                 "displayfieldReplacer": []
             },

@@ -21,12 +21,7 @@ export default class PopupWidgetFactory {
 
     getWidget() {
         const vm = this.vm = new Vue(PopupWidget);
-        const i18n = vm.i18n = this._i18n.get().ui;
-
-        vm.headers = [
-            {text: i18n.field, value: 'field', sortable: false},
-            {text: i18n.value, value: 'value', sortable: false}
-        ];
+        vm.i18n = this._i18n.get().ui;
 
         return VueDijit(vm, {class: "relatedTablesPopup"});
     }

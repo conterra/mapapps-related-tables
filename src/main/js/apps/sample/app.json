@@ -49,6 +49,12 @@
                         "name": "Aktivitäten",
                         "newName": "Störungsaktivitäten"
                     }
+                ],
+                "displayfieldReplacer": [
+                    {
+                        "name": "Aktivitäten",
+                        "newField": "Name"
+                    }
                 ]
             }
         },
@@ -120,7 +126,27 @@
                                     "title": "Störungen",
                                     "visible": true,
                                     "popupTemplate": {
-                                        "popupType": "related-tables-popup"
+                                        "popupType": "related-tables-popup",
+                                        "title": "Störung",
+                                        "content": [
+                                            {
+                                                "type": "fields",
+                                                "fieldInfos": [
+                                                    {
+                                                        "fieldName": "art ",
+                                                        "label": "Art"
+                                                    },
+                                                    {
+                                                        "fieldName": "details",
+                                                        "label": "Details"
+                                                    },
+                                                    {
+                                                        "fieldName": "melder",
+                                                        "label": "Melder"
+                                                    }
+                                                ]
+                                            }
+                                        ]
                                     }
                                 }
                             ]

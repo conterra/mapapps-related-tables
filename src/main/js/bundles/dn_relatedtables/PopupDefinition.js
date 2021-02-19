@@ -13,20 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import PopupTemplate from "esri/PopupTemplate";
+import CustomContent from "esri/popup/content/CustomContent";
+import Feature from "esri/widgets/Feature";
+import FeatureLayer from "esri/layers/FeatureLayer";
+import Field from "esri/layers/support/Field";
 import moment from "moment";
 
-function buildTitle(layer) {
-    const preconfiguredTitle = layer.popupTemplate?.title;
-    if (preconfiguredTitle) {
-        return preconfiguredTitle;
-    }
-    const titleFromDefaultPopup = layer.defaultPopupTemplate?.title;
-    if (titleFromDefaultPopup) {
-        return titleFromDefaultPopup;
-    }
-}
-
-export default class CustomPopupDefinition {
+export default class PopupDefinition {
 
     constructor(popupWidgetFactory, queryController, properties) {
         this.popupWidgetFactory = popupWidgetFactory;
@@ -35,7 +29,6 @@ export default class CustomPopupDefinition {
     }
 
     resolvePopupTemplate(layerOrSublayer) {
-        const that = this;
         let url = layerOrSublayer.url;
         const layerId = layerOrSublayer.layerId;
         if (layerId) {
@@ -45,48 +38,90 @@ export default class CustomPopupDefinition {
         return queryController.getMetadata(url).then((metadata) => {
             if (metadata.fields) {
                 const fields = metadata.fields;
-                const fieldNames = fields.map(f => f.name);
-                let displayField = metadata.displayField;
-                const preconfiguredTitle = buildTitle(layerOrSublayer)
-                let objectIdField = this._getObjectIdField(metadata.fields).name;
-                return {
-                    fields: fieldNames,
-                    title: preconfiguredTitle || "{" + displayField + "}",
-                    content({graphic}) {
-                        if (fields) {
-                            /*let widget = layerOrSublayer._$popup_widget;
-                            if (!widget) {
-                                widget = layerOrSublayer._$popup_widget = that.popupWidgetFactory.getWidget();
-                                widget.startup();
-                            }*/
-                            const widget = that.popupWidgetFactory.getWidget();
-                            widget.startup();
+                const displayField = metadata.displayField;
+                const objectIdField = this._getObjectIdField(metadata.fields).name;
 
-                            // The Esri API assumes that this function returns a new widget with each call.
-                            // This leads to a high ram consumption
-                            const sourceLayer = graphic.sourceLayer || layerOrSublayer;
-                            displayField = displayField || sourceLayer.displayField;
-                            objectIdField = objectIdField || sourceLayer.objectIdField;
-                            const objectId = graphic.attributes[objectIdField];
+                const customContentWidget = this._getCustomContent(layerOrSublayer,
+                    displayField, objectIdField, fields);
 
-                            const title = graphic.attributes[displayField];
-                            const items = that._lookupFieldNamesToAttributes(fields, graphic.attributes);
-                            widget.set("title", title);
-                            widget.set("items", items);
-                            widget.set("relatedRecordsTabs", []);
+                let content;
+                if(layerOrSublayer.popupTemplate.content.length) {
+                    content = [...layerOrSublayer.popupTemplate.content, ...[customContentWidget]];
+                } else {
+                    content = [customContentWidget];
+                }
 
-                            that.getRelatedRecordsTabs(sourceLayer, objectId, widget).then((relatedRecordsTabs) => {
-                                widget.set("relatedRecordsTabs", relatedRecordsTabs);
-                            });
-                            return widget;
-                        }
-                    }
-                };
+                const template = new PopupTemplate({
+                    outFields: ["*"],
+                    title: layerOrSublayer.popupTemplate?.title || "{" + displayField + "}",
+                    content: content
+                });
+
+                return template;
             }
         });
     }
 
-    getRelatedRecordsTabs(sourceLayer, objectId, widget) {
+    _getCustomContent(layerOrSublayer, displayField, objectIdField, fields) {
+        return new CustomContent({
+            outFields: ["*"],
+            creator: ({graphic}) => {
+                const widget = this.popupWidgetFactory.getWidget();
+                widget.startup();
+
+                const vm = widget.getVM();
+                const featureWidget = new Feature({
+                    graphic: null,
+                    container: vm.$refs.featureWidget
+                });
+                vm.$on('related-record-changed', (relatedRecord) => {
+                    const g =  this._getGraphic(relatedRecord);
+                    featureWidget.graphic = g;
+                });
+
+                const sourceLayer = graphic.sourceLayer || layerOrSublayer;
+                displayField = displayField || sourceLayer.displayField;
+                objectIdField = objectIdField || sourceLayer.objectIdField;
+                const objectId = graphic.attributes[objectIdField];
+                widget.set("relatedRecordsData", []);
+
+                this._getRelatedRecordsData(sourceLayer, objectId, widget).then((relatedRecordsData) => {
+                    widget.set("relatedRecordsData", relatedRecordsData);
+                    widget.set("selectedRelatedRecordsData", relatedRecordsData[0]);
+                    const g = this._getGraphic(relatedRecordsData[0].active);
+                    featureWidget.graphic = g;
+                });
+                return widget.domNode;
+            }
+        });
+    }
+
+    _getGraphic(relatedRecord) {
+        const layer = new FeatureLayer({
+            source: [],
+            fields: relatedRecord.fields
+        });
+        return {
+            layer: layer,
+            attributes: relatedRecord.attributes,
+            popupTemplate: {
+                //title: relatedRecord.title,
+                content: [
+                    {
+                        type: "fields",
+                        fieldInfos: relatedRecord.fields.map((field)=>{
+                            return {
+                                fieldName: field.name,
+                                label: field.alias || field.name
+                            }
+                        })
+                    }
+                ]
+            }
+        }
+    }
+
+    _getRelatedRecordsData(sourceLayer, objectId, widget) {
         let url = sourceLayer.url;
         const layerId = sourceLayer.layerId;
         if (layerId) {
@@ -95,60 +130,44 @@ export default class CustomPopupDefinition {
         widget.set("loading", true);
 
         const queryController = this.queryController;
-        return queryController.getMetadata(url).then((metadata) => queryController.getRelatedMetadata(url, metadata).then((relatedMetadata) => queryController.findRelatedRecords(objectId, url, metadata).then((results) => {
-            const relatedRecordsTabs = [];
-            if (!results) {
-                widget.set("loading", false);
-                return relatedRecordsTabs;
-            }
-            results.forEach((result, i) => {
-                const relatedRecords = [];
-                const metadata = relatedMetadata[i];
-                const relatedRecordGroups = result.relatedRecordGroups;
-                relatedRecordGroups.forEach((relatedRecordGroup) => {
-                    relatedRecordGroup.relatedRecords.forEach((record) => {
-                        const attributes = record.attributes;
-                        const items = this._lookupFieldNamesToAttributes(metadata.fields, attributes);
-                        const objectIdField = this._getObjectIdField(metadata.fields);
-                        relatedRecords.push({
-                            id: metadata.id + "_" + attributes[objectIdField.name],
-                            title: attributes[this._replaceDisplayField(metadata)],
-                            items: items
+        return queryController.getMetadata(url)
+            .then((metadata) => queryController.getRelatedMetadata(url, metadata)
+                .then((relatedMetadata) => queryController.findRelatedRecords(objectId, url, metadata)
+                    .then((results) => {
+                        const relatedRecordsData = [];
+                        if (!results) {
+                            widget.set("loading", false);
+                            return relatedRecordsData;
+                        }
+                        results.forEach((result, i) => {
+                            const relatedRecords = [];
+                            const metadata = relatedMetadata[i];
+                            const relatedRecordGroups = result.relatedRecordGroups;
+                            relatedRecordGroups.forEach((relatedRecordGroup) => {
+                                relatedRecordGroup.relatedRecords.forEach((record) => {
+                                    const attributes = record.attributes;
+                                    const objectIdField = this._getObjectIdField(metadata.fields);
+                                    relatedRecords.push({
+                                        id: metadata.id + "_" + attributes[objectIdField.name],
+                                        title: attributes[this._replaceDisplayField(metadata)],
+                                        attributes: attributes,
+                                        fields: metadata.fields.map((field) => Field.fromJSON(field)),
+                                        objectIdField: objectIdField
+                                    });
+                                });
+                            });
+                            relatedRecordsData.push({
+                                id: metadata.id,
+                                title: this._replaceRelationName(metadata.name),
+                                relatedRecords: relatedRecords,
+                                active: relatedRecords[0]
+                            });
                         });
-                    });
-                });
-                relatedRecordsTabs.push({
-                    id: metadata.id,
-                    title: this._replaceRelationName(metadata.name),
-                    relatedRecords: relatedRecords,
-                    active: relatedRecords[0]
-                });
-            });
-            widget.set("loading", false);
-            return relatedRecordsTabs;
-        })));
-    }
-
-    _lookupFieldNamesToAttributes(fields, attributes) {
-        const result = [];
-        fields.forEach((field) => {
-            if (!this.properties.hideFields.includes(field.name)) {
-                let value = attributes[field.name];
-                if (field.domain && field.domain.codedValues) {
-                    const codedValues = field.domain.codedValues;
-                    value = this._getCodedValue(value, codedValues);
-                }
-                if (field.type === "esriFieldTypeDate") {
-                    value = this._getDate(value);
-                }
-                result.push({
-                    name: field.name,
-                    alias: field.alias,
-                    value: value
-                });
-            }
-        });
-        return result;
+                        widget.set("loading", false);
+                        return relatedRecordsData;
+                    })
+                )
+            );
     }
 
     _replaceRelationName(name) {
@@ -171,28 +190,8 @@ export default class CustomPopupDefinition {
         }
     }
 
-    _getCodedValue(value, codedValues) {
-        const v = codedValues.find((codedValue) => value === codedValue.code);
-        if (v) {
-            return v.name;
-        } else {
-            return value;
-        }
-    }
-
-    _getDate(value) {
-        const date = moment(value);
-        return date.format('dddd, Do MMMM YYYY HH:mm');
-    }
-
     _getObjectIdField(fields) {
         return fields.find((field) => field.type === "esriFieldTypeOID");
-    }
-
-    cleanupPopupTemplate(layer) {
-        const widget = layer._$popup_widget;
-        delete layer._$popup_widget;
-        widget && widget.destroyRecursive();
     }
 
 }

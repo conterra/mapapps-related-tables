@@ -21,6 +21,10 @@
     background-color: #fff !important;
 }
 
+.ctAppRoot .esri-popup__content .relatedTablesPopup .relatedTablesTitle {
+    color: #6e6e6e;
+}
+
 .ctAppRoot .esri-popup__content .relatedTablesPopup .v-card__title {
     background-color: #fff !important;
     color: #6e6e6e;

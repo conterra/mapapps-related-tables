@@ -18,10 +18,9 @@ module.exports = {
         bundleName: "Related Tables",
         bundleDescription: "Related Tables",
         ui: {
-            attributes: "Attributes",
-            field: "Field",
-            value: "Value",
-            relatedRecord: "Related Record"
+            relation: "Select Relation",
+            relatedRecord: "Select Record",
+            relatedRecords: "Related Records:"
         }
     }),
     "de": true
