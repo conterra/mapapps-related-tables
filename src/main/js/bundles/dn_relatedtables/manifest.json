@@ -1,6 +1,6 @@
 {
     "name": "dn_relatedtables",
-    "version": "3.5.2-SNAPSHOT",
+    "version": "4.0.0-SNAPSHOT",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
     "vendor": "con terra GmbH",
@@ -19,7 +19,7 @@
         }
     ],
     "layout-widgets": [],
-    "Components": [
+    "components": [
         {
             "name": "PopupDefinitionFactory",
             "provides": "popups.PopupDefinitionFactory",
