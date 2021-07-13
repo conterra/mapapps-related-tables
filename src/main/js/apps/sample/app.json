@@ -39,11 +39,6 @@
     "bundles": {
         "dn_relatedtables": {
             "PopupDefinitionFactory": {
-                "hideFields": [
-                    "OBJECTID",
-                    "objectid",
-                    "shape"
-                ],
                 "relationNameReplacer": [
                     {
                         "name": "Aktivitäten",
@@ -133,16 +128,27 @@
                                                 "type": "fields",
                                                 "fieldInfos": [
                                                     {
-                                                        "fieldName": "art ",
-                                                        "label": "Art"
-                                                    },
-                                                    {
                                                         "fieldName": "details",
                                                         "label": "Details"
                                                     },
                                                     {
                                                         "fieldName": "melder",
                                                         "label": "Melder"
+                                                    },
+                                                    {
+                                                        "fieldName": "status",
+                                                        "label": "Status"
+                                                    },
+                                                    {
+                                                        "fieldName": "zeitpunkt",
+                                                        "label": "Zeitpunkt",
+                                                        "format": {
+                                                            "dateFormat": "day-short-month-year"
+                                                        }
+                                                    },
+                                                    {
+                                                        "fieldName": "kommentar",
+                                                        "label": "Kommentar"
                                                     }
                                                 ]
                                             }
