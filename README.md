@@ -1,70 +1,19 @@
 # Related Tables
+
 The Related Tables bundle adds a new popup to the app to display data from related tables.
 
-## Sample App
-https://demos.conterra.de/mapapps/resources/apps/downloads_relatedtables4/index.html
-
-![Screenshot Sample App](https://github.com/conterra/mapapps-contentviewer-relates/blob/master/screenshot.png)
+![Screenshot App](https://github.com/conterra/mapapps-related-tables/blob/master/screenshot.JPG)
 
 The Related Tables bundle for Linie 3 can be found in the 3.x branch:
 https://github.com/conterra/mapapps-related-tables/tree/3.x
 
+## Sample App
+https://demos.conterra.de/mapapps/resources/apps/downloads_query_builder4/index.html
+
 ## Installation Guide
-**Requirement: map.apps 4.6.0**
+**Requirement: map.apps 4.9.0**
 
-1. Add the dn_relatedtables bundle to your app.
-2. Use the related-tables-popup as selected popupTemplate for each layer that has related tables.
-
-```
-"layers": [
-    {
-        "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
-        "type": "AGS_DYNAMIC",
-        "title": "Störungen",
-        "sublayers": [
-            {
-                "id": 0,
-                "title": "Störungen",
-                "visible": true,
-                "popupTemplate": {
-                    "popupType": "related-tables-popup"
-                }
-            }
-        ]
-    }
-]
-```
-
-### Configurable Components of dn_relatedtables:
-
-#### PopupDefinitionFactory:
-```
-"PopupDefinitionFactory": {
-    "hideFields": [
-        "OBJECTID",
-        "objectid",
-        "shape"
-    ],
-    "relationNameReplacer": [
-        {
-            "name": "Aktivitäten",
-            "newName": "Störungsaktivitäten"
-        }
-    ],
-    "displayfieldReplacer": [
-        {
-            "name": "Aktivitäten",
-            "newField": "Name"
-        }
-    ]
-}
-```
-
-| Property                        | Type    | Possible Values                                                       | Default                     | Description                                                                                                                            |
-|---------------------------------|---------|-----------------------------------------------------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
-| hideFields                      | Array   |                                                                       | ```[]```                    | List of hided fields                                                                                                                   |
-| relationNameReplacer            | Array   |                                                                       | ```[]```                    | List of name replacer                                                                                                                  |
-| displayfieldReplacer            | Array   |                                                                       | ```[]```                    | List of displayField replacer                                                                                                          |
+[dn_relatedtables Documentation](https://github.com/conterra/mapapps-related-tables/tree/master/src/main/js/bundles/dn_relatedtables)
 
 ## Development Guide
 ### Define the mapapps remote base
