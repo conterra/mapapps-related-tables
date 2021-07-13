@@ -7,8 +7,8 @@
     "productName": "devnet-mapapps-related-tables",
     "layer": "module",
     "dependencies": {
-        "popups": "^4.4.2",
-        "resultcenter": "^4.4.2"
+        "popups": "^4.9.0",
+        "resultcenter": "^4.9.0"
     },
     "CSS-Themes-Extension": [
         {
