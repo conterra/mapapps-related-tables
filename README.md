@@ -1,12 +1,6 @@
 # Related Tables
 The Related Tables bundle expands the ContentViewer to display data from related tables.
 
-Sample App
-------------------
-https://demos.conterra.de/mapapps/resources/apps/downloads_relatedtables/index.html
-
-![Screenshot Sample App ContentViewer Relates](https://github.com/conterra/mapapps-contentviewer-relates/blob/master/Screenshot.PNG)
-
 Installation Guide
 ------------------
 **Requirement: map.apps 3.x**
