@@ -30,7 +30,7 @@ export default class PopupDefinition {
     resolvePopupTemplate(layerOrSublayer) {
         let url = layerOrSublayer.url;
         const layerId = layerOrSublayer.layerId;
-        if (layerId) {
+        if (layerId !== undefined) {
             url = url + "/" + layerId;
         }
         const queryController = this.queryController;
@@ -120,7 +120,7 @@ export default class PopupDefinition {
     _getRelatedRecordsData(sourceLayer, objectId, widget) {
         let url = sourceLayer.url;
         const layerId = sourceLayer.layerId;
-        if (layerId) {
+        if (layerId !== undefined) {
             url = url + "/" + layerId;
         }
         widget.set("loading", true);
