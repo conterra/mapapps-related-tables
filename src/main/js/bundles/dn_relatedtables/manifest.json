@@ -25,7 +25,10 @@
             "provides": "popups.PopupDefinitionFactory",
             "properties": {
                 "relationNameReplacer": [],
-                "displayfieldReplacer": []
+                "displayfieldReplacer": [],
+                "enableFiltering": false,
+                "filterModeIsAllowlist": false,
+                "filterList": ["Name", "Datum"]
             },
             "references": [
                 {

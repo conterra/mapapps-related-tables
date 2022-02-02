@@ -118,6 +118,11 @@ export default class PopupDefinition {
     }
 
     _getRelatedRecordsData(sourceLayer, objectId, widget) {
+        const props = this.properties
+        const enableFiltering = props.enableFiltering;
+        const filterMode = props.filterModeIsAllowlist;
+        const filterArray = props.filterList;
+
         let url = sourceLayer.url;
         const layerId = sourceLayer.layerId;
         if (layerId !== undefined) {
@@ -128,7 +133,7 @@ export default class PopupDefinition {
         const queryController = this.queryController;
         return queryController.getMetadata(url)
             .then((metadata) => queryController.getRelatedMetadata(url, metadata)
-                .then((relatedMetadata) => queryController.findRelatedRecords(objectId, url, metadata)
+                .then((relatedMetadata) => queryController.findRelatedRecords(objectId, url, metadata, filterMode, filterArray)
                     .then((results) => {
                         const relatedRecordsData = [];
                         if (!results) {
@@ -138,6 +143,39 @@ export default class PopupDefinition {
                         results.forEach((result, i) => {
                             const relatedRecords = [];
                             const metadata = relatedMetadata[i];
+
+                            // Use allowlist filtering
+                            if (enableFiltering && filterMode) {
+                                for (const [key, value] of Object.entries(metadata.fields)) {
+                                    // If attribute is not in allowlist and is not the OBJECTID discard attribute
+                                    if (!filterArray.includes(value.name)) {
+                                        if (value.name === "OBJECTID") {
+                                            //do nothing
+                                        } else {
+                                            metadata.fields.forEach(function (field, index) {
+                                                if (field.name === value.name) {
+                                                    metadata.fields.splice(index, 1)
+                                                }
+                                            })
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Use denylist filtering
+                            if (enableFiltering && !filterMode) {
+                                for (const [key, value] of Object.entries(metadata.fields)) {
+                                    // if attribute is in the denylist and not the OBJECTID discard attribute
+                                    if (filterArray.includes(value.name)) {
+                                        metadata.fields.forEach(function (field, index) {
+                                            if (field.name === value.name && value.name !== "OBJECTID") {
+                                                metadata.fields.splice(index, 1)
+                                            }
+                                        })
+                                    }
+                                }
+                            }
+
                             const relatedRecordGroups = result.relatedRecordGroups;
                             relatedRecordGroups.forEach((relatedRecordGroup) => {
                                 relatedRecordGroup.relatedRecords.forEach((record) => {

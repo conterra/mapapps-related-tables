@@ -25,7 +25,7 @@ export default class QueryController {
                 query: {
                     objectIds: [objectId],
                     relationshipId: relationshipId,
-                    outFields: "*",
+                    outFields: ["*"],
                     returnGeometry: true,
                     returnCountOnly: false,
                     f: 'json'

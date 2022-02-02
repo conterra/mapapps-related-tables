@@ -75,7 +75,10 @@ The Related Tables bundle adds a new popup to the app to display data from relat
             "name": "Aktivitäten",
             "newField": "Name"
         }
-    ]
+    ],
+    "enableFiltering": false,
+    "filterModeIsAllowlist": false,
+    "filterList": []
 }
 ```
 
@@ -83,3 +86,6 @@ The Related Tables bundle adds a new popup to the app to display data from relat
 |---------------------------------|---------|-----------------------------------------------------------------------|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
 | relationNameReplacer            | Array   |                                                                       | ```[]```                    | List of name replacer                                                                                                                  |
 | displayfieldReplacer            | Array   |                                                                       | ```[]```                    | List of displayField replacer                                                                                                          |
+| enableFiltering                 | Boolean | ```true``` &#124; ```false```                                         | ```false```                 | Enables/Disables the filtering of the related table content                                                                                                         |
+| filterModeIsAllowlist           | Boolean | ```true``` &#124; ```false```                                         | ```false```                 | Switches between allowlist and denylist filtering                                                                                                        |
+| filterModeIsAllowlist           | Array   | ```String``` Titles of attributes provided by the used service        | ```[]```                    | List of attributes used for filtering. OBJECTID cannot be filtered                                                                                                        |
