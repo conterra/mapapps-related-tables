@@ -15,7 +15,8 @@
  */
 module.exports = {
     root: {
-        apptitle: "Related Tables Sample"
+        apptitle: "Related Tables Sample",
+        appInfo: "This app shows the functionality of the Related Tables bundle that provides a special popup that shows related table data."
     },
     "de": true
 };

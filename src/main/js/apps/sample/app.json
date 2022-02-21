@@ -88,7 +88,7 @@
                     "toolClass": "ctInfo",
                     "togglable": true,
                     "widgetSettings": {
-                        "content": "This app shows the functionality of the Related Tables bundle that provides a special popup that shows related table data.",
+                        "content": "${appInfo}",
                         "window": {
                             "title": "Information",
                             "marginBox": {

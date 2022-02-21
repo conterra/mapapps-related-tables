@@ -14,5 +14,6 @@
  * limitations under the License.
  */
 module.exports = {
-    apptitle: "Related Tables Sample"
+    apptitle: "Related Tables Sample",
+    appInfo: "Diese App zeigt die Funktion des Related Tables Bundles, welches spezielle Popups anbietet, die verwandte Tabellendaten anzeigen."
 };
