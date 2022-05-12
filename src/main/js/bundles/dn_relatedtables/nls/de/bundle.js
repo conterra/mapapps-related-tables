@@ -19,6 +19,6 @@ module.exports = {
     ui: {
         relation: "Relation auswählen",
         relatedRecord: "Datensatz auswählen",
-        relatedRecords: "Verknüpfte Datensätze:"
+        relatedRecords: "Verknüpfte Datensätze"
     }
 };

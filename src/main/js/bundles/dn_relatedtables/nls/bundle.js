@@ -20,7 +20,7 @@ module.exports = {
         ui: {
             relation: "Select Relation",
             relatedRecord: "Select Record",
-            relatedRecords: "Related Records:"
+            relatedRecords: "Related Records"
         }
     }),
     "de": true

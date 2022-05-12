@@ -15,35 +15,38 @@
     limitations under the License.
 
 -->
+
 <template>
     <v-container pa-0>
-        <span class="relatedTablesTitle">{{ i18n.relatedRecords }}</span>
+        <div class="relatedTablesTitle subheading mb-2">
+            {{ i18n.relatedRecords }}
+        </div>
         <v-progress-linear
             v-if="loading"
             :indeterminate="true"
-            class="pa-0 ma-0"
         />
+        <v-divider />
         <v-autocomplete
             v-model="selectedRelatedRecordsData"
             :items="relatedRecordsData"
             :label="i18n.relation"
             :menu-props="{ contentClass: 'relatedTableMenu' }"
-            class="mt-3 pb-2 pt-0"
             return-object
             hide-details
-            flat
+            dense
             item-text="title"
+            class="my-2"
         />
         <v-autocomplete
             v-model="selectedRelatedRecordsData.active"
             :items="selectedRelatedRecordsData.relatedRecords"
             :label="i18n.relatedRecord"
             :menu-props="{ contentClass: 'relatedTableMenu' }"
-            class="mt-3 pb-2 pt-0"
             return-object
             hide-details
-            flat
+            dense
             item-text="title"
+            class="my-2"
             @change="$emit('related-record-changed', $event)"
         />
         <div ref="featureWidget" />

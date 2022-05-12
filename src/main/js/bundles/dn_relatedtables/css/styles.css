@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 .ctAppRoot .esri-popup__main-container {
     overflow: auto;
 }
@@ -21,27 +22,31 @@
     background-color: #fff !important;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .relatedTablesTitle {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .relatedTablesTitle,
+.ctAppRoot
+    .esri-popup__content
+    .relatedTablesPopup
+    .v-text-field
+    .v-input__slot
+    input,
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-text-field .v-label,
+.ctAppRoot
+    .esri-popup__content
+    .relatedTablesPopup
+    .v-input__control
+    > .v-input__slot:before {
     color: #6e6e6e;
-}
-
-.ctAppRoot .esri-popup__content .relatedTablesPopup .v-text-field input {
-    color: #6e6e6e;
-}
-
-.ctAppRoot .esri-popup__content .relatedTablesPopup .v-text-field .v-label {
-    color: #6e6e6e;
-}
-
-.ctAppRoot .esri-popup__content .relatedTablesPopup .v-input__control > .v-input__slot:before {
-    border-color: #6e6e6e;
 }
 
 .ctAppRoot .esri-popup__content .relatedTablesPopup .v-select .v-icon {
     color: #6e6e6e !important;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .esri-feature__main-container > div {
+.ctAppRoot
+    .esri-popup__content
+    .relatedTablesPopup
+    .esri-feature__main-container
+    > div {
     padding: 0;
 }
 
@@ -96,7 +101,7 @@ Esri table styles to overwrite vue-base classes
 
 .ctAppRoot .vue-base .esri-widget__table tr td,
 .ctAppRoot .vue-base .esri-widget__table tr th {
-    padding: .5em .7em;
+    padding: 0.5em 0.7em;
     word-break: break-word;
     vertical-align: top;
     font-size: 12px;
