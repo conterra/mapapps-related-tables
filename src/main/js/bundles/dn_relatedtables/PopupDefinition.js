@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 import PopupTemplate from "esri/PopupTemplate";
 import CustomContent from "esri/popup/content/CustomContent";
 import Feature from "esri/widgets/Feature";
@@ -36,12 +37,10 @@ export default class PopupDefinition {
         const queryController = this.queryController;
         return queryController.getMetadata(url).then((metadata) => {
             if (metadata.fields) {
-                const fields = metadata.fields;
                 const displayField = metadata.displayField;
                 const objectIdField = this._getObjectIdField(metadata.fields).name;
 
-                const customContentWidget = this._getCustomContent(layerOrSublayer,
-                    displayField, objectIdField, fields);
+                const customContentWidget = this._getCustomContent(layerOrSublayer, displayField, objectIdField);
 
                 let content;
                 if (layerOrSublayer.popupTemplate?.content?.length) {
@@ -59,7 +58,7 @@ export default class PopupDefinition {
         });
     }
 
-    _getCustomContent(layerOrSublayer, displayField, objectIdField, fields) {
+    _getCustomContent(layerOrSublayer, displayField, objectIdField) {
         return new CustomContent({
             outFields: ["*"],
             creator: ({graphic}) => {
@@ -109,16 +108,16 @@ export default class PopupDefinition {
                             return {
                                 fieldName: field.name,
                                 label: field.alias || field.name
-                            }
+                            };
                         })
                     }
                 ]
             }
-        }
+        };
     }
 
     _getRelatedRecordsData(sourceLayer, objectId, widget) {
-        const props = this.properties
+        const props = this.properties;
         const enableFiltering = props.enableFiltering;
         const filterMode = props.filterModeIsAllowlist;
         const filterArray = props.filterList;
@@ -133,7 +132,8 @@ export default class PopupDefinition {
         const queryController = this.queryController;
         return queryController.getMetadata(url)
             .then((metadata) => queryController.getRelatedMetadata(url, metadata)
-                .then((relatedMetadata) => queryController.findRelatedRecords(objectId, url, metadata, filterMode, filterArray)
+                .then((relatedMetadata) => queryController
+                    .findRelatedRecords(objectId, url, metadata, filterMode, filterArray)
                     .then((results) => {
                         const relatedRecordsData = [];
                         if (!results) {
@@ -154,9 +154,9 @@ export default class PopupDefinition {
                                         } else {
                                             metadata.fields.forEach(function (field, index) {
                                                 if (field.name === value.name) {
-                                                    metadata.fields.splice(index, 1)
+                                                    metadata.fields.splice(index, 1);
                                                 }
-                                            })
+                                            });
                                         }
                                     }
                                 }
@@ -169,9 +169,9 @@ export default class PopupDefinition {
                                     if (filterArray.includes(value.name)) {
                                         metadata.fields.forEach(function (field, index) {
                                             if (field.name === value.name && value.name !== "OBJECTID") {
-                                                metadata.fields.splice(index, 1)
+                                                metadata.fields.splice(index, 1);
                                             }
-                                        })
+                                        });
                                     }
                                 }
                             }
