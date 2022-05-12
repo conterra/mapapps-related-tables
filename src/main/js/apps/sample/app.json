@@ -3,10 +3,7 @@
         "title": "${apptitle}"
     },
     "load": {
-        "bundleLocations": [
-            "localbundles",
-            "bundles"
-        ],
+        "bundleLocations": ["localbundles", "bundles"],
         "allowedBundles": [
             "system",
             "console",
@@ -29,12 +26,8 @@
             "locateme",
             "dn_relatedtables"
         ],
-        "require": [
-            "${app}.app"
-        ],
-        "i18n": [
-            "bundle"
-        ]
+        "require": ["${app}.app"],
+        "i18n": ["bundle"]
     },
     "bundles": {
         "dn_relatedtables": {
@@ -110,6 +103,7 @@
         "map-init": {
             "Config": {
                 "map": {
+                    "basemap": "gray-vector",
                     "layers": [
                         {
                             "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
@@ -120,6 +114,18 @@
                                     "id": 0,
                                     "title": "Störungen",
                                     "visible": true,
+                                    "renderer": {
+                                        "type": "simple",
+                                        "symbol": {
+                                            "type": "simple-marker",
+                                            "color": [255, 0, 0, 0.6],
+                                            "size": 16,
+                                            "outline": {
+                                                "color": [0, 0, 0, 0.4],
+                                                "width": 0.5
+                                            }
+                                        }
+                                    },
                                     "popupTemplate": {
                                         "popupType": "related-tables-popup",
                                         "title": "Störung",
@@ -157,12 +163,7 @@
                                 }
                             ]
                         }
-                    ],
-                    "basemap": "streets-vector",
-                    "ground": {
-                        "url": "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer",
-                        "type": "ELEVATION"
-                    }
+                    ]
                 },
                 "view": {
                     "viewmode": "2D",
@@ -178,7 +179,7 @@
         },
         "themes": {
             "ThemeModel": {
-                "_selectedTheme": "everlasting"
+                "_selectedTheme": "autumn"
             },
             "ThemeSelector": {
                 "componentEnabled": true
