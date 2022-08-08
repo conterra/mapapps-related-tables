@@ -143,13 +143,14 @@ export default class PopupDefinition {
                         results.forEach((result, i) => {
                             const relatedRecords = [];
                             const metadata = relatedMetadata[i];
+                            const objectIdField = this._getObjectIdField(metadata.fields);
 
                             // Use allowlist filtering
                             if (enableFiltering && filterMode) {
                                 for (const [key, value] of Object.entries(metadata.fields)) {
-                                    // If attribute is not in allowlist and is not the OBJECTID discard attribute
+                                    // If attribute is not in allowlist and is not the objectIdField discard attribute
                                     if (!filterArray.includes(value.name)) {
-                                        if (value.name === "OBJECTID") {
+                                        if (value.name === objectIdField.name) {
                                             //do nothing
                                         } else {
                                             metadata.fields.forEach(function (field, index) {
@@ -165,7 +166,7 @@ export default class PopupDefinition {
                             // Use denylist filtering
                             if (enableFiltering && !filterMode) {
                                 for (const [key, value] of Object.entries(metadata.fields)) {
-                                    // if attribute is in the denylist and not the OBJECTID discard attribute
+                                    // if attribute is in the denylist and not the objectIdField discard attribute
                                     if (filterArray.includes(value.name)) {
                                         metadata.fields.forEach(function (field, index) {
                                             if (field.name === value.name && value.name !== "OBJECTID") {
@@ -180,7 +181,6 @@ export default class PopupDefinition {
                             relatedRecordGroups.forEach((relatedRecordGroup) => {
                                 relatedRecordGroup.relatedRecords.forEach((record) => {
                                     const attributes = record.attributes;
-                                    const objectIdField = this._getObjectIdField(metadata.fields);
                                     relatedRecords.push({
                                         id: metadata.id + "_" + attributes[objectIdField.name],
                                         title: attributes[this._replaceDisplayField(metadata)],

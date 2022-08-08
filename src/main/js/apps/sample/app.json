@@ -3,7 +3,10 @@
         "title": "${apptitle}"
     },
     "load": {
-        "bundleLocations": ["localbundles", "bundles"],
+        "bundleLocations": [
+            "localbundles",
+            "bundles"
+        ],
         "allowedBundles": [
             "system",
             "console",
@@ -26,8 +29,12 @@
             "locateme",
             "dn_relatedtables"
         ],
-        "require": ["${app}.app"],
-        "i18n": ["bundle"]
+        "require": [
+            "${app}.app"
+        ],
+        "i18n": [
+            "bundle"
+        ]
     },
     "bundles": {
         "dn_relatedtables": {
@@ -43,6 +50,12 @@
                         "name": "Aktivitäten",
                         "newField": "Name"
                     }
+                ],
+                "enableFiltering": false,
+                "filterModeIsAllowlist": false,
+                "filterList": [
+                    "Name",
+                    "Datum"
                 ]
             }
         },
@@ -118,10 +131,20 @@
                                         "type": "simple",
                                         "symbol": {
                                             "type": "simple-marker",
-                                            "color": [255, 0, 0, 0.6],
+                                            "color": [
+                                                255,
+                                                0,
+                                                0,
+                                                0.6
+                                            ],
                                             "size": 16,
                                             "outline": {
-                                                "color": [0, 0, 0, 0.4],
+                                                "color": [
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0.4
+                                                ],
                                                 "width": 0.5
                                             }
                                         }
