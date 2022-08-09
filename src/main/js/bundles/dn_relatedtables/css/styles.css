@@ -117,3 +117,19 @@ Esri table styles to overwrite vue-base classes
 .ctAppRoot .vue-base .esri-widget__table tr td {
     width: 50%;
 }
+
+/**
+Vuetify Table
+ */
+
+.ctAppRoot .vue-base .v-datatable thead tr:first-child {
+    height: 26px !important;
+}
+
+.ctAppRoot .vue-base .v-datatable tbody td {
+    height: 26px !important;
+}
+
+.ctAppRoot .vue-base .v-datatable th, .ctAppRoot .vue-base .v-datatable td {
+    padding: 0 8px !important;
+}

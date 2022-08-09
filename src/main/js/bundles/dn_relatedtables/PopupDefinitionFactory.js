@@ -22,6 +22,10 @@ export default class PopupDefinitionFactory {
         if (type !== TYPE) {
             throw new Error(`unsupported type ${type}`);
         }
+        const properties = this._properties;
+        this._popupWidgetFactory.enableFiltering = properties.enableFiltering;
+        this._popupWidgetFactory.filterModeIsAllowlist = properties.filterModeIsAllowlist;
+        this._popupWidgetFactory.filterList = properties.filterList;
         return new PopupDefinition(this._popupWidgetFactory, this._queryController, this._properties);
     }
 

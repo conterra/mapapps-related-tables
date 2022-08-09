@@ -51,11 +51,11 @@
                         "newField": "Name"
                     }
                 ],
-                "enableFiltering": false,
-                "filterModeIsAllowlist": false,
+                "enableFiltering": true,
+                "filterModeIsAllowlist": true,
                 "filterList": [
-                    "Name",
-                    "Datum"
+                    "Aktivität",
+                    "Name"
                 ]
             }
         },

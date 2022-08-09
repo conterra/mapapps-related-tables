@@ -22,6 +22,9 @@ export default class PopupWidgetFactory {
     getWidget() {
         const vm = this.vm = new Vue(PopupWidget);
         vm.i18n = this._i18n.get().ui;
+        vm.enableFiltering = this.enableFiltering;
+        vm.filterModeIsAllowlist = this.filterModeIsAllowlist;
+        vm.filterList = this.filterList;
 
         return VueDijit(vm, {class: "relatedTablesPopup"});
     }
