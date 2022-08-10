@@ -27,6 +27,7 @@
             "legend",
             "scalebar",
             "locateme",
+            "dn_popups-action-maximize",
             "dn_relatedtables"
         ],
         "require": [
@@ -151,6 +152,7 @@
                                     },
                                     "popupTemplate": {
                                         "popupType": "related-tables-popup",
+                                        "customActions": ["maximize-popup"],
                                         "title": "Störung",
                                         "content": [
                                             {

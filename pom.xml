@@ -87,6 +87,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- DevNet Bundles -->
+        <dependency>
+            <groupId>de.conterra.devnet</groupId>
+            <artifactId>mapapps-popups-action-maximize</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
     <build>
         <pluginManagement>
