@@ -21,7 +21,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.conterra.devnet</groupId>
     <artifactId>mapapps-related-tables</artifactId>
-    <version>4.1.2-SNAPSHOT</version>
+    <version>5.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <repositories>
         <repository>
@@ -87,6 +87,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- DevNet Bundles -->
+        <dependency>
+            <groupId>de.conterra.devnet</groupId>
+            <artifactId>mapapps-popups-action-maximize</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement>

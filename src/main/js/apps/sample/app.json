@@ -27,6 +27,7 @@
             "legend",
             "scalebar",
             "locateme",
+            "dn_popups-action-maximize",
             "dn_relatedtables"
         ],
         "require": [
@@ -45,17 +46,10 @@
                         "newName": "Störungsaktivitäten"
                     }
                 ],
-                "displayfieldReplacer": [
-                    {
-                        "name": "Aktivitäten",
-                        "newField": "Name"
-                    }
-                ],
-                "enableFiltering": false,
+                "enableFiltering": true,
                 "filterModeIsAllowlist": false,
                 "filterList": [
-                    "Name",
-                    "Datum"
+                    "OBJECTID"
                 ]
             }
         },
@@ -151,6 +145,9 @@
                                     },
                                     "popupTemplate": {
                                         "popupType": "related-tables-popup",
+                                        "customActions": [
+                                            "maximize-popup"
+                                        ],
                                         "title": "Störung",
                                         "content": [
                                             {
@@ -180,6 +177,35 @@
                                                         "label": "Kommentar"
                                                     }
                                                 ]
+                                            }
+                                        ],
+                                        "relatedRecordTemplates": {
+                                            "2": {
+                                                "content": [
+                                                    {
+                                                        "type": "fields",
+                                                        "fieldInfos": [
+                                                            {
+                                                                "fieldName": "Name",
+                                                                "label": "Bearbeiter"
+                                                            },
+                                                            {
+                                                                "fieldName": "Aktivität",
+                                                                "label": "Aktivität"
+                                                            },
+                                                            {
+                                                                "fieldName": "Datum",
+                                                                "label": "Bearbeitungsdatum"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        "footerContent": [
+                                            {
+                                                "type": "text",
+                                                "text": "<hr/>\ncreated by <b>con terra</b>"
                                             }
                                         ]
                                     }

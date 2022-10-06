@@ -23,18 +23,9 @@
 }
 
 .ctAppRoot .esri-popup__content .relatedTablesPopup .relatedTablesTitle,
-.ctAppRoot
-    .esri-popup__content
-    .relatedTablesPopup
-    .v-text-field
-    .v-input__slot
-    input,
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-text-field .v-input__slot input,
 .ctAppRoot .esri-popup__content .relatedTablesPopup .v-text-field .v-label,
-.ctAppRoot
-    .esri-popup__content
-    .relatedTablesPopup
-    .v-input__control
-    > .v-input__slot:before {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .v-input__control > .v-input__slot:before {
     color: #6e6e6e;
 }
 
@@ -42,12 +33,19 @@
     color: #6e6e6e !important;
 }
 
-.ctAppRoot
-    .esri-popup__content
-    .relatedTablesPopup
-    .esri-feature__main-container
-    > div {
+.ctAppRoot .esri-popup__content .relatedTablesPopup .esri-feature__size-container {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-top: 1px grey solid;
+}
+
+.ctAppRoot .esri-popup__content .relatedTablesPopup .esri-feature__main-container > div {
     padding: 0;
+}
+
+.ctAppRoot .esri-popup__content .relatedTablesPopup .relatedRecordsData {
+    max-height: 400px;
+    overflow: auto;
 }
 
 /**

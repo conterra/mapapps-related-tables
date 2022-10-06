@@ -1,6 +1,6 @@
 {
     "name": "dn_relatedtables",
-    "version": "4.1.2-SNAPSHOT",
+    "version": "5.0.0-SNAPSHOT",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
     "vendor": "con terra GmbH",
@@ -25,7 +25,6 @@
             "provides": "popups.PopupDefinitionFactory",
             "properties": {
                 "relationNameReplacer": [],
-                "displayfieldReplacer": [],
                 "enableFiltering": false,
                 "filterModeIsAllowlist": false,
                 "filterList": ["Name", "Datum"]

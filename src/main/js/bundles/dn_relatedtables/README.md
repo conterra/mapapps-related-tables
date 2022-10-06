@@ -22,6 +22,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                 "popupTemplate": {
                     "popupType": "related-tables-popup",
                     "title": "Störung",
+                    // default popup content
                     "content": [
                         {
                             "type": "fields",
@@ -51,6 +52,38 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                                 }
                             ]
                         }
+                    ],
+                    // popup templates for related records
+                    "relatedRecordTemplates": {
+                        // template for relation table id 2
+                        "2": {
+                            "content": [
+                                {
+                                    "type": "fields",
+                                    "fieldInfos": [
+                                        {
+                                            "fieldName": "Name",
+                                            "label": "Bearbeiter"
+                                        },
+                                        {
+                                            "fieldName": "Aktivität",
+                                            "label": "Aktivität"
+                                        },
+                                        {
+                                            "fieldName": "Datum",
+                                            "label": "Bearbeitungsdatum"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    // footer content
+                    "footerContent": [
+                        {
+                            "type": "text",
+                            "text": "<hr/>\ncreated by <b>con terra</b>"
+                        }
                     ]
                 }
             }
@@ -70,12 +103,6 @@ The Related Tables bundle adds a new popup to the app to display data from relat
             "newName": "Störungsaktivitäten"
         }
     ],
-    "displayfieldReplacer": [
-        {
-            "name": "Aktivitäten",
-            "newField": "Name"
-        }
-    ],
     "enableFiltering": true,
     "filterModeIsAllowlist": false,
     "filterList": [
@@ -84,10 +111,9 @@ The Related Tables bundle adds a new popup to the app to display data from relat
 }
 ```
 
-| Property              | Type    | Possible Values                                                | Default     | Description                                                                                                                                                        |
-|-----------------------|---------|----------------------------------------------------------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| relationNameReplacer  | Array   |                                                                | ```[]```    | List of name replacer. "name": Name of the related entity, "newName": Name to be used for the display of the related entity                                        |
-| displayfieldReplacer  | Array   |                                                                | ```[]```    | List of displayField replacer. "name": Name of the related entity, "newName": Attribute name of the related entity to be used for the display of the dataset names |
-| enableFiltering       | Boolean | ```true``` &#124; ```false```                                  | ```false``` | Enables/Disables the filtering of the related table content to only display selected attributes                                                                    |
-| filterModeIsAllowlist | Boolean | ```true``` &#124; ```false```                                  | ```false``` | Switches between allowlist and denylist filtering. On ```true```, only listed attributes are displayed. On ```false```, only listed attributes are not displayed   |
-| filterList            | Array   | ```String``` Titles of attributes provided by the used service | ```[]```    | List of attributes used for filtering.                                                                                                                             |
+| Property                    | Type    | Possible Values                                                | Default     | Description                                                                                                                                                      |
+|-----------------------------|---------|----------------------------------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| relationNameReplacer        | Array   |                                                                | ```[]```    | List of name replacer. "name": Name of the related entity, "newName": Name to be used for the display of the related entity                                      |
+| enableFiltering             | Boolean | ```true``` &#124; ```false```                                  | ```false``` | Enables/Disables the filtering of the related table content to only display selected attributes                                                                  |
+| filterModeIsAllowlist       | Boolean | ```true``` &#124; ```false```                                  | ```false``` | Switches between allowlist and denylist filtering. On ```true```, only listed attributes are displayed. On ```false```, only listed attributes are not displayed |
+| filterList                  | Array   | ```String``` Titles of attributes provided by the used service | ```[]```    | List of attributes used for filtering.                                                                                                                           |

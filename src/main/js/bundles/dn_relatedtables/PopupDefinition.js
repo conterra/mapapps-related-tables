@@ -42,11 +42,13 @@ export default class PopupDefinition {
 
                 const customContentWidget = this._getCustomContent(layerOrSublayer, displayField, objectIdField);
 
-                let content;
+                let content = [];
                 if (layerOrSublayer.popupTemplate?.content?.length) {
-                    content = [...layerOrSublayer.popupTemplate.content, ...[customContentWidget]];
-                } else {
-                    content = [customContentWidget];
+                    content = [...content, ...layerOrSublayer.popupTemplate.content];
+                }
+                content = [...content, ...[customContentWidget]];
+                if (layerOrSublayer.popupTemplate?.footerContent?.length) {
+                    content = [...content, ...layerOrSublayer.popupTemplate.footerContent];
                 }
 
                 return new PopupTemplate({
@@ -66,54 +68,64 @@ export default class PopupDefinition {
                 widget.startup();
 
                 const vm = widget.getVM();
-                const featureWidget = new Feature({
-                    graphic: null,
-                    container: vm.$refs.featureWidget
-                });
-                vm.$on('related-record-changed', (relatedRecord) => {
-                    featureWidget.graphic = this._getGraphic(relatedRecord);
-                });
 
                 const sourceLayer = graphic.sourceLayer || layerOrSublayer;
                 displayField = displayField || sourceLayer.displayField;
                 objectIdField = objectIdField || sourceLayer.objectIdField;
                 const objectId = graphic.attributes[objectIdField];
                 widget.set("relatedRecordsData", []);
+                vm.watch("selectedRelatedRecordsData", (selectedRelatedRecordsData) => {
+                    const domNode = vm.$refs.featureWidgets;
+                    // remove all children of domNode
+                    let child = domNode.lastElementChild;
+                    while (child) {
+                        domNode.removeChild(child);
+                        child = domNode.lastElementChild;
+                    }
+                    const relationshipId = selectedRelatedRecordsData.id;
+                    const relatedRecords = selectedRelatedRecordsData.relatedRecords;
+                    const relatedRecordTemplates = sourceLayer?.popupTemplate?.relatedRecordTemplates;
+                    const relatedRecordTemplate =
+                        relatedRecordTemplates ? relatedRecordTemplates[relationshipId] : null;
+                    relatedRecords.forEach((record) => {
+                        const g = this._getGraphic(record, relatedRecordTemplate);
+                        return new Feature({
+                            graphic: g,
+                            container: domNode
+                        });
+                    });
+                });
 
                 this._getRelatedRecordsData(sourceLayer, objectId, widget).then((relatedRecordsData) => {
                     widget.set("relatedRecordsData", relatedRecordsData);
-                    widget.set("selectedRelatedRecordsData", relatedRecordsData[0]);
-                    const g = this._getGraphic(relatedRecordsData[0].active);
-                    featureWidget.graphic = g;
+                    const firstRelatedRecordsData = relatedRecordsData[0];
+                    widget.set("selectedRelatedRecordsData", firstRelatedRecordsData);
                 });
                 return widget.domNode;
             }
         });
     }
 
-    _getGraphic(relatedRecord) {
+    _getGraphic(relatedRecord, relatedRecordTemplate) {
+        if (!relatedRecordTemplate) {
+            relatedRecordTemplate = {
+                title: relatedRecord.title,
+                content: [{
+                    type: "fields", fieldInfos: relatedRecord.fields.map((field) => {
+                        return {
+                            fieldName: field.name, label: field.alias || field.name
+                        };
+                    })
+                }]
+            };
+        }
         const layer = new FeatureLayer({
             source: [],
             fields: relatedRecord.fields
         });
         const filteredAttributes = this._filterAttributes(relatedRecord.attributes);
         return {
-            layer: layer,
-            attributes: filteredAttributes,
-            popupTemplate: {
-                //title: relatedRecord.title,
-                content: [
-                    {
-                        type: "fields",
-                        fieldInfos: relatedRecord.fields.map((field) => {
-                            return {
-                                fieldName: field.name,
-                                label: field.alias || field.name
-                            };
-                        })
-                    }
-                ]
-            }
+            layer: layer, attributes: filteredAttributes, popupTemplate: relatedRecordTemplate
         };
     }
 
@@ -177,18 +189,16 @@ export default class PopupDefinition {
                                     const attributes = record.attributes;
                                     relatedRecords.push({
                                         id: metadata.id + "_" + attributes[objectIdField.name],
-                                        title: attributes[this._replaceDisplayField(metadata)],
+                                        title: attributes[metadata.displayField],
                                         attributes: attributes,
-                                        fields: metadata.fields.map((field) => Field.fromJSON(field)),
-                                        objectIdField: objectIdField
+                                        fields: metadata.fields.map((field) => Field.fromJSON(field))
                                     });
                                 });
                             });
                             relatedRecordsData.push({
                                 id: metadata.id,
                                 title: this._replaceRelationName(metadata.name),
-                                relatedRecords: relatedRecords,
-                                active: relatedRecords[0]
+                                relatedRecords: relatedRecords
                             });
                         });
                         widget.set("loading", false);
@@ -205,16 +215,6 @@ export default class PopupDefinition {
             return replacerObject.newName;
         } else {
             return name;
-        }
-    }
-
-    _replaceDisplayField(metadata) {
-        const displayfieldReplacer = this.properties.displayfieldReplacer;
-        const replacerObject = displayfieldReplacer.find((replacer) => replacer.name === metadata.name);
-        if (replacerObject) {
-            return replacerObject.newField;
-        } else {
-            return metadata.displayField;
         }
     }
 

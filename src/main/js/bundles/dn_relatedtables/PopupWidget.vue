@@ -18,15 +18,15 @@
 
 <template>
     <v-container pa-0>
-        <div class="relatedTablesTitle subheading mb-2">
+        <div class="relatedTablesTitle body-2 mb-1">
             {{ i18n.relatedRecords }}
         </div>
         <v-progress-linear
             v-if="loading"
             :indeterminate="true"
         />
-        <v-divider />
         <v-autocomplete
+            v-if="relatedRecordsData.length>1"
             v-model="selectedRelatedRecordsData"
             :items="relatedRecordsData"
             :label="i18n.relation"
@@ -37,37 +37,30 @@
             item-text="title"
             class="my-2"
         />
-        <v-autocomplete
-            v-model="selectedRelatedRecordsData.active"
-            :items="selectedRelatedRecordsData.relatedRecords"
-            :label="i18n.relatedRecord"
-            :menu-props="{ contentClass: 'relatedTableMenu' }"
-            return-object
-            hide-details
-            dense
-            item-text="title"
-            class="my-2"
-            @change="$emit('related-record-changed', $event)"
+        <div
+            ref="featureWidgets"
+            class="relatedRecordsData"
         />
-        <div ref="featureWidget" />
     </v-container>
 </template>
 <script>
     import Bindable from "apprt-vue/mixins/Bindable";
 
     export default {
-        mixins: [Bindable],
+        mixins: [Bindable], props: {
+            i18n: {
+                type: Object,
+                default: () => {
+                    return {};
+                }
+            }
+        },
         data() {
             return {
                 loading: true,
-                selectedRelatedRecordsData: {
-                    active: null,
-                    relatedRecords: []
-                },
+                selectedRelatedRecordsData: null,
                 relatedRecordsData: []
             };
-        },
-        computed: {
         }
     };
 </script>
