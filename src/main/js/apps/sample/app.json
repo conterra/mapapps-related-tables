@@ -46,7 +46,6 @@
                         "newName": "Störungsaktivitäten"
                     }
                 ],
-                "enableFiltering": true,
                 "filterModeIsAllowlist": false,
                 "filterList": [
                     "OBJECTID"
@@ -180,7 +179,7 @@
                                             }
                                         ],
                                         "relatedRecordTemplates": {
-                                            "2": {
+                                            "21": {
                                                 "content": [
                                                     {
                                                         "type": "fields",

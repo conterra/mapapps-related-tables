@@ -103,7 +103,6 @@ The Related Tables bundle adds a new popup to the app to display data from relat
             "newName": "Störungsaktivitäten"
         }
     ],
-    "enableFiltering": true,
     "filterModeIsAllowlist": false,
     "filterList": [
         "OBJECTID"
@@ -114,6 +113,5 @@ The Related Tables bundle adds a new popup to the app to display data from relat
 | Property                    | Type    | Possible Values                                                | Default     | Description                                                                                                                                                      |
 |-----------------------------|---------|----------------------------------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | relationNameReplacer        | Array   |                                                                | ```[]```    | List of name replacer. "name": Name of the related entity, "newName": Name to be used for the display of the related entity                                      |
-| enableFiltering             | Boolean | ```true``` &#124; ```false```                                  | ```false``` | Enables/Disables the filtering of the related table content to only display selected attributes                                                                  |
 | filterModeIsAllowlist       | Boolean | ```true``` &#124; ```false```                                  | ```false``` | Switches between allowlist and denylist filtering. On ```true```, only listed attributes are displayed. On ```false```, only listed attributes are not displayed |
 | filterList                  | Array   | ```String``` Titles of attributes provided by the used service | ```[]```    | List of attributes used for filtering.                                                                                                                           |

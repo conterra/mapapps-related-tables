@@ -132,12 +132,11 @@ export default class PopupDefinition {
     _filterAttributes(attributes) {
         const clonedAttributes = Object.assign({}, attributes);
         const props = this.properties;
-        const enableFiltering = props.enableFiltering;
         const filterModeIsAllowlist = props.filterModeIsAllowlist;
         const filterList = props.filterList;
 
         // Use allowlist filtering
-        if (enableFiltering && filterModeIsAllowlist) {
+        if (filterList.length && filterModeIsAllowlist) {
             for (const [key, value] of Object.entries(clonedAttributes)) {
                 // delete all attributes that are not included in the filterList
                 if (!filterList.includes(key)) {
@@ -147,7 +146,7 @@ export default class PopupDefinition {
         }
 
         // Use denylist filtering
-        if (enableFiltering && !filterModeIsAllowlist) {
+        if (filterList.length && !filterModeIsAllowlist) {
             for (const [key, value] of Object.entries(clonedAttributes)) {
                 // delete all attributes that are included in the filterList
                 if (filterList.includes(key)) {

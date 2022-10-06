@@ -25,7 +25,6 @@
             "provides": "popups.PopupDefinitionFactory",
             "properties": {
                 "relationNameReplacer": [],
-                "enableFiltering": false,
                 "filterModeIsAllowlist": false,
                 "filterList": ["Name", "Datum"]
             },
