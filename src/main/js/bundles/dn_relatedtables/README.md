@@ -94,24 +94,28 @@ The Related Tables bundle adds a new popup to the app to display data from relat
 
 ### Configurable Components of dn_relatedtables:
 
-#### PopupDefinitionFactory:
+#### Config:
 ```
-"PopupDefinitionFactory": {
-    "relationNameReplacer": [
-        {
-            "name": "Aktivitäten",
-            "newName": "Störungsaktivitäten"
-        }
-    ],
-    "filterModeIsAllowlist": false,
-    "filterList": [
-        "OBJECTID"
-    ]
+"dn_relatedtables": {
+    "Config": {
+        "relationNameReplacer": [
+            {
+                "name": "Aktivitäten",
+                "newName": "Störungsaktivitäten"
+            }
+        ],
+        "filterAttributesMode": "deny",
+        "filterAttributesList": [
+            "OBJECTID"
+        ]
+    }
 }
 ```
 
-| Property                    | Type    | Possible Values                                                | Default     | Description                                                                                                                                                      |
-|-----------------------------|---------|----------------------------------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| relationNameReplacer        | Array   |                                                                | ```[]```    | List of name replacer. "name": Name of the related entity, "newName": Name to be used for the display of the related entity                                      |
-| filterModeIsAllowlist       | Boolean | ```true``` &#124; ```false```                                  | ```false``` | Switches between allowlist and denylist filtering. On ```true```, only listed attributes are displayed. On ```false```, only listed attributes are not displayed |
-| filterList                  | Array   | ```String``` Titles of attributes provided by the used service | ```[]```    | List of attributes used for filtering.                                                                                                                           |
+Filter properties affect only the relational data. These do not have to be configured if you define your own templates via the relatedRecordTemplates property.
+
+| Property             | Type    | Possible Values                                              | Default    | Description                                                                                                                                                       |
+|----------------------|---------|--------------------------------------------------------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| relationNameReplacer | Array   |                                                              | ```[]```   | List of name replacer. "name": Name of the related entity, "newName": Name to be used for the display of the related entity.                                      |
+| filterAttributesMode | Boolean | ```deny``` &#124; ```allow```                                | ```deny``` | Switches between allowlist and denylist filtering. On ```allow```, only listed attributes are displayed. On ```deny```, only listed attributes are not displayed. |
+| filterAttributesList | Array   | ```String``` Name of attributes provided by the used service | ```[]```   | List of attributes used for filtering.                                                                                                                            |

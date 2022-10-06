@@ -39,15 +39,15 @@
     },
     "bundles": {
         "dn_relatedtables": {
-            "PopupDefinitionFactory": {
+            "Config": {
                 "relationNameReplacer": [
                     {
                         "name": "Aktivitäten",
                         "newName": "Störungsaktivitäten"
                     }
                 ],
-                "filterModeIsAllowlist": false,
-                "filterList": [
+                "filterAttributesMode": "deny",
+                "filterAttributesList": [
                     "OBJECTID"
                 ]
             }
@@ -179,7 +179,7 @@
                                             }
                                         ],
                                         "relatedRecordTemplates": {
-                                            "21": {
+                                            "2": {
                                                 "content": [
                                                     {
                                                         "type": "fields",

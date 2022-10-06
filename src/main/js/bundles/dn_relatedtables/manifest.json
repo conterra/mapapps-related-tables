@@ -21,12 +21,13 @@
     "layout-widgets": [],
     "components": [
         {
-            "name": "PopupDefinitionFactory",
+            "name": "Config",
+            "impl": "./PopupDefinitionFactory",
             "provides": "popups.PopupDefinitionFactory",
             "properties": {
                 "relationNameReplacer": [],
-                "filterModeIsAllowlist": false,
-                "filterList": ["Name", "Datum"]
+                "filterAttributesMode": "deny",
+                "filterAttributesList": ["Name", "Datum"]
             },
             "references": [
                 {
