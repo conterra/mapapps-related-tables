@@ -76,9 +76,11 @@ The Related Tables bundle adds a new popup to the app to display data from relat
             "newField": "Name"
         }
     ],
-    "enableFiltering": false,
+    "enableFiltering": true,
     "filterModeIsAllowlist": false,
-    "filterList": []
+    "filterList": [
+        "OBJECTID"
+    ]
 }
 ```
 
