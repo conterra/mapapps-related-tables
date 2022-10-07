@@ -18,8 +18,17 @@
 
 <template>
     <v-container pa-0>
-        <div class="relatedTablesTitle body-2 mb-1">
+        <div
+            v-if="relatedRecordsData.length!==1"
+            class="relatedTablesTitle body-2 mb-1"
+        >
             {{ i18n.relatedRecords }}
+        </div>
+        <div
+            v-if="relatedRecordsData.length===1"
+            class="relatedTablesTitle body-2 mb-1"
+        >
+            {{ relatedRecordsData[0].title }}
         </div>
         <v-progress-linear
             v-if="loading"
