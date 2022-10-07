@@ -39,6 +39,10 @@
     border-bottom: 1px grey solid;
 }
 
+.ctAppRoot .esri-popup__content .relatedTablesPopup .esri-feature__size-container:last-child {
+    border-bottom: none;
+}
+
 .ctAppRoot .esri-popup__content .relatedTablesPopup .esri-feature__main-container > div {
     padding: 0;
 }
