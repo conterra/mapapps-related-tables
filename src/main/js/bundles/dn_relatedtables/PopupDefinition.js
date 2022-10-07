@@ -194,11 +194,13 @@ export default class PopupDefinition {
                                     });
                                 });
                             });
-                            relatedRecordsData.push({
-                                id: metadata.id,
-                                title: this._replaceRelationName(metadata.name),
-                                relatedRecords: relatedRecords
-                            });
+                            if (relatedRecords.length) {
+                                relatedRecordsData.push({
+                                    id: metadata.id,
+                                    title: this._replaceRelationName(metadata.name),
+                                    relatedRecords: relatedRecords
+                                });
+                            }
                         });
                         widget.set("loading", false);
                         return relatedRecordsData;
