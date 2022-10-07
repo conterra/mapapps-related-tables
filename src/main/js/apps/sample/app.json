@@ -27,6 +27,7 @@
             "legend",
             "scalebar",
             "locateme",
+            "toc",
             "dn_popups-action-maximize",
             "dn_relatedtables"
         ],
@@ -112,6 +113,7 @@
                     "basemap": "gray-vector",
                     "layers": [
                         {
+                            "id": "stoerungen",
                             "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
                             "type": "AGS_DYNAMIC",
                             "title": "Störungen",
@@ -119,7 +121,6 @@
                                 {
                                     "id": 0,
                                     "title": "Störungen",
-                                    "visible": true,
                                     "renderer": {
                                         "type": "simple",
                                         "symbol": {
@@ -226,17 +227,196 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "id": "koeln",
+                            "url": "https://geoportal.stadt-koeln.de/arcgis/rest/services/basiskarten/kgg/MapServer",
+                            "type": "AGS_DYNAMIC",
+                            "title": "Stadt Köln",
+                            "sublayers": [
+                                {
+                                    "id": 3,
+                                    "title": "Stadtteile",
+                                    "popupTemplate": {
+                                        "popupType": "related-tables-popup",
+                                        "customActions": [
+                                            "maximize-popup"
+                                        ],
+                                        "title": "Stadtteil {name}",
+                                        "content": [
+                                            {
+                                                "type": "fields",
+                                                "fieldInfos": [
+                                                    {
+                                                        "fieldName": "st_area(shape)",
+                                                        "label": "Fläche",
+                                                        "format": {
+                                                            "places": 2,
+                                                            "digitSeparator": true
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "relatedRecordTemplates": {
+                                            "15": {
+                                                "title": "Block {nummer}",
+                                                "content": [
+                                                    {
+                                                        "type": "fields",
+                                                        "fieldInfos": [
+                                                            {
+                                                                "fieldName": "stadtbezirk",
+                                                                "label": "Stadtbezirk"
+                                                            },
+                                                            {
+                                                                "fieldName": "st_area(shape)",
+                                                                "label": "Fläche",
+                                                                "format": {
+                                                                    "places": 2,
+                                                                    "digitSeparator": true
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            "1": {
+                                                "title": "{name}",
+                                                "content": [
+                                                    {
+                                                        "type": "fields",
+                                                        "fieldInfos": [
+                                                            {
+                                                                "fieldName": "stadtbezirk",
+                                                                "label": "Stadtbezirk"
+                                                            },
+                                                            {
+                                                                "fieldName": "st_area(shape)",
+                                                                "label": "Fläche",
+                                                                "format": {
+                                                                    "places": 2,
+                                                                    "digitSeparator": true
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            "4": {
+                                                "title": "{name}",
+                                                "content": [
+                                                    {
+                                                        "type": "fields",
+                                                        "fieldInfos": [
+                                                            {
+                                                                "fieldName": "st_area(shape)",
+                                                                "label": "Fläche",
+                                                                "format": {
+                                                                    "places": 2,
+                                                                    "digitSeparator": true
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        "footerContent": [
+                                            {
+                                                "type": "text",
+                                                "text": "<hr/>\nDaten der <b>Stadt Köln</b>"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "grundriss_fhws",
+                            "url": "https://gisportal.fhws.de/server/rest/services/FHWS_Campus/SDE_Campus_RoeRi_Gebaeude/FeatureServer/13",
+                            "type": "AGS_FEATURE",
+                            "title": "Grundriss FHWS",
+                            "popupTemplate": {
+                                "popupType": "related-tables-popup",
+                                "customActions": [
+                                    "maximize-popup"
+                                ],
+                                "title": "Raum {raumnummer}",
+                                "content": [
+                                    {
+                                        "type": "fields",
+                                        "fieldInfos": [
+                                            {
+                                                "fieldName": "art",
+                                                "label": "Art"
+                                            },
+                                            {
+                                                "fieldName": "etage",
+                                                "label": "Etage"
+                                            },
+                                            {
+                                                "fieldName": "funktion",
+                                                "label": "Funktion"
+                                            },
+                                            {
+                                                "fieldName": "campus",
+                                                "label": "Campus"
+                                            },
+                                            {
+                                                "fieldName": "hoehe",
+                                                "label": "Höhe"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "relatedRecordTemplates": {
+                                    "20": {
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "{name}"
+                                            }
+                                        ]
+                                    },
+                                    "21": {
+                                        "title": "Raumnutzung {raumnummer}",
+                                        "content": [
+                                            {
+                                                "type": "fields",
+                                                "fieldInfos": [
+                                                    {
+                                                        "fieldName": "organisationseinheit",
+                                                        "label": "Organisationseinheit"
+                                                    },
+                                                    {
+                                                        "fieldName": "bezeichnung",
+                                                        "label": "Bezeichnung"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                },
+                                "footerContent": [
+                                    {
+                                        "type": "text",
+                                        "text": "<hr/>\nDaten der <b>Hochschule für angewandte Wissenschaften Würzburg-Schweinfurt</b>"
+                                    }
+                                ]
+                            }
                         }
                     ]
                 },
                 "view": {
                     "viewmode": "2D",
-                    "extent": {
-                        "xmin": 831102.7179493543,
-                        "ymin": 6783090.505371286,
-                        "xmax": 867792.4915261895,
-                        "ymax": 6802085.106900126,
-                        "spatialReference": 3857
+                    "scale": 144447.638572,
+                    "center": {
+                        "x": 773018.5113211585,
+                        "y": 6604676.693279617,
+                        "spatialReference": {
+                            "wkid": 3857
+                        }
                     }
                 }
             }
