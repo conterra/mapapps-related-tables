@@ -27,28 +27,26 @@
             "properties": {
                 "relationNameReplacer": [],
                 "filterAttributesMode": "deny",
-                "filterAttributesList": ["Name", "Datum"]
+                "filterAttributesList": []
             },
             "references": [
                 {
                     "name": "_popupWidgetFactory",
-                    "providing": "relatedTablesPopup.PopupWidgetFactory"
+                    "providing": "dn_relatedtables.PopupWidgetFactory"
                 },
                 {
                     "name": "_queryController",
-                    "providing": "relatedTablesPopup.QueryController"
+                    "providing": "dn_relatedtables.QueryController"
                 }
             ]
         },
         {
             "name": "PopupWidgetFactory",
-            "provides": [
-                "relatedTablesPopup.PopupWidgetFactory"
-            ]
+            "provides": "dn_relatedtables.PopupWidgetFactory"
         },
         {
             "name": "QueryController",
-            "provides": "relatedTablesPopup.QueryController"
+            "provides": "dn_relatedtables.QueryController"
         }
     ]
 }
