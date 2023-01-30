@@ -108,6 +108,195 @@ The Related Tables bundle adds a new popup to the app to display data from relat
 ]
 ```
 
+### Sample configuration using related layers for popupTemplate configuration
+```json
+ "layers": [
+    {
+        "id": "stoerungen",
+        "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
+        "type": "AGS_DYNAMIC",
+        "title": "Störungen",
+        "sublayers": [
+            {
+                "id": 0,
+                "title": "Störungen",
+                "renderer": {
+                    "type": "simple",
+                    "symbol": {
+                        "type": "simple-marker",
+                        "color": [
+                            255,
+                            0,
+                            0,
+                            0.6
+                        ],
+                        "size": 16,
+                        "outline": {
+                            "color": [
+                                0,
+                                0,
+                                0,
+                                0.4
+                            ],
+                            "width": 0.5
+                        }
+                    }
+                },
+                "popupTemplate": {
+                    "popupType": "related-tables-popup",
+                    "customActions": [
+                        "maximize-popup"
+                    ],
+                    "title": "Störung",
+                    "content": [
+                        {
+                            "type": "fields",
+                            "fieldInfos": [
+                                {
+                                    "fieldName": "details",
+                                    "label": "Details"
+                                },
+                                {
+                                    "fieldName": "melder",
+                                    "label": "Melder"
+                                },
+                                {
+                                    "fieldName": "status",
+                                    "label": "Status"
+                                },
+                                {
+                                    "fieldName": "zeitpunkt",
+                                    "label": "Zeitpunkt",
+                                    "format": {
+                                        "dateFormat": "day-short-month-year"
+                                    }
+                                },
+                                {
+                                    "fieldName": "kommentar",
+                                    "label": "Kommentar"
+                                }
+                            ]
+                        }
+                    ],
+                    "relatedRecordTemplates": {
+                        "3": {
+                            "title": "{Aktivität} von {Name}",
+                            "content": [
+                                {
+                                    "type": "fields",
+                                    "fieldInfos": [
+                                        {
+                                            "fieldName": "Name",
+                                            "label": "Bearbeiter"
+                                        },
+                                        {
+                                            "fieldName": "Aktivität",
+                                            "label": "Aktivität"
+                                        },
+                                        {
+                                            "fieldName": "Datum",
+                                            "label": "Bearbeitungsdatum"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "media",
+                                    "mediaInfos": [
+                                        {
+                                            "title": "<b>Chart sample without sense</b>",
+                                            "type": "pie-chart",
+                                            "value": {
+                                                "fields": [
+                                                    "Störung_ID",
+                                                    "Aktivität"
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "2": {
+                            // use popupTemplate of layer "status", sublayer 0
+                            "useRelatedLayerTemplate": true,
+                            "relatedLayerId": "status",
+                            "sublayerId": 0
+                        }
+                    },
+                    "footerContent": [
+                        {
+                            "type": "text",
+                            "text": "<hr/>\ncreated by <b>con terra</b>"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "id": "status",
+        "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
+        "type": "AGS_DYNAMIC",
+        "title": "Status",
+        "sublayers": [
+            {
+                "id": 0,
+                "title": "Status",
+                "renderer": {
+                    "type": "simple",
+                        "symbol": {
+                            "type": "simple-marker",
+                            "color": [
+                                255,
+                                0,
+                                0,
+                                0.6
+                            ],
+                            "size": 16,
+                            "outline": {
+                                "color": [
+                                    0,
+                                    0,
+                                    0,
+                                    0.4
+                                ],
+                                "width": 0.5
+                            }
+                        }
+                    },
+                    "popupTemplate": {
+                        "content": [
+                        {
+                            "type": "fields",
+                            "fieldInfos": [
+                                {
+                                    "fieldName": "Name",
+                                    "label": "Bearbeiter"
+                                },
+                                {
+                                    "fieldName": "Aktivität",
+                                    "label": "Aktivität"
+                                },
+                                {
+                                    "fieldName": "Datum",
+                                    "label": "Bearbeitungsdatum"
+                                }
+                            ]
+                        }
+                    ],
+                    "footerContent": [
+                        {
+                            "type": "text",
+                            "text": "<hr/>\ncreated by <b>con terra</b>"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+]
+```
+
 ### Configurable Components of dn_relatedtables:
 
 #### Config:
