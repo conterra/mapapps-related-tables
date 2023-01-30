@@ -37,6 +37,10 @@
                 {
                     "name": "_queryController",
                     "providing": "dn_relatedtables.QueryController"
+                },
+                {
+                    "name": "_mapWidgetModel",
+                    "providing": "map-widget.MapWidgetModel"
                 }
             ]
         },

@@ -22,9 +22,10 @@ import Field from "esri/layers/support/Field";
 
 export default class PopupDefinition {
 
-    constructor(popupWidgetFactory, queryController, properties) {
+    constructor(popupWidgetFactory, queryController, mapWidgetModel, properties) {
         this.popupWidgetFactory = popupWidgetFactory;
         this.queryController = queryController;
+        this.mapWidgetModel = mapWidgetModel;
         this.properties = properties;
     }
 
@@ -84,16 +85,44 @@ export default class PopupDefinition {
                     }
                     const relationshipId = selectedRelatedRecordsData.id;
                     const relatedRecords = selectedRelatedRecordsData.relatedRecords;
-                    const relatedRecordTemplates = sourceLayer?.popupTemplate?.relatedRecordTemplates;
-                    const relatedRecordTemplate =
-                        relatedRecordTemplates ? relatedRecordTemplates[relationshipId] : null;
-                    relatedRecords.forEach((record) => {
-                        const g = this._getGraphic(record, relatedRecordTemplate);
-                        return new Feature({
-                            graphic: g,
-                            container: domNode
+
+                    if (sourceLayer?.popupTemplate?.relatedRecordTemplates?.relatedLayer) {
+                        // use popupDefinition of layer
+                        const relatedId = sourceLayer.popupTemplate.relatedRecordTemplates.relatedLayer.id;
+
+                        this._getView().then(view => {
+                            const layers = view.map.layers;
+                            const relatedLayer = layers.find(layer => layer.id === relatedId);
+
+                            let template;
+                            if (typeof sourceLayer?.popupTemplate?.relatedRecordTemplates?.relatedLayer.sublayerId !== "undefined") {
+                                const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates.relatedLayer.sublayerId;
+                                template = relatedLayer.sublayers.items[subLayerId].popupTemplate;
+                            } else {
+                                template = relatedLayer.popupTemplate;
+                            }
+
+                            relatedRecords.forEach((record) => {
+                                const g = this._getGraphic(record, template);
+                                return new Feature({
+                                    graphic: g,
+                                    container: domNode
+                                });
+                            });
                         });
-                    });
+                    } else {
+                        // use layer specific relatedRecordTemplate
+                        const relatedRecordTemplates = sourceLayer?.popupTemplate?.relatedRecordTemplates;
+                        const relatedRecordTemplate =
+                            relatedRecordTemplates ? relatedRecordTemplates[relationshipId] : null;
+                        relatedRecords.forEach((record) => {
+                            const g = this._getGraphic(record, relatedRecordTemplate);
+                            return new Feature({
+                                graphic: g,
+                                container: domNode
+                            });
+                        });
+                    }
                 });
 
                 this._getRelatedRecordsData(sourceLayer, objectId, widget).then((relatedRecordsData) => {
@@ -221,6 +250,20 @@ export default class PopupDefinition {
 
     _getObjectIdField(fields) {
         return fields.find((field) => field.type === "esriFieldTypeOID");
+    }
+
+    _getView() {
+        const mapWidgetModel = this.mapWidgetModel;
+        return new Promise((resolve, reject) => {
+            if (mapWidgetModel.view) {
+                resolve(mapWidgetModel.view);
+            } else {
+                const watcher = mapWidgetModel.watch("view", ({value: view}) => {
+                    watcher.remove();
+                    resolve(view);
+                });
+            }
+        });
     }
 
 }
