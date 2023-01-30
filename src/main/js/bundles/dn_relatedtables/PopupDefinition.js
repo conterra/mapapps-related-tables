@@ -86,24 +86,26 @@ export default class PopupDefinition {
                     const relationshipId = selectedRelatedRecordsData.id;
                     const relatedRecords = selectedRelatedRecordsData.relatedRecords;
 
-                    if (sourceLayer?.popupTemplate?.relatedRecordTemplates?.relatedLayer) {
-                        // use popupDefinition of layer
-                        const relatedId = sourceLayer.popupTemplate.relatedRecordTemplates.relatedLayer.id;
+                    const relatedRecordTemplates = sourceLayer?.popupTemplate?.relatedRecordTemplates;
+                    let relatedRecordTemplate =
+                        relatedRecordTemplates ? relatedRecordTemplates[relationshipId] : null;
+
+                    if (relatedRecordTemplate.useRelatedLayerTemplate) {
+                        const relatedId = relatedRecordTemplate.relatedLayerId;
 
                         this._getView().then(view => {
                             const layers = view.map.layers;
                             const relatedLayer = layers.find(layer => layer.id === relatedId);
 
-                            let template;
-                            if (typeof sourceLayer?.popupTemplate?.relatedRecordTemplates?.relatedLayer.sublayerId !== "undefined") {
-                                const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates.relatedLayer.sublayerId;
-                                template = relatedLayer.sublayers.items[subLayerId].popupTemplate;
+                            if (typeof sourceLayer?.popupTemplate?.relatedRecordTemplates[relationshipId]?.sublayerId !== "undefined") {
+                                const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates[relationshipId].sublayerId;
+                                relatedRecordTemplate = relatedLayer.sublayers.items[subLayerId].popupTemplate;
                             } else {
-                                template = relatedLayer.popupTemplate;
+                                relatedRecordTemplate = relatedLayer.popupTemplate;
                             }
 
                             relatedRecords.forEach((record) => {
-                                const g = this._getGraphic(record, template);
+                                const g = this._getGraphic(record, relatedRecordTemplate);
                                 return new Feature({
                                     graphic: g,
                                     container: domNode
@@ -111,10 +113,6 @@ export default class PopupDefinition {
                             });
                         });
                     } else {
-                        // use layer specific relatedRecordTemplate
-                        const relatedRecordTemplates = sourceLayer?.popupTemplate?.relatedRecordTemplates;
-                        const relatedRecordTemplate =
-                            relatedRecordTemplates ? relatedRecordTemplates[relationshipId] : null;
                         relatedRecords.forEach((record) => {
                             const g = this._getGraphic(record, relatedRecordTemplate);
                             return new Feature({
