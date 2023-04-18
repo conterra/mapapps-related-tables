@@ -1,0 +1,219 @@
+{
+    "properties": {
+        "title": "${apptitle}"
+    },
+    "load": {
+        "bundleLocations": [
+            "localbundles",
+            "bundles"
+        ],
+        "allowedBundles": [
+            "system",
+            "console",
+            "notifier",
+            "splashscreen",
+            "templatelayout",
+            "template-seasons",
+            "theme-everlasting",
+            "theme-winter",
+            "theme-spring",
+            "theme-summer",
+            "theme-autumn",
+            "map-init",
+            "toolset",
+            "banner",
+            "custominfo",
+            "mapnavigation",
+            "legend",
+            "scalebar",
+            "locateme",
+            "toc",
+            "dn_popups-action-maximize",
+            "dn_relatedtables"
+        ],
+        "require": [
+            "${app}.app"
+        ],
+        "i18n": [
+            "bundle"
+        ]
+    },
+    "bundles": {
+        "dn_relatedtables": {
+            "Config": {
+                "relationNameReplacer": [
+                    {
+                        "name": "Aktivitäten",
+                        "newName": "Störungsaktivitäten"
+                    }
+                ],
+                "filterAttributesMode": "deny",
+                "filterAttributesList": [
+                    "OBJECTID"
+                ]
+            }
+        },
+        "popups": {
+            "Config": {
+                "defaultPopupType": "related-tables-popup",
+                "defaultPopupEnabled": true,
+                "highlightEnabled": true,
+                "autoCloseEnabled": false,
+                "collapseEnabled": false,
+                "dockingForced": true,
+                "dockingDisabled": false,
+                "dockEnabled": false,
+                "dockPosition": "auto",
+                "dockButtonEnabled": true,
+                "dockBreakpoint": true
+            }
+        },
+        "banner": {
+            "BannerWidget": {
+                "label": "Developer Network",
+                "imagePosition": "above",
+                "image": "resource('${app}:/images/logo_conterra.png')",
+                "imageWidth": 200,
+                "link": "https://developernetwork.conterra.de"
+            }
+        },
+        "custominfo": {
+            "CustomInfoToggleTool": [
+                {
+                    "id": "customInfoTool",
+                    "activateOnStartup": true,
+                    "title": "Information",
+                    "tooltip": "Information",
+                    "iconClass": "icon-custom-info-info",
+                    "toolClass": "ctInfo",
+                    "togglable": true,
+                    "widgetSettings": {
+                        "content": "${appInfo}",
+                        "window": {
+                            "title": "Information",
+                            "marginBox": {
+                                "w": 300,
+                                "h": 140,
+                                "l": 20,
+                                "b": 120
+                            },
+                            "draggable": true,
+                            "closable": true,
+                            "modal": false,
+                            "maximizable": false,
+                            "resizable": false
+                        }
+                    }
+                }
+            ]
+        },
+        "map-init": {
+            "Config": {
+                "map": {
+                    "basemap": "gray-vector",
+                    "layers": [
+                        {
+                            "id": "test3",
+                            "url": "https://dev0312w.conterra.de/server/rest/services/Hosted/Map/FeatureServer/0",
+                            "type": "AGS_FEATURE",
+                            "popupTemplate": {
+                                "title": "test3",
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "<hr/>Beispielinhalt für 3</b>"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": "test2",
+                            "url": "https://dev0312w.conterra.de/server/rest/services/Hosted/Map/FeatureServer/1",
+                            "type": "AGS_FEATURE",
+                            "popupTemplate": {
+                                "popupType": "related-tables-popup",
+                                "title": "test2",
+                                "relatedRecordTemplates": {
+                                    "0": {
+                                        "useRelatedLayerTemplate": true,
+                                        "relatedLayerId": "test3"
+                                    }
+                                },
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "<hr/>Beispielinhalt für 2</b>"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": "test1",
+                            "url": "https://dev0312w.conterra.de/server/rest/services/Hosted/Map/FeatureServer/2",
+                            "type": "AGS_FEATURE",
+                            "popupTemplate": {
+                                "popupType": "related-tables-popup",
+                                "title": "test1",
+                                "relatedRecordTemplates": {
+                                    "1": {
+                                        "useRelatedLayerTemplate": true,
+                                        "relatedLayerId": "test2"
+                                    }
+                                },
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "<hr/>Beispielinhalt für 1</b>"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "view": {
+                    "viewmode": "2D",
+                    "scale": 144447.638572,
+                    "center": {
+                        "x": 773018.5113211585,
+                        "y": 6604676.693279617,
+                        "spatialReference": {
+                            "wkid": 3857
+                        }
+                    }
+                }
+            }
+        },
+        "themes": {
+            "ThemeModel": {
+                "_selectedTheme": "autumn"
+            },
+            "ThemeSelector": {
+                "componentEnabled": true
+            }
+        },
+        "toolset": {
+            "ToolsetManager": {
+                "toolsets": [
+                    {
+                        "id": "mapview_tools",
+                        "tools": [
+                            "locateMeTool",
+                            "zoomInTool",
+                            "zoomOutTool",
+                            "compassTool",
+                            "restoreInitialViewTool"
+                        ],
+                        "registerWidget": {
+                            "widgetRole": "mapview_tools"
+                        },
+                        "container": "ignore",
+                        "windowType": "container",
+                        "cssClass": "muted"
+                    }
+                ]
+            }
+        }
+    }
+}
+
+
