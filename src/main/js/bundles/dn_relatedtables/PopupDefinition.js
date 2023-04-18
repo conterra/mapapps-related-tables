@@ -98,12 +98,17 @@ export default class PopupDefinition {
                             const relatedLayer = layers.find(layer => layer.id === relatedId);
 
                             if (typeof sourceLayer?.popupTemplate?.relatedRecordTemplates[relationshipId]?.sublayerId !== "undefined") {
-                                const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates[relationshipId].sublayerId;
-                                relatedRecordTemplate = relatedLayer.sublayers.items[subLayerId].popupTemplate;
+                                if (relatedLayer.type === "group") {
+                                    const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates[relationshipId].sublayerId;
+                                    relatedRecordTemplate = relatedLayer.layers.items[subLayerId].popupTemplate;
+                                    // todo: layers.items is inverted
+                                } else {
+                                    const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates[relationshipId].sublayerId;
+                                    relatedRecordTemplate = relatedLayer.sublayers.items[subLayerId].popupTemplate;
+                                }
                             } else {
                                 relatedRecordTemplate = relatedLayer.popupTemplate;
                             }
-
                             relatedRecords.forEach((record) => {
                                 const g = this._getGraphic(record, relatedRecordTemplate);
                                 return new Feature({
