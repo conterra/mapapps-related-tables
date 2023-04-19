@@ -131,6 +131,34 @@
                                             }
                                         ]
                                     }
+                                },
+                                {
+                                    "id": "test34",
+                                    "url": "https://dev0312w.conterra.de/server/rest/services/Hosted/Map/FeatureServer/1",
+                                    "type": "AGS_FEATURE",
+                                    "popupTemplate": {
+                                        "title": "target",
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "<hr/>Beispielinhalt für target</b>"
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "id": "test55",
+                                    "url": "https://dev0312w.conterra.de/server/rest/services/Hosted/Map/FeatureServer/1",
+                                    "type": "AGS_FEATURE",
+                                    "popupTemplate": {
+                                        "title": "target",
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "<hr/>Beispielinhalt für target</b>"
+                                            }
+                                        ]
+                                    }
                                 }
                             ]
                         },
