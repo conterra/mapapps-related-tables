@@ -100,14 +100,17 @@ export default class PopupDefinition {
                             if (typeof sourceLayer?.popupTemplate?.relatedRecordTemplates[relationshipId]?.sublayerId !== "undefined") {
                                 if (relatedLayer.type === "group") {
                                     const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates[relationshipId].sublayerId;
-                                    relatedRecordTemplate = relatedLayer.layers.items[subLayerId].popupTemplate;
+                                    // invrese layers
+                                    const inversedLayers =relatedLayer.layers.items.toReversed();
+                                    relatedRecordTemplate = inversedLayers[subLayerId].popupTemplate;
                                     // todo: layers.items is inverted
                                 } else {
                                     const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates[relationshipId].sublayerId;
                                     relatedRecordTemplate = relatedLayer.sublayers.items[subLayerId].popupTemplate;
                                 }
                             } else {
-                                relatedRecordTemplate = relatedLayer.popupTemplate;
+                                // template connected at related layer (2)
+                                relatedRecordTemplate = relatedLayer.popupTemplate.content;
                             }
                             relatedRecords.forEach((record) => {
                                 const g = this._getGraphic(record, relatedRecordTemplate);
