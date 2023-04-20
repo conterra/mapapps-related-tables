@@ -54,7 +54,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                         }
                     ],
                     // popup templates for related records
-                    "relatedRecordTemplates": {
+                    "relationshipTemplates": {
                         // template for relation table id 2
                         "2": {
                             "title": "{Aktivität} von {Name}",
@@ -142,7 +142,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                 ],
                 // only show relationship layers 1 and 4
                 "displayedRelationships": [1, 4],
-                "relatedRecordTemplates": {
+                "relationshipTemplates": {
                     "1": {
                         "title": "{name}",
                         "content": [
@@ -266,7 +266,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                             ]
                         }
                     ],
-                    "relatedRecordTemplates": {
+                    "relationshipTemplates": {
                         "3": {
                             "title": "{Aktivität} von {Name}",
                             "content": [
@@ -404,7 +404,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
 }
 ```
 
-Filter properties affect only the relational data. These do not have to be configured if you define your own templates via the relatedRecordTemplates property.
+Filter properties affect only the relational data. These do not have to be configured if you define your own templates via the relationshipTemplates property.
 
 | Property             | Type    | Possible Values                                              | Default    | Description                                                                                                                                                       |
 | -------------------- | ------- | ------------------------------------------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |

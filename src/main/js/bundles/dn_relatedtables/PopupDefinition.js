@@ -86,15 +86,15 @@ export default class PopupDefinition {
                     const relationshipId = selectedRelatedRecordsData.id;
                     const relatedRecords = selectedRelatedRecordsData.relatedRecords;
 
-                    const relatedRecordTemplates = sourceLayer?.popupTemplate?.relatedRecordTemplates;
+                    const relationshipTemplates = sourceLayer?.popupTemplate?.relationshipTemplates;
                     let relatedRecordTemplate =
-                        relatedRecordTemplates ? relatedRecordTemplates[relationshipId] : null;
+                        relationshipTemplates ? relationshipTemplates[relationshipId] : null;
 
                     if (relatedRecordTemplate?.useRelatedLayerTemplate && relatedRecordTemplate?.relatedLayerId) {
                         const relatedLayerId = relatedRecordTemplate.relatedLayerId;
                         const relatedLayer = this._getLayerById(relatedLayerId);
                         relatedRecordTemplate = relatedLayer.popupTemplate;
-                        if(relatedRecordTemplate.relatedRecordTemplates) {
+                        if(relatedRecordTemplate.relationshipTemplates) {
                             relatedRecordTemplate = undefined;
                         }
                     }
