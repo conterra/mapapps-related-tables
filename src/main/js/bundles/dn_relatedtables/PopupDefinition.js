@@ -64,7 +64,7 @@ export default class PopupDefinition {
     _getCustomContent(layerOrSublayer, displayField, objectIdField) {
         return new CustomContent({
             outFields: ["*"],
-            creator: ({graphic}) => {
+            creator: ({ graphic }) => {
                 const widget = this.popupWidgetFactory.getWidget();
                 widget.startup();
 
@@ -75,7 +75,7 @@ export default class PopupDefinition {
                 objectIdField = objectIdField || sourceLayer.objectIdField;
                 const objectId = graphic.attributes[objectIdField];
                 widget.set("relatedRecordsData", []);
-                vm.watch("selectedRelatedRecordsData", (selectedRelatedRecordsData) => {
+                vm.watch("selectedRelatedRecordsData", async (selectedRelatedRecordsData) => {
                     const domNode = vm.$refs.featureWidgets;
                     // remove all children of domNode
                     let child = domNode.lastElementChild;
@@ -90,45 +90,21 @@ export default class PopupDefinition {
                     let relatedRecordTemplate =
                         relatedRecordTemplates ? relatedRecordTemplates[relationshipId] : null;
 
-                    if (relatedRecordTemplate.useRelatedLayerTemplate) {
-                        const relatedId = relatedRecordTemplate.relatedLayerId;
-
-                        this._getView().then(view => {
-                            const layers = view.map.layers;
-                            const relatedLayer = layers.find(layer => layer.id === relatedId);
-
-                            if (typeof sourceLayer?.popupTemplate?.relatedRecordTemplates[relationshipId]?.sublayerId !== "undefined") {
-                                if (relatedLayer.type === "group") {
-                                    const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates[relationshipId].sublayerId;
-                                    // invrese layers
-                                    const inversedLayers =relatedLayer.layers.items.toReversed();
-                                    relatedRecordTemplate = inversedLayers[subLayerId].popupTemplate;
-                                    // todo: layers.items is inverted
-                                } else {
-                                    const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates[relationshipId].sublayerId;
-                                    relatedRecordTemplate = relatedLayer.sublayers.items[subLayerId].popupTemplate;
-                                }
-                            } else {
-                                // template connected at related layer (2)
-                                relatedRecordTemplate = relatedLayer.popupTemplate.content;
-                            }
-                            relatedRecords.forEach((record) => {
-                                const g = this._getGraphic(record, relatedRecordTemplate);
-                                return new Feature({
-                                    graphic: g,
-                                    container: domNode
-                                });
-                            });
-                        });
-                    } else {
-                        relatedRecords.forEach((record) => {
-                            const g = this._getGraphic(record, relatedRecordTemplate);
-                            return new Feature({
-                                graphic: g,
-                                container: domNode
-                            });
-                        });
+                    if (relatedRecordTemplate?.useRelatedLayerTemplate && relatedRecordTemplate?.relatedLayerId) {
+                        const relatedLayerId = relatedRecordTemplate.relatedLayerId;
+                        const relatedLayer = this._getLayerById(relatedLayerId);
+                        relatedRecordTemplate = relatedLayer.popupTemplate;
+                        if(relatedRecordTemplate.relatedRecordTemplates) {
+                            relatedRecordTemplate = undefined;
+                        }
                     }
+                    relatedRecords.forEach((record) => {
+                        const g = this._getGraphic(record, relatedRecordTemplate);
+                        return new Feature({
+                            graphic: g,
+                            container: domNode
+                        });
+                    });
                 });
 
                 this._getRelatedRecordsData(sourceLayer, objectId, widget).then((relatedRecordsData) => {
@@ -258,18 +234,23 @@ export default class PopupDefinition {
         return fields.find((field) => field.type === "esriFieldTypeOID");
     }
 
-    _getView() {
+    _getLayerById(layerIdPath) {
+        if (typeof layerIdPath !== "string") {
+            return undefined;
+        }
+
         const mapWidgetModel = this.mapWidgetModel;
-        return new Promise((resolve, reject) => {
-            if (mapWidgetModel.view) {
-                resolve(mapWidgetModel.view);
-            } else {
-                const watcher = mapWidgetModel.watch("view", ({value: view}) => {
-                    watcher.remove();
-                    resolve(view);
-                });
-            }
-        });
+
+        const parts = layerIdPath.split("/");
+        const layerId = parts[0];
+        const sublayerId = parts[1];
+
+        const layer = mapWidgetModel?.map?.findLayerById(layerId);
+        if (!sublayerId) {
+            return layer;
+        }
+
+        return layer.findSublayerById(parseInt(sublayerId, 10));
     }
 
 }
