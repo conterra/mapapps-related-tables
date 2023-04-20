@@ -258,8 +258,9 @@
                                                 ]
                                             }
                                         ],
+                                        "displayedRelationships": [3, 1, 4],
                                         "relatedRecordTemplates": {
-                                            "15": {
+                                            "3": {
                                                 "title": "Block {nummer}",
                                                 "content": [
                                                     {
