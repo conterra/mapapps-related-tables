@@ -21,7 +21,7 @@ export default class QueryController {
         let relationships = this.relationships = metadata.relationships;
         if (sourceLayer?.popupTemplate?.displayedRelationships) {
             const displayedRelationships = sourceLayer?.popupTemplate?.displayedRelationships;
-            relationships = relationships.filter((r) => displayedRelationships.includes(r.relatedTableId));
+            relationships = relationships.filter((r) => displayedRelationships.includes(r.id));
         }
         const requests = relationships.map((relationship) => {
             const relationshipId = relationship && relationship.id;
@@ -49,7 +49,7 @@ export default class QueryController {
         let relationships = this.relationships = metadata.relationships;
         if (sourceLayer?.popupTemplate?.displayedRelationships) {
             const displayedRelationships = sourceLayer?.popupTemplate?.displayedRelationships;
-            relationships = relationships.filter((r) => displayedRelationships.includes(r.relatedTableId));
+            relationships = relationships.filter((r) => displayedRelationships.includes(r.id));
         }
         const requests = relationships.map((relationship) => {
             const relatedTableId = relationship && relationship.relatedTableId;
@@ -58,6 +58,9 @@ export default class QueryController {
                     f: 'json'
                 },
                 handleAs: 'json'
+            }).then((result) => {
+                result.relationshipId = relationship.id;
+                return result;
             });
         });
         return Promise.all(requests);

@@ -198,7 +198,7 @@ export default class PopupDefinition {
                                 relatedRecordGroup.relatedRecords.forEach((record) => {
                                     const attributes = record.attributes;
                                     relatedRecords.push({
-                                        id: metadata.id + "_" + attributes[objectIdField.name],
+                                        id: metadata.relationshipId + "_" + attributes[objectIdField.name],
                                         title: attributes[metadata.displayField],
                                         attributes: attributes,
                                         fields: metadata.fields.map((field) => Field.fromJSON(field))
@@ -207,7 +207,7 @@ export default class PopupDefinition {
                             });
                             if (relatedRecords.length) {
                                 relatedRecordsData.push({
-                                    id: metadata.id,
+                                    id: metadata.relationshipId,
                                     title: this._replaceRelationName(metadata.name),
                                     relatedRecords: relatedRecords
                                 });
