@@ -55,7 +55,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                     ],
                     // popup templates for related records
                     "relationshipTemplates": {
-                        // template for relation table id 2
+                        // template for relationship with id 2
                         "2": {
                             "title": "{Aktivität} von {Name}",
                             "content": [
@@ -140,7 +140,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                         ]
                     }
                 ],
-                // only show relationship layers 1 and 4
+                // only show relationships 1 and 4
                 "displayedRelationships": [1, 4],
                 "relationshipTemplates": {
                     "1": {
