@@ -17,8 +17,12 @@ import apprt_request from "apprt-request";
 
 export default class QueryController {
 
-    findRelatedRecords(objectId, url, metadata) {
-        const relationships = this.relationships = metadata.relationships;
+    findRelatedRecords(objectId, url, metadata, sourceLayer) {
+        let relationships = this.relationships = metadata.relationships;
+        if (sourceLayer?.popupTemplate?.displayedRelationships) {
+            const displayedRelationships = sourceLayer?.popupTemplate?.displayedRelationships;
+            relationships = relationships.filter((r) => displayedRelationships.includes(r.relatedTableId));
+        }
         const requests = relationships.map((relationship) => {
             const relationshipId = relationship && relationship.id;
             return apprt_request(url + "/queryRelatedRecords", {
@@ -40,9 +44,13 @@ export default class QueryController {
         }
     }
 
-    getRelatedMetadata(url, metadata) {
+    getRelatedMetadata(url, metadata, sourceLayer) {
         url = url.substr(0, url.lastIndexOf("/"));
-        const relationships = this.relationships = metadata.relationships;
+        let relationships = this.relationships = metadata.relationships;
+        if (sourceLayer?.popupTemplate?.displayedRelationships) {
+            const displayedRelationships = sourceLayer?.popupTemplate?.displayedRelationships;
+            relationships = relationships.filter((r) => displayedRelationships.includes(r.relatedTableId));
+        }
         const requests = relationships.map((relationship) => {
             const relatedTableId = relationship && relationship.relatedTableId;
             return apprt_request(url + "/" + relatedTableId, {

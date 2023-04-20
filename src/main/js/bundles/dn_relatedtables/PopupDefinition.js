@@ -179,9 +179,9 @@ export default class PopupDefinition {
 
         const queryController = this.queryController;
         return queryController.getMetadata(url)
-            .then((metadata) => queryController.getRelatedMetadata(url, metadata)
+            .then((metadata) => queryController.getRelatedMetadata(url, metadata, sourceLayer)
                 .then((relatedMetadata) => queryController
-                    .findRelatedRecords(objectId, url, metadata)
+                    .findRelatedRecords(objectId, url, metadata, sourceLayer)
                     .then((results) => {
                         const relatedRecordsData = [];
                         if (!results) {
