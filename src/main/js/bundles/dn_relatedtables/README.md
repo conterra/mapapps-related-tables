@@ -55,8 +55,8 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                     ],
                     // popup templates for related records
                     "relationshipTemplates": {
-                        // template for relationship with id 2
-                        "2": {
+                        // template for relationship with id 0
+                        "0": {
                             "title": "{Aktivität} von {Name}",
                             "content": [
                                 {
@@ -208,28 +208,6 @@ The Related Tables bundle adds a new popup to the app to display data from relat
             {
                 "id": 0,
                 "title": "Störungen",
-                "renderer": {
-                    "type": "simple",
-                    "symbol": {
-                        "type": "simple-marker",
-                        "color": [
-                            255,
-                            0,
-                            0,
-                            0.6
-                        ],
-                        "size": 16,
-                        "outline": {
-                            "color": [
-                                0,
-                                0,
-                                0,
-                                0.4
-                            ],
-                            "width": 0.5
-                        }
-                    }
-                },
                 "popupTemplate": {
                     "popupType": "related-tables-popup",
                     "customActions": [
@@ -267,44 +245,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                         }
                     ],
                     "relationshipTemplates": {
-                        "3": {
-                            "title": "{Aktivität} von {Name}",
-                            "content": [
-                                {
-                                    "type": "fields",
-                                    "fieldInfos": [
-                                        {
-                                            "fieldName": "Name",
-                                            "label": "Bearbeiter"
-                                        },
-                                        {
-                                            "fieldName": "Aktivität",
-                                            "label": "Aktivität"
-                                        },
-                                        {
-                                            "fieldName": "Datum",
-                                            "label": "Bearbeitungsdatum"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "type": "media",
-                                    "mediaInfos": [
-                                        {
-                                            "title": "<b>Chart sample without sense</b>",
-                                            "type": "pie-chart",
-                                            "value": {
-                                                "fields": [
-                                                    "Störung_ID",
-                                                    "Aktivität"
-                                                ]
-                                            }
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        "2": {
+                        "0": {
                             // use popupTemplate of layer "status", sublayer 0
                             "useRelatedLayerTemplate": true,
                             "relatedLayerId": "status/0"
@@ -329,30 +270,8 @@ The Related Tables bundle adds a new popup to the app to display data from relat
             {
                 "id": 0,
                 "title": "Status",
-                "renderer": {
-                    "type": "simple",
-                        "symbol": {
-                            "type": "simple-marker",
-                            "color": [
-                                255,
-                                0,
-                                0,
-                                0.6
-                            ],
-                            "size": 16,
-                            "outline": {
-                                "color": [
-                                    0,
-                                    0,
-                                    0,
-                                    0.4
-                                ],
-                                "width": 0.5
-                            }
-                        }
-                    },
-                    "popupTemplate": {
-                        "content": [
+                "popupTemplate": {
+                    "content": [
                         {
                             "type": "fields",
                             "fieldInfos": [
@@ -369,12 +288,6 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                                     "label": "Bearbeitungsdatum"
                                 }
                             ]
-                        }
-                    ],
-                    "footerContent": [
-                        {
-                            "type": "text",
-                            "text": "<hr/>\ncreated by <b>con terra</b>"
                         }
                     ]
                 }
