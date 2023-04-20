@@ -180,7 +180,7 @@
                                             }
                                         ],
                                         "relationshipTemplates": {
-                                            "2": {
+                                            "0": {
                                                 "title": "{Aktivität} von {Name}",
                                                 "content": [
                                                     {
@@ -372,7 +372,7 @@
                                     }
                                 ],
                                 "relationshipTemplates": {
-                                    "20": {
+                                    "2": {
                                         "content": [
                                             {
                                                 "type": "text",
@@ -380,7 +380,7 @@
                                             }
                                         ]
                                     },
-                                    "21": {
+                                    "3": {
                                         "title": "Raumnutzung {raumnummer}",
                                         "content": [
                                             {
