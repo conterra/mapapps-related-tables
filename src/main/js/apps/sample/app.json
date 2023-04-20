@@ -179,7 +179,7 @@
                                                 ]
                                             }
                                         ],
-                                        "relatedRecordTemplates": {
+                                        "relationshipTemplates": {
                                             "2": {
                                                 "title": "{Aktivität} von {Name}",
                                                 "content": [
@@ -258,8 +258,9 @@
                                                 ]
                                             }
                                         ],
-                                        "relatedRecordTemplates": {
-                                            "15": {
+                                        "displayedRelationships": [3, 1, 4],
+                                        "relationshipTemplates": {
+                                            "3": {
                                                 "title": "Block {nummer}",
                                                 "content": [
                                                     {
@@ -370,7 +371,7 @@
                                         ]
                                     }
                                 ],
-                                "relatedRecordTemplates": {
+                                "relationshipTemplates": {
                                     "20": {
                                         "content": [
                                             {

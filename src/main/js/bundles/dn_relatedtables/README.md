@@ -54,7 +54,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                         }
                     ],
                     // popup templates for related records
-                    "relatedRecordTemplates": {
+                    "relationshipTemplates": {
                         // template for relation table id 2
                         "2": {
                             "title": "{Aktivität} von {Name}",
@@ -106,6 +106,94 @@ The Related Tables bundle adds a new popup to the app to display data from relat
         ]
     }
 ]
+```
+
+### Sample configuration that shows how to restrict the displayed relationships
+```json
+{
+    "id": "koeln",
+    "url": "https://geoportal.stadt-koeln.de/arcgis/rest/services/basiskarten/kgg/MapServer",
+    "type": "AGS_DYNAMIC",
+    "title": "Stadt Köln",
+    "sublayers": [
+        {
+            "id": 3,
+            "title": "Stadtteile",
+            "popupTemplate": {
+                "popupType": "related-tables-popup",
+                "customActions": [
+                    "maximize-popup"
+                ],
+                "title": "Stadtteil {name}",
+                "content": [
+                    {
+                        "type": "fields",
+                        "fieldInfos": [
+                            {
+                                "fieldName": "st_area(shape)",
+                                "label": "Fläche",
+                                "format": {
+                                    "places": 2,
+                                    "digitSeparator": true
+                                }
+                            }
+                        ]
+                    }
+                ],
+                // only show relationship layers 1 and 4
+                "displayedRelationships": [1, 4],
+                "relationshipTemplates": {
+                    "1": {
+                        "title": "{name}",
+                        "content": [
+                            {
+                                "type": "fields",
+                                "fieldInfos": [
+                                    {
+                                        "fieldName": "stadtbezirk",
+                                        "label": "Stadtbezirk"
+                                    },
+                                    {
+                                        "fieldName": "st_area(shape)",
+                                        "label": "Fläche",
+                                        "format": {
+                                            "places": 2,
+                                            "digitSeparator": true
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "4": {
+                        "title": "{name}",
+                        "content": [
+                            {
+                                "type": "fields",
+                                "fieldInfos": [
+                                    {
+                                        "fieldName": "st_area(shape)",
+                                        "label": "Fläche",
+                                        "format": {
+                                            "places": 2,
+                                            "digitSeparator": true
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "footerContent": [
+                    {
+                        "type": "text",
+                        "text": "<hr/>\nDaten der <b>Stadt Köln</b>"
+                    }
+                ]
+            }
+        }
+    ]
+}
 ```
 
 ### Sample configuration using related layers for popupTemplate configuration
@@ -178,7 +266,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                             ]
                         }
                     ],
-                    "relatedRecordTemplates": {
+                    "relationshipTemplates": {
                         "3": {
                             "title": "{Aktivität} von {Name}",
                             "content": [
@@ -219,8 +307,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
                         "2": {
                             // use popupTemplate of layer "status", sublayer 0
                             "useRelatedLayerTemplate": true,
-                            "relatedLayerId": "status",
-                            "sublayerId": 0
+                            "relatedLayerId": "status/0"
                         }
                     },
                     "footerContent": [
@@ -317,10 +404,10 @@ The Related Tables bundle adds a new popup to the app to display data from relat
 }
 ```
 
-Filter properties affect only the relational data. These do not have to be configured if you define your own templates via the relatedRecordTemplates property.
+Filter properties affect only the relational data. These do not have to be configured if you define your own templates via the relationshipTemplates property.
 
 | Property             | Type    | Possible Values                                              | Default    | Description                                                                                                                                                       |
-|----------------------|---------|--------------------------------------------------------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------------------- | ------- | ------------------------------------------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | relationNameReplacer | Array   |                                                              | ```[]```   | List of name replacer. "name": Name of the related entity, "newName": Name to be used for the display of the related entity.                                      |
 | filterAttributesMode | Boolean | ```deny``` &#124; ```allow```                                | ```deny``` | Switches between allowlist and denylist filtering. On ```allow```, only listed attributes are displayed. On ```deny```, only listed attributes are not displayed. |
 | filterAttributesList | Array   | ```String``` Name of attributes provided by the used service | ```[]```   | List of attributes used for filtering.                                                                                                                            |

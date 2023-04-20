@@ -64,7 +64,7 @@ export default class PopupDefinition {
     _getCustomContent(layerOrSublayer, displayField, objectIdField) {
         return new CustomContent({
             outFields: ["*"],
-            creator: ({graphic}) => {
+            creator: ({ graphic }) => {
                 const widget = this.popupWidgetFactory.getWidget();
                 widget.startup();
 
@@ -75,7 +75,7 @@ export default class PopupDefinition {
                 objectIdField = objectIdField || sourceLayer.objectIdField;
                 const objectId = graphic.attributes[objectIdField];
                 widget.set("relatedRecordsData", []);
-                vm.watch("selectedRelatedRecordsData", (selectedRelatedRecordsData) => {
+                vm.watch("selectedRelatedRecordsData", async (selectedRelatedRecordsData) => {
                     const domNode = vm.$refs.featureWidgets;
                     // remove all children of domNode
                     let child = domNode.lastElementChild;
@@ -86,41 +86,25 @@ export default class PopupDefinition {
                     const relationshipId = selectedRelatedRecordsData.id;
                     const relatedRecords = selectedRelatedRecordsData.relatedRecords;
 
-                    const relatedRecordTemplates = sourceLayer?.popupTemplate?.relatedRecordTemplates;
+                    const relationshipTemplates = sourceLayer?.popupTemplate?.relationshipTemplates;
                     let relatedRecordTemplate =
-                        relatedRecordTemplates ? relatedRecordTemplates[relationshipId] : null;
+                        relationshipTemplates ? relationshipTemplates[relationshipId] : null;
 
-                    if (relatedRecordTemplate.useRelatedLayerTemplate) {
-                        const relatedId = relatedRecordTemplate.relatedLayerId;
-
-                        this._getView().then(view => {
-                            const layers = view.map.layers;
-                            const relatedLayer = layers.find(layer => layer.id === relatedId);
-
-                            if (typeof sourceLayer?.popupTemplate?.relatedRecordTemplates[relationshipId]?.sublayerId !== "undefined") {
-                                const subLayerId = sourceLayer.popupTemplate.relatedRecordTemplates[relationshipId].sublayerId;
-                                relatedRecordTemplate = relatedLayer.sublayers.items[subLayerId].popupTemplate;
-                            } else {
-                                relatedRecordTemplate = relatedLayer.popupTemplate;
-                            }
-
-                            relatedRecords.forEach((record) => {
-                                const g = this._getGraphic(record, relatedRecordTemplate);
-                                return new Feature({
-                                    graphic: g,
-                                    container: domNode
-                                });
-                            });
-                        });
-                    } else {
-                        relatedRecords.forEach((record) => {
-                            const g = this._getGraphic(record, relatedRecordTemplate);
-                            return new Feature({
-                                graphic: g,
-                                container: domNode
-                            });
-                        });
+                    if (relatedRecordTemplate?.useRelatedLayerTemplate && relatedRecordTemplate?.relatedLayerId) {
+                        const relatedLayerId = relatedRecordTemplate.relatedLayerId;
+                        const relatedLayer = this._getLayerById(relatedLayerId);
+                        relatedRecordTemplate = relatedLayer.popupTemplate;
+                        if(relatedRecordTemplate.relationshipTemplates) {
+                            relatedRecordTemplate = undefined;
+                        }
                     }
+                    relatedRecords.forEach((record) => {
+                        const g = this._getGraphic(record, relatedRecordTemplate);
+                        return new Feature({
+                            graphic: g,
+                            container: domNode
+                        });
+                    });
                 });
 
                 this._getRelatedRecordsData(sourceLayer, objectId, widget).then((relatedRecordsData) => {
@@ -195,9 +179,9 @@ export default class PopupDefinition {
 
         const queryController = this.queryController;
         return queryController.getMetadata(url)
-            .then((metadata) => queryController.getRelatedMetadata(url, metadata)
+            .then((metadata) => queryController.getRelatedMetadata(url, metadata, sourceLayer)
                 .then((relatedMetadata) => queryController
-                    .findRelatedRecords(objectId, url, metadata)
+                    .findRelatedRecords(objectId, url, metadata, sourceLayer)
                     .then((results) => {
                         const relatedRecordsData = [];
                         if (!results) {
@@ -214,7 +198,7 @@ export default class PopupDefinition {
                                 relatedRecordGroup.relatedRecords.forEach((record) => {
                                     const attributes = record.attributes;
                                     relatedRecords.push({
-                                        id: metadata.id + "_" + attributes[objectIdField.name],
+                                        id: metadata.relationshipId + "_" + attributes[objectIdField.name],
                                         title: attributes[metadata.displayField],
                                         attributes: attributes,
                                         fields: metadata.fields.map((field) => Field.fromJSON(field))
@@ -223,7 +207,7 @@ export default class PopupDefinition {
                             });
                             if (relatedRecords.length) {
                                 relatedRecordsData.push({
-                                    id: metadata.id,
+                                    id: metadata.relationshipId,
                                     title: this._replaceRelationName(metadata.name),
                                     relatedRecords: relatedRecords
                                 });
@@ -250,18 +234,23 @@ export default class PopupDefinition {
         return fields.find((field) => field.type === "esriFieldTypeOID");
     }
 
-    _getView() {
+    _getLayerById(layerIdPath) {
+        if (typeof layerIdPath !== "string") {
+            return undefined;
+        }
+
         const mapWidgetModel = this.mapWidgetModel;
-        return new Promise((resolve, reject) => {
-            if (mapWidgetModel.view) {
-                resolve(mapWidgetModel.view);
-            } else {
-                const watcher = mapWidgetModel.watch("view", ({value: view}) => {
-                    watcher.remove();
-                    resolve(view);
-                });
-            }
-        });
+
+        const parts = layerIdPath.split("/");
+        const layerId = parts[0];
+        const sublayerId = parts[1];
+
+        const layer = mapWidgetModel?.map?.findLayerById(layerId);
+        if (!sublayerId) {
+            return layer;
+        }
+
+        return layer.findSublayerById(parseInt(sublayerId, 10));
     }
 
 }
