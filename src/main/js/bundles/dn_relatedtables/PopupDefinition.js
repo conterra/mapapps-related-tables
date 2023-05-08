@@ -93,10 +93,10 @@ export default class PopupDefinition {
                     if (relatedRecordTemplate?.useRelatedLayerTemplate && relatedRecordTemplate?.relatedLayerId) {
                         const relatedLayerId = relatedRecordTemplate.relatedLayerId;
                         const relatedLayer = this._getLayerById(relatedLayerId);
-                        relatedRecordTemplate = relatedLayer.popupTemplate;
-                        if(relatedRecordTemplate.relationshipTemplates) {
-                            relatedRecordTemplate = undefined;
-                        }
+                        relatedRecordTemplate = {
+                            title: relatedRecordTemplate.title || relatedLayer.popupTemplate.title,
+                            content: relatedLayer.popupTemplate.content.filter((content) => content.type !== "custom")
+                        };
                     }
                     relatedRecords.forEach((record) => {
                         const g = this._getGraphic(record, relatedRecordTemplate);
