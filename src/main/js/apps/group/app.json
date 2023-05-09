@@ -169,11 +169,10 @@
                             "popupTemplate": {
                                 "popupType": "related-tables-popup",
                                 "title": "test1",
-                                "relatedRecordTemplates": {
+                                "relationshipTemplates": {
                                     "1": {
                                         "useRelatedLayerTemplate": true,
-                                        "relatedLayerId": "targetGroup",
-                                        "sublayerId": "0"
+                                        "relatedLayerId": "test2"
                                     }
                                 }
                             }

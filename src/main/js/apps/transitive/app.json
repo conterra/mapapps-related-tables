@@ -133,7 +133,7 @@
                             "popupTemplate": {
                                 "popupType": "related-tables-popup",
                                 "title": "test2",
-                                "relatedRecordTemplates": {
+                                "relationshipTemplates": {
                                     "0": {
                                         "useRelatedLayerTemplate": true,
                                         "relatedLayerId": "test3"
@@ -154,7 +154,7 @@
                             "popupTemplate": {
                                 "popupType": "related-tables-popup",
                                 "title": "test1",
-                                "relatedRecordTemplates": {
+                                "relationshipTemplates": {
                                     "1": {
                                         "useRelatedLayerTemplate": true,
                                         "relatedLayerId": "test2"

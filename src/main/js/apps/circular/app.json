@@ -119,7 +119,13 @@
                             "popupTemplate": {
                                 "popupType": "related-tables-popup",
                                 "title": "test2",
-                                "relatedRecordTemplates": {
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "<hr/>Beispielinhalt für 2</b>"
+                                    }
+                                ],
+                                "relationshipTemplates": {
                                     "1": {
                                         "useRelatedLayerTemplate": true,
                                         "relatedLayerId": "test1"
@@ -134,7 +140,13 @@
                             "popupTemplate": {
                                 "popupType": "related-tables-popup",
                                 "title": "test1",
-                                "relatedRecordTemplates": {
+                                "content": [
+                                    {
+                                        "type": "text",
+                                        "text": "<hr/>Beispielinhalt für 1</b>"
+                                    }
+                                ],
+                                "relationshipTemplates": {
                                     "1": {
                                         "useRelatedLayerTemplate": true,
                                         "relatedLayerId": "test2"
