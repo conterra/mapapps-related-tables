@@ -15,6 +15,9 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_relatedtables4/index.
 
 [dn_relatedtables Documentation](https://github.com/conterra/mapapps-related-tables/tree/master/src/main/js/bundles/dn_relatedtables)
 
+⚠️**Attention the new version 6.x has a different configuration than the previous version 5**
+The relationship templates are now configured via the relationship-IDs and not via the IDs of the linked layers as before.
+
 ## Development Guide
 ### Define the mapapps remote base
 Before you can run the project you have to define the mapapps.remote.base property in the pom.xml-file:

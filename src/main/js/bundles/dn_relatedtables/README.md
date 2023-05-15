@@ -8,6 +8,9 @@ The Related Tables bundle adds a new popup to the app to display data from relat
 2. Use the related-tables-popup as selected popupTemplate for each layer that has related tables.
 3. Configure the content of the popupTemplate as described in the documentation: https://docs.conterra.de/en/mapapps/latest/apps/configuring-apps/popups.html#_designing_popup_content
 
+⚠️**Attention the new version 6.x has a different configuration than the previous version 5**
+The relationship templates are now configured via the relationship-IDs and not via the IDs of the linked layers as before.
+
 ```javascript
 "layers": [
     {
