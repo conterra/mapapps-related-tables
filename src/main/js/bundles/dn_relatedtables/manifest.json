@@ -1,6 +1,6 @@
 {
     "name": "dn_relatedtables",
-    "version": "6.0.1",
+    "version": "6.0.2-SNAPSHOT",
     "title": "${bundleName}",
     "description": "${bundleDescription}",
     "vendor": "con terra GmbH",
