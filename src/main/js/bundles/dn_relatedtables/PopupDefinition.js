@@ -83,7 +83,7 @@ export default class PopupDefinition {
                         domNode.removeChild(child);
                         child = domNode.lastElementChild;
                     }
-                    if(selectedRelatedRecordsData.length) {
+                    if(selectedRelatedRecordsData.id && selectedRelatedRecordsData.relatedRecords) {
                         const relationshipId = selectedRelatedRecordsData.id;
                         const relatedRecords = selectedRelatedRecordsData.relatedRecords;
 
