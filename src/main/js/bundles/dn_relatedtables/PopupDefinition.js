@@ -83,28 +83,32 @@ export default class PopupDefinition {
                         domNode.removeChild(child);
                         child = domNode.lastElementChild;
                     }
-                    const relationshipId = selectedRelatedRecordsData.id;
-                    const relatedRecords = selectedRelatedRecordsData.relatedRecords;
+                    if(selectedRelatedRecordsData.length) {
+                        const relationshipId = selectedRelatedRecordsData.id;
+                        const relatedRecords = selectedRelatedRecordsData.relatedRecords;
 
-                    const relationshipTemplates = sourceLayer?.popupTemplate?.relationshipTemplates;
-                    let relatedRecordTemplate =
-                        relationshipTemplates ? relationshipTemplates[relationshipId] : null;
+                        const relationshipTemplates = sourceLayer?.popupTemplate?.relationshipTemplates;
+                        let relatedRecordTemplate =
+                            relationshipTemplates ? relationshipTemplates[relationshipId] : null;
 
-                    if (relatedRecordTemplate?.useRelatedLayerTemplate && relatedRecordTemplate?.relatedLayerId) {
-                        const relatedLayerId = relatedRecordTemplate.relatedLayerId;
-                        const relatedLayer = this._getLayerById(relatedLayerId);
-                        relatedRecordTemplate = {
-                            title: relatedRecordTemplate.title || relatedLayer.popupTemplate.title,
-                            content: relatedLayer.popupTemplate.content.filter((content) => content.type !== "custom")
-                        };
-                    }
-                    relatedRecords.forEach((record) => {
-                        const g = this._getGraphic(record, relatedRecordTemplate);
-                        return new Feature({
-                            graphic: g,
-                            container: domNode
+                        if (relatedRecordTemplate?.useRelatedLayerTemplate && relatedRecordTemplate?.relatedLayerId) {
+                            const relatedLayerId = relatedRecordTemplate.relatedLayerId;
+                            const relatedLayer = this._getLayerById(relatedLayerId);
+                            const content =
+                                relatedLayer.popupTemplate.content.filter((content) => content.type !== "custom");
+                            relatedRecordTemplate = {
+                                title: relatedRecordTemplate.title || relatedLayer.popupTemplate.title,
+                                content: content
+                            };
+                        }
+                        relatedRecords.forEach((record) => {
+                            const g = this._getGraphic(record, relatedRecordTemplate);
+                            return new Feature({
+                                graphic: g,
+                                container: domNode
+                            });
                         });
-                    });
+                    }
                 });
 
                 this._getRelatedRecordsData(sourceLayer, objectId, widget).then((relatedRecordsData) => {
