@@ -4,6 +4,7 @@ The Related Tables bundle adds a new popup to the app to display data from relat
 
 ## Usage
 
+
 1. Add the dn_relatedtables bundle to your app.
 2. Use the related-tables-popup as selected popupTemplate for each layer that has related tables.
 3. Configure the content of the popupTemplate as described in the documentation: https://docs.conterra.de/en/mapapps/latest/apps/configuring-apps/popups.html#_designing_popup_content
