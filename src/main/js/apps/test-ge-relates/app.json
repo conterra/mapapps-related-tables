@@ -1,0 +1,318 @@
+{
+    "load": {
+        "bundleLocations": [
+            "localbundles",
+            "bundles"
+        ],
+        "allowedBundles": [
+            "agssearch",
+            "basemaptoggler",
+            "coordinateconversion",
+            "coordinateviewer",
+            "legend",
+            "locateme",
+            "locator-store",
+            "map-init",
+            "map-preload-2D",
+            "map-preload-3D",
+            "mapnavigation",
+            "measurement",
+            "notifier",
+            "omnisearch",
+            "popups-default",
+            "printing",
+            "scalebar",
+            "selection-ui",
+            "selection-resultcenter",
+            "share-link",
+            "splashscreen",
+            "system",
+            "templatelayout",
+            "template-seasons",
+            "theme-everlasting",
+            "toc",
+            "toolset",
+            "viewmodeswitcher",
+            "dn_relatedtables"
+        ]
+    },
+    "properties": {
+        "id": "test-ge-relates",
+        "title": "test-ge-relates",
+        "description": "",
+        "editorState": "DRAFT",
+        "createdBy": "dpa@ldap",
+        "createdAt": 1571381203236,
+        "modifiedBy": "dpa@ldap",
+        "modifiedAt": 1571381214898,
+        "templateFile": "",
+        "templateId": "",
+        "thumbnailFile": ""
+    },
+    "bundles": {
+        "dn_relatedtables": {
+            "PopupDefinitionFactory": {
+                "hideFields": [
+                    "OBJECTID",
+                    "objectid",
+                    "shape"
+                ],
+                "relationNameReplacer": [
+                    {
+                        "name": "GDI__VT.GDI_OWNER.Schwertransporte_xam",
+                        "newName": "Schwertransporte"
+                    }
+                ]
+            }
+        },
+        "agssearch": {
+            "AutoStoreRegistration": {
+                "componentEnabled": true,
+                "useIn": [
+                    "selection"
+                ]
+            }
+        },
+        "coordinateconversion": {
+            "CoordinateConversionToggleTool": {
+                "tooltipPositions": [
+                    "after",
+                    "above",
+                    "below",
+                    "before"
+                ]
+            }
+        },
+        "locateme": {
+            "LocateMeTool": {
+                "tooltipPositions": [
+                    "before",
+                    "above",
+                    "below",
+                    "after"
+                ]
+            }
+        },
+        "map-init": {
+            "Config": {
+                "basemaps": [
+                    {
+                        "id": "gray",
+                        "selected": true,
+                        "basemap": "gray-vector"
+                    },
+                    {
+                        "id": "streets",
+                        "title": "Streets",
+                        "basemap": "streets-vector"
+                    }
+                ],
+                "map": {
+                    "layers": [
+                        {
+                            "id": "ingenieurbauwer",
+                            "url": "https://gdi.gelsenkirchen.de/wss/service/ags-relay/GDI_GE/guest/arcgis/rest/services/VT_Verkehr_Transport/Ingenieurbauwerke/MapServer",
+                            "type": "AGS_DYNAMIC",
+                            "title": "Ingenieurbauwerke",
+                            "description": "",
+                            "visible": true,
+                            "sublayers": [
+                                {
+                                    "id": 0,
+                                    "title": "Br\u00FCcken",
+                                    "visible": true,
+                                    "popupTemplate": {
+                                        "popupType": "related-tables-popup"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "ground": "world-elevation"
+                },
+                "view": {
+                    "viewmode": "2D",
+                    "scale": 144447.638572,
+                    "center": {
+                        "x": 790440.2189466233,
+                        "y": 6720102.938438985,
+                        "spatialReference": {
+                            "wkid": 3857
+                        }
+                    }
+                }
+            }
+        },
+        "mapnavigation": {
+            "CompassTool": {
+                "tooltipPositions": [
+                    "before",
+                    "above",
+                    "below",
+                    "after"
+                ]
+            },
+            "RestoreInitialViewTool": {
+                "tooltipPositions": [
+                    "before",
+                    "above",
+                    "below",
+                    "after"
+                ]
+            },
+            "ZoomInTool": {
+                "tooltipPositions": [
+                    "before",
+                    "above",
+                    "below",
+                    "after"
+                ]
+            },
+            "ZoomOutTool": {
+                "tooltipPositions": [
+                    "before",
+                    "above",
+                    "below",
+                    "after"
+                ]
+            }
+        },
+        "measurement-2d": {
+            "AreaMeasurement2DToggleTool": {
+                "tooltipPositions": [
+                    "after",
+                    "above",
+                    "below",
+                    "before"
+                ]
+            },
+            "DistanceMeasurement2DToggleTool": {
+                "tooltipPositions": [
+                    "after",
+                    "above",
+                    "below",
+                    "before"
+                ]
+            }
+        },
+        "measurement-3d": {
+            "AreaMeasurement3DToggleTool": {
+                "tooltipPositions": [
+                    "after",
+                    "above",
+                    "below",
+                    "before"
+                ]
+            },
+            "DirectLineMeasurement3DToggleTool": {
+                "tooltipPositions": [
+                    "after",
+                    "above",
+                    "below",
+                    "before"
+                ]
+            }
+        },
+        "printing": {
+            "PrintingToggleTool": {
+                "tooltipPositions": [
+                    "after",
+                    "above",
+                    "below",
+                    "before"
+                ]
+            }
+        },
+        "selection-ui": {
+            "SelectionUITool": {
+                "tooltipPositions": [
+                    "after",
+                    "above",
+                    "below",
+                    "before"
+                ]
+            }
+        },
+        "share-link": {
+            "URLTool": {
+                "tooltipPositions": [
+                    "after",
+                    "above",
+                    "below",
+                    "before"
+                ]
+            }
+        },
+        "templates": {
+            "TemplateModel": {
+                "_templates": [
+                    {
+                        "name": "seasons",
+                        "widgets": [
+                            {
+                                "widgetRole": "drawer_button",
+                                "attachTo": "map_topleft",
+                                "props": {
+                                    "layoutIndex": 0
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "toolset": {
+            "ToolsetManager": {
+                "toolsets": [
+                    {
+                        "id": "mapview_tools",
+                        "tools": [
+                            "locateMeTool",
+                            "zoomInTool",
+                            "zoomOutTool",
+                            "compassTool",
+                            "restoreInitialViewTool",
+                            "viewmodeSwitcherTool"
+                        ],
+                        "registerWidget": {
+                            "widgetRole": "mapview_tools"
+                        },
+                        "container": "ignore",
+                        "windowType": "container",
+                        "cssClass": "muted"
+                    },
+                    {
+                        "id": "drawer_left",
+                        "title": "Werkzeuge",
+                        "cssClass": "ct-main-app-menu",
+                        "tools": [
+                            "selection-ui-tool",
+                            "printingToggleTool",
+                            "sharelinkTool",
+                            "coordinateconversionToggleTool",
+                            "distanceMeasurement2DToggleTool",
+                            "areaMeasurement2DToggleTool",
+                            "lineMeasurement3DToggleTool",
+                            "areaMeasurement3DToggleTool"
+                        ],
+                        "registerWidget": {
+                            "widgetRole": "drawer_button"
+                        },
+                        "container": "ignore",
+                        "windowType": "drawer_left"
+                    }
+                ]
+            }
+        },
+        "viewmodeswitcher": {
+            "ViewmodeSwitchTool": {
+                "tooltipPositions": [
+                    "before",
+                    "above",
+                    "below",
+                    "after"
+                ]
+            }
+        }
+    }
+}

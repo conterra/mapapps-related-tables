@@ -1,0 +1,478 @@
+{
+    "properties": {
+        "title": "${apptitle}"
+    },
+    "load": {
+        "bundleLocations": [
+            "localbundles",
+            "bundles"
+        ],
+        "allowedBundles": [
+            "system",
+            "console",
+            "notifier",
+            "splashscreen",
+            "templatelayout",
+            "template-seasons",
+            "theme-everlasting",
+            "theme-winter",
+            "theme-spring",
+            "theme-summer",
+            "theme-autumn",
+            "map-init",
+            "toolset",
+            "banner",
+            "custominfo",
+            "mapnavigation",
+            "legend",
+            "scalebar",
+            "locateme",
+            "toc",
+            "dn_popups-action-maximize",
+            "dn_relatedtables"
+        ]
+    },
+    "bundles": {
+        "dn_relatedtables": {
+            "Config": {
+                "relationNameReplacer": [
+                    {
+                        "name": "Aktivitäten",
+                        "newName": "Störungsaktivitäten"
+                    }
+                ],
+                "filterAttributesMode": "deny",
+                "filterAttributesList": [
+                    "OBJECTID"
+                ]
+            }
+        },
+        "popups": {
+            "Config": {
+                "defaultPopupType": "related-tables-popup",
+                "defaultPopupEnabled": true,
+                "highlightEnabled": true,
+                "autoCloseEnabled": false,
+                "collapseEnabled": false,
+                "dockingForced": true,
+                "dockingDisabled": false,
+                "dockEnabled": false,
+                "dockPosition": "auto",
+                "dockButtonEnabled": true,
+                "dockBreakpoint": true
+            }
+        },
+        "banner": {
+            "BannerWidget": {
+                "label": "Developer Network",
+                "imagePosition": "above",
+                "image": "resource('${app}:/images/logo_conterra.png')",
+                "imageWidth": 200,
+                "link": "https://developernetwork.conterra.de"
+            }
+        },
+        "custominfo": {
+            "CustomInfoToggleTool": [
+                {
+                    "id": "customInfoTool",
+                    "activateOnStartup": true,
+                    "title": "Information",
+                    "tooltip": "Information",
+                    "iconClass": "icon-custom-info-info",
+                    "toolClass": "ctInfo",
+                    "togglable": true,
+                    "widgetSettings": {
+                        "content": "${appInfo}",
+                        "window": {
+                            "title": "Information",
+                            "marginBox": {
+                                "w": 300,
+                                "h": 140,
+                                "l": 20,
+                                "b": 120
+                            },
+                            "draggable": true,
+                            "closable": true,
+                            "modal": false,
+                            "maximizable": false,
+                            "resizable": false
+                        }
+                    }
+                }
+            ]
+        },
+        "map-init": {
+            "Config": {
+                "map": {
+                    "basemap": "gray-vector",
+                    "layers": [
+                        {
+                            "id": "stoerungen",
+                            "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
+                            "type": "AGS_DYNAMIC",
+                            "title": "Störungen",
+                            "sublayers": [
+                                {
+                                    "id": 0,
+                                    "title": "Störungen",
+                                    "renderer": {
+                                        "type": "simple",
+                                        "symbol": {
+                                            "type": "simple-marker",
+                                            "color": [
+                                                255,
+                                                0,
+                                                0,
+                                                0.6
+                                            ],
+                                            "size": 16,
+                                            "outline": {
+                                                "color": [
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0.4
+                                                ],
+                                                "width": 0.5
+                                            }
+                                        }
+                                    },
+                                    "popupTemplate": {
+                                        "popupType": "related-tables-popup",
+                                        "customActions": [
+                                            "maximize-popup"
+                                        ],
+                                        "title": "Störung",
+                                        "content": [
+                                            {
+                                                "type": "fields",
+                                                "fieldInfos": [
+                                                    {
+                                                        "fieldName": "details",
+                                                        "label": "Details"
+                                                    },
+                                                    {
+                                                        "fieldName": "melder",
+                                                        "label": "Melder"
+                                                    },
+                                                    {
+                                                        "fieldName": "status",
+                                                        "label": "Status"
+                                                    },
+                                                    {
+                                                        "fieldName": "zeitpunkt",
+                                                        "label": "Zeitpunkt",
+                                                        "format": {
+                                                            "dateFormat": "day-short-month-year"
+                                                        }
+                                                    },
+                                                    {
+                                                        "fieldName": "kommentar",
+                                                        "label": "Kommentar"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "relationshipTemplates": {
+                                            "2": {
+                                                "useRelatedLayerTemplate": true,
+                                                "relatedLayerId": "status",
+                                                "sublayerId": 0
+                                            }
+                                        },
+                                        "footerContent": [
+                                            {
+                                                "type": "text",
+                                                "text": "<hr/>\ncreated by <b>con terra</b>"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "status",
+                            "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
+                            "type": "AGS_DYNAMIC",
+                            "title": "Status",
+                            "sublayers": [
+                                {
+                                    "id": 0,
+                                    "title": "Status",
+                                    "renderer": {
+                                        "type": "simple",
+                                        "symbol": {
+                                            "type": "simple-marker",
+                                            "color": [
+                                                255,
+                                                0,
+                                                0,
+                                                0.6
+                                            ],
+                                            "size": 16,
+                                            "outline": {
+                                                "color": [
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0.4
+                                                ],
+                                                "width": 0.5
+                                            }
+                                        }
+                                    },
+                                    "popupTemplate": {
+                                        "content": [
+                                            {
+                                                "type": "fields",
+                                                "fieldInfos": [
+                                                    {
+                                                        "fieldName": "Name",
+                                                        "label": "Bearbeiter"
+                                                    },
+                                                    {
+                                                        "fieldName": "Aktivität",
+                                                        "label": "Aktivität"
+                                                    },
+                                                    {
+                                                        "fieldName": "Datum",
+                                                        "label": "Bearbeitungsdatum"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "footerContent": [
+                                            {
+                                                "type": "text",
+                                                "text": "<hr/>\ncreated by <b>con terra</b>"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "koeln",
+                            "url": "https://geoportal.stadt-koeln.de/arcgis/rest/services/basiskarten/kgg/MapServer",
+                            "type": "AGS_DYNAMIC",
+                            "title": "Stadt Köln",
+                            "sublayers": [
+                                {
+                                    "id": 3,
+                                    "title": "Stadtteile",
+                                    "popupTemplate": {
+                                        "popupType": "related-tables-popup",
+                                        "customActions": [
+                                            "maximize-popup"
+                                        ],
+                                        "title": "Stadtteil {name}",
+                                        "content": [
+                                            {
+                                                "type": "fields",
+                                                "fieldInfos": [
+                                                    {
+                                                        "fieldName": "st_area(shape)",
+                                                        "label": "Fläche",
+                                                        "format": {
+                                                            "places": 2,
+                                                            "digitSeparator": true
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "relationshipTemplates": {
+                                            "15": {
+                                                "title": "Block {nummer}",
+                                                "content": [
+                                                    {
+                                                        "type": "fields",
+                                                        "fieldInfos": [
+                                                            {
+                                                                "fieldName": "stadtbezirk",
+                                                                "label": "Stadtbezirk"
+                                                            },
+                                                            {
+                                                                "fieldName": "st_area(shape)",
+                                                                "label": "Fläche",
+                                                                "format": {
+                                                                    "places": 2,
+                                                                    "digitSeparator": true
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            "1": {
+                                                "title": "{name}",
+                                                "content": [
+                                                    {
+                                                        "type": "fields",
+                                                        "fieldInfos": [
+                                                            {
+                                                                "fieldName": "stadtbezirk",
+                                                                "label": "Stadtbezirk"
+                                                            },
+                                                            {
+                                                                "fieldName": "st_area(shape)",
+                                                                "label": "Fläche",
+                                                                "format": {
+                                                                    "places": 2,
+                                                                    "digitSeparator": true
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            "4": {
+                                                "title": "{name}",
+                                                "content": [
+                                                    {
+                                                        "type": "fields",
+                                                        "fieldInfos": [
+                                                            {
+                                                                "fieldName": "st_area(shape)",
+                                                                "label": "Fläche",
+                                                                "format": {
+                                                                    "places": 2,
+                                                                    "digitSeparator": true
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        },
+                                        "footerContent": [
+                                            {
+                                                "type": "text",
+                                                "text": "<hr/>\nDaten der <b>Stadt Köln</b>"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "grundriss_fhws",
+                            "url": "https://gisportal.fhws.de/server/rest/services/FHWS_Campus/SDE_Campus_RoeRi_Gebaeude/FeatureServer/13",
+                            "type": "AGS_FEATURE",
+                            "title": "Grundriss FHWS",
+                            "popupTemplate": {
+                                "popupType": "related-tables-popup",
+                                "customActions": [
+                                    "maximize-popup"
+                                ],
+                                "title": "Raum {raumnummer}",
+                                "content": [
+                                    {
+                                        "type": "fields",
+                                        "fieldInfos": [
+                                            {
+                                                "fieldName": "art",
+                                                "label": "Art"
+                                            },
+                                            {
+                                                "fieldName": "etage",
+                                                "label": "Etage"
+                                            },
+                                            {
+                                                "fieldName": "funktion",
+                                                "label": "Funktion"
+                                            },
+                                            {
+                                                "fieldName": "campus",
+                                                "label": "Campus"
+                                            },
+                                            {
+                                                "fieldName": "hoehe",
+                                                "label": "Höhe"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "relationshipTemplates": {
+                                    "20": {
+                                        "content": [
+                                            {
+                                                "type": "text",
+                                                "text": "{name}"
+                                            }
+                                        ]
+                                    },
+                                    "21": {
+                                        "title": "Raumnutzung {raumnummer}",
+                                        "content": [
+                                            {
+                                                "type": "fields",
+                                                "fieldInfos": [
+                                                    {
+                                                        "fieldName": "organisationseinheit",
+                                                        "label": "Organisationseinheit"
+                                                    },
+                                                    {
+                                                        "fieldName": "bezeichnung",
+                                                        "label": "Bezeichnung"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                },
+                                "footerContent": [
+                                    {
+                                        "type": "text",
+                                        "text": "<hr/>\nDaten der <b>Hochschule für angewandte Wissenschaften Würzburg-Schweinfurt</b>"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "view": {
+                    "viewmode": "2D",
+                    "scale": 144447.638572,
+                    "center": {
+                        "x": 773018.5113211585,
+                        "y": 6604676.693279617,
+                        "spatialReference": {
+                            "wkid": 3857
+                        }
+                    }
+                }
+            }
+        },
+        "themes": {
+            "ThemeModel": {
+                "_selectedTheme": "autumn"
+            },
+            "ThemeSelector": {
+                "componentEnabled": true
+            }
+        },
+        "toolset": {
+            "ToolsetManager": {
+                "toolsets": [
+                    {
+                        "id": "mapview_tools",
+                        "tools": [
+                            "locateMeTool",
+                            "zoomInTool",
+                            "zoomOutTool",
+                            "compassTool",
+                            "restoreInitialViewTool"
+                        ],
+                        "registerWidget": {
+                            "widgetRole": "mapview_tools"
+                        },
+                        "container": "ignore",
+                        "windowType": "container",
+                        "cssClass": "muted"
+                    }
+                ]
+            }
+        }
+    }
+}
