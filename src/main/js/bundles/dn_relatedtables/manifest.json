@@ -27,6 +27,36 @@
             "properties": {
                 "relationNameReplacer": [],
                 "filterAttributesMode": "deny",
+                "filterAttributesList": [],
+                "type": "related-tables-popup"
+            },
+            "references": [
+                {
+                    "name": "_popupWidgetFactory",
+                    "providing": "dn_relatedtables.PopupWidgetFactory"
+                },
+                {
+                    "name": "_queryController",
+                    "providing": "dn_relatedtables.QueryController"
+                },
+                {
+                    "name": "_mapWidgetModel",
+                    "providing": "map-widget.MapWidgetModel"
+                }
+            ]
+        },
+        {
+            "name": "RelatedTablePopupTemplates",
+            "impl": "./PopupDefinitionFactory",
+            "provides": "popups.PopupDefinitionFactory",
+            "componentFactory": true,
+            "properties": {
+                "type": "related-tables-popup",
+                "content": [],
+                "relationshipTemplates": {},
+                "footerContent": [],
+                "relationNameReplacer": [],
+                "filterAttributesMode": "deny",
                 "filterAttributesList": []
             },
             "references": [

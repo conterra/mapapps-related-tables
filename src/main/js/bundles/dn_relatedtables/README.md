@@ -301,9 +301,152 @@ The relationship templates are now configured via the relationship-IDs and not v
 ]
 ```
 
+### Sample configuration using externel related popupTemplate configuration
+
+#### 1. Configure related popupTemplate in RelatedTablePopupTemplates component factory
+
+```json
+"dn_relatedtables": {
+    "RelatedTablePopupTemplates": [
+        {
+            "type": "stoerungen-related",
+            "title": "Störung",
+            "content": [
+                {
+                    "type": "fields",
+                    "fieldInfos": [
+                        {
+                            "fieldName": "details",
+                            "label": "Details"
+                        },
+                        {
+                            "fieldName": "melder",
+                            "label": "Melder"
+                        },
+                        {
+                            "fieldName": "status",
+                            "label": "Status"
+                        },
+                        {
+                            "fieldName": "zeitpunkt",
+                            "label": "Zeitpunkt",
+                            "format": {
+                                "dateFormat": "day-short-month-year"
+                            }
+                        },
+                        {
+                            "fieldName": "kommentar",
+                            "label": "Kommentar"
+                        }
+                    ]
+                }
+            ],
+            "relationshipTemplates": {
+                "0": {
+                    "title": "{Aktivität} von {Name}",
+                    "content": [
+                        {
+                            "type": "fields",
+                            "fieldInfos": [
+                                {
+                                    "fieldName": "Name",
+                                    "label": "Bearbeiter"
+                                },
+                                {
+                                    "fieldName": "Aktivität",
+                                    "label": "Aktivität"
+                                },
+                                {
+                                    "fieldName": "Datum",
+                                    "label": "Bearbeitungsdatum"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "media",
+                            "mediaInfos": [
+                                {
+                                    "title": "<b>Chart sample without sense</b>",
+                                    "type": "pie-chart",
+                                    "value": {
+                                        "fields": [
+                                            "Störung_ID",
+                                            "Aktivität"
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "footerContent": [
+                {
+                    "type": "text",
+                    "text": "<hr/>\ncreated by <b>con terra</b>"
+                }
+            ],
+            "relationNameReplacer": [
+                {
+                    "name": "Aktivitäten",
+                    "newName": "Störungsaktivitäten"
+                }
+            ],
+            "filterAttributesMode": "deny",
+            "filterAttributesList": [
+                "OBJECTID"
+            ]
+        }
+    ]
+}
+```
+
+#### 2. Use the previous defined popupTemplate for one ore more layers
+
+```json
+{
+    "id": "stoerungen_externe_config",
+    "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
+    "type": "AGS_DYNAMIC",
+    "title": "Störungen - Externe Konfiguration",
+    "sublayers": [
+        {
+            "id": 0,
+            "title": "Störungen",
+            "renderer": {
+                "type": "simple",
+                "symbol": {
+                    "type": "simple-marker",
+                    "color": [
+                        255,
+                        0,
+                        0,
+                        0.6
+                    ],
+                    "size": 16,
+                    "outline": {
+                        "color": [
+                            0,
+                            0,
+                            0,
+                            0.4
+                        ],
+                        "width": 0.5
+                    }
+                }
+            },
+            "popupTemplate": {
+                "popupType": "stoerungen-related"
+            }
+        }
+    ]
+}
+```
+
 ### Configurable Components of dn_relatedtables:
 
 #### Config:
+
 ```json
 "dn_relatedtables": {
     "Config": {
@@ -328,3 +471,22 @@ Filter properties affect only the relational data. These do not have to be confi
 | relationNameReplacer | Array   |                                                              | ```[]```   | List of name replacer. "name": Name of the related entity, "newName": Name to be used for the display of the related entity.                                      |
 | filterAttributesMode | Boolean | ```deny``` &#124; ```allow```                                | ```deny``` | Switches between allowlist and denylist filtering. On ```allow```, only listed attributes are displayed. On ```deny```, only listed attributes are not displayed. |
 | filterAttributesList | Array   | ```String``` Name of attributes provided by the used service | ```[]```   | List of attributes used for filtering.                                                                                                                            |
+
+#### RelatedTablePopupTemplates:
+
+```json
+"dn_relatedtables": {
+    "RelatedTablePopupTemplates": [
+        {
+            "type": "any-id",
+            "title": "Title",
+            "content": [],
+            "relationshipTemplates": {},
+            "footerContent": [],
+            "relationNameReplacer": [],
+            "filterAttributesMode": "deny",
+            "filterAttributesList": []
+        }
+    ]
+}
+```

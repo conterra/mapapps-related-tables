@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const TYPE = "related-tables-popup";
 import PopupDefinition from "./PopupDefinition";
 
 export default class PopupDefinitionFactory {
 
     createPopupDefinition(type) {
-        if (type !== TYPE) {
+        if (type !== this._properties.type) {
             throw new Error(`unsupported type ${type}`);
         }
         return new PopupDefinition(this._popupWidgetFactory, this._queryController, this._mapWidgetModel, this._properties);
     }
 
     getTypes() {
-        return [TYPE];
+        return [this._properties.type];
     }
 }

@@ -51,7 +51,98 @@
                 "filterAttributesList": [
                     "OBJECTID"
                 ]
-            }
+            },
+            "RelatedTablePopupTemplates": [
+                {
+                    "type": "stoerungen-related",
+                    "title": "Störung",
+                    "content": [
+                        {
+                            "type": "fields",
+                            "fieldInfos": [
+                                {
+                                    "fieldName": "details",
+                                    "label": "Details"
+                                },
+                                {
+                                    "fieldName": "melder",
+                                    "label": "Melder"
+                                },
+                                {
+                                    "fieldName": "status",
+                                    "label": "Status"
+                                },
+                                {
+                                    "fieldName": "zeitpunkt",
+                                    "label": "Zeitpunkt",
+                                    "format": {
+                                        "dateFormat": "day-short-month-year"
+                                    }
+                                },
+                                {
+                                    "fieldName": "kommentar",
+                                    "label": "Kommentar"
+                                }
+                            ]
+                        }
+                    ],
+                    "relationshipTemplates": {
+                        "0": {
+                            "title": "{Aktivität} von {Name}",
+                            "content": [
+                                {
+                                    "type": "fields",
+                                    "fieldInfos": [
+                                        {
+                                            "fieldName": "Name",
+                                            "label": "Bearbeiter"
+                                        },
+                                        {
+                                            "fieldName": "Aktivität",
+                                            "label": "Aktivität"
+                                        },
+                                        {
+                                            "fieldName": "Datum",
+                                            "label": "Bearbeitungsdatum"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "media",
+                                    "mediaInfos": [
+                                        {
+                                            "title": "<b>Chart sample without sense</b>",
+                                            "type": "pie-chart",
+                                            "value": {
+                                                "fields": [
+                                                    "Störung_ID",
+                                                    "Aktivität"
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "footerContent": [
+                        {
+                            "type": "text",
+                            "text": "<hr/>\ncreated by <b>con terra</b>"
+                        }
+                    ],
+                    "relationNameReplacer": [
+                        {
+                            "name": "Aktivitäten",
+                            "newName": "Störungsaktivitäten"
+                        }
+                    ],
+                    "filterAttributesMode": "deny",
+                    "filterAttributesList": [
+                        "OBJECTID"
+                    ]
+                }
+            ]
         },
         "popups": {
             "Config": {
@@ -229,113 +320,45 @@
                             ]
                         },
                         {
-                            "id": "koeln",
-                            "url": "https://geoportal.stadt-koeln.de/arcgis/rest/services/basiskarten/kgg/MapServer",
+                            "id": "stoerungen_externe_config",
+                            "url": "https://services.conterra.de/arcgis/rest/services/mapapps/stoerung_relates/MapServer",
                             "type": "AGS_DYNAMIC",
-                            "title": "Stadt Köln",
+                            "title": "Störungen - Externe Konfiguration",
                             "sublayers": [
                                 {
-                                    "id": 3,
-                                    "title": "Stadtteile",
+                                    "id": 0,
+                                    "title": "Störungen",
+                                    "renderer": {
+                                        "type": "simple",
+                                        "symbol": {
+                                            "type": "simple-marker",
+                                            "color": [
+                                                255,
+                                                0,
+                                                0,
+                                                0.6
+                                            ],
+                                            "size": 16,
+                                            "outline": {
+                                                "color": [
+                                                    0,
+                                                    0,
+                                                    0,
+                                                    0.4
+                                                ],
+                                                "width": 0.5
+                                            }
+                                        }
+                                    },
                                     "popupTemplate": {
-                                        "popupType": "related-tables-popup",
-                                        "customActions": [
-                                            "maximize-popup"
-                                        ],
-                                        "title": "Stadtteil {name}",
-                                        "content": [
-                                            {
-                                                "type": "fields",
-                                                "fieldInfos": [
-                                                    {
-                                                        "fieldName": "st_area(shape)",
-                                                        "label": "Fläche",
-                                                        "format": {
-                                                            "places": 2,
-                                                            "digitSeparator": true
-                                                        }
-                                                    }
-                                                ]
-                                            }
-                                        ],
-                                        "displayedRelationships": [3, 1, 4],
-                                        "relationshipTemplates": {
-                                            "3": {
-                                                "title": "Block {nummer}",
-                                                "content": [
-                                                    {
-                                                        "type": "fields",
-                                                        "fieldInfos": [
-                                                            {
-                                                                "fieldName": "stadtbezirk",
-                                                                "label": "Stadtbezirk"
-                                                            },
-                                                            {
-                                                                "fieldName": "st_area(shape)",
-                                                                "label": "Fläche",
-                                                                "format": {
-                                                                    "places": 2,
-                                                                    "digitSeparator": true
-                                                                }
-                                                            }
-                                                        ]
-                                                    }
-                                                ]
-                                            },
-                                            "1": {
-                                                "title": "{name}",
-                                                "content": [
-                                                    {
-                                                        "type": "fields",
-                                                        "fieldInfos": [
-                                                            {
-                                                                "fieldName": "stadtbezirk",
-                                                                "label": "Stadtbezirk"
-                                                            },
-                                                            {
-                                                                "fieldName": "st_area(shape)",
-                                                                "label": "Fläche",
-                                                                "format": {
-                                                                    "places": 2,
-                                                                    "digitSeparator": true
-                                                                }
-                                                            }
-                                                        ]
-                                                    }
-                                                ]
-                                            },
-                                            "4": {
-                                                "title": "{name}",
-                                                "content": [
-                                                    {
-                                                        "type": "fields",
-                                                        "fieldInfos": [
-                                                            {
-                                                                "fieldName": "st_area(shape)",
-                                                                "label": "Fläche",
-                                                                "format": {
-                                                                    "places": 2,
-                                                                    "digitSeparator": true
-                                                                }
-                                                            }
-                                                        ]
-                                                    }
-                                                ]
-                                            }
-                                        },
-                                        "footerContent": [
-                                            {
-                                                "type": "text",
-                                                "text": "<hr/>\nDaten der <b>Stadt Köln</b>"
-                                            }
-                                        ]
+                                        "popupType": "stoerungen-related"
                                     }
                                 }
                             ]
                         },
                         {
                             "id": "grundriss_fhws",
-                            "url": "https://gisportal.fhws.de/server/rest/services/FHWS_Campus/SDE_Campus_RoeRi_Gebaeude/FeatureServer/13",
+                            "url": "https://gisportal.fkv.thws.de/server/rest/services/Campus/sde_Campus_RoeRi_Gebaeude/FeatureServer/13",
                             "type": "AGS_FEATURE",
                             "title": "Grundriss FHWS",
                             "popupTemplate": {
@@ -411,10 +434,10 @@
                 },
                 "view": {
                     "viewmode": "2D",
-                    "scale": 144447.638572,
+                    "scale": 36111.909643,
                     "center": {
-                        "x": 773018.5113211585,
-                        "y": 6604676.693279617,
+                        "x": 848968.2535510017,
+                        "y": 6795272.42330863,
                         "spatialReference": {
                             "wkid": 3857
                         }

@@ -29,6 +29,7 @@ export default class PopupDefinition {
     }
 
     resolvePopupTemplate(layerOrSublayer) {
+        const properties = this.properties;
         let url = layerOrSublayer.url;
         const layerId = layerOrSublayer.layerId;
         if (layerId !== undefined) {
@@ -46,14 +47,20 @@ export default class PopupDefinition {
                 if (layerOrSublayer.popupTemplate?.content?.length) {
                     content = [...content, ...layerOrSublayer.popupTemplate.content];
                 }
+                if(properties.content?.length) {
+                    content = [...content, ...properties.content];
+                }
                 content = [...content, ...[customContentWidget]];
                 if (layerOrSublayer.popupTemplate?.footerContent?.length) {
                     content = [...content, ...layerOrSublayer.popupTemplate.footerContent];
                 }
+                if(properties.footerContent?.length) {
+                    content = [...content, ...properties.footerContent];
+                }
 
                 return new PopupTemplate({
                     outFields: ["*"],
-                    title: layerOrSublayer.popupTemplate?.title || "{" + displayField + "}",
+                    title: layerOrSublayer.popupTemplate?.title || properties.title || "{" + displayField + "}",
                     content: content
                 });
             }
@@ -86,7 +93,8 @@ export default class PopupDefinition {
                         const relationshipId = selectedRelatedRecordsData.id;
                         const relatedRecords = selectedRelatedRecordsData.relatedRecords;
 
-                        const relationshipTemplates = sourceLayer?.popupTemplate?.relationshipTemplates;
+                        const relationshipTemplates = sourceLayer?.popupTemplate?.relationshipTemplates ||
+                            this.properties.relationshipTemplates;
                         let relatedRecordTemplate =
                             relationshipTemplates ? relationshipTemplates[relationshipId] : null;
 
