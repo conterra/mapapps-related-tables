@@ -301,7 +301,7 @@ The relationship templates are now configured via the relationship-IDs and not v
 ]
 ```
 
-### Sample configuration using externel related popupTemplate configuration
+### Sample configuration using separate related popupTemplate configuration
 
 #### 1. Configure related popupTemplate in RelatedTablePopupTemplates component factory
 
