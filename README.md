@@ -18,15 +18,19 @@ https://demos.conterra.de/mapapps/resources/apps/downloads_relatedtables4/index.
 ⚠️**Attention the new version 6.x has a different configuration than the previous version 5**
 The relationship templates are now configured via the relationship-IDs and not via the IDs of the linked layers as before.
 
-## Development Guide
-### Define the mapapps remote base
-Before you can run the project you have to define the mapapps.remote.base property in the pom.xml-file:
-`<mapapps.remote.base>http://%YOURSERVER%/ct-mapapps-webapp-%VERSION%</mapapps.remote.base>`
+## Quick start
 
-### Other methods to to define the mapapps.remote.base property.
-1. Goal parameters
-`mvn install -Dmapapps.remote.base=http://%YOURSERVER%/ct-mapapps-webapp-%VERSION%`
+Clone this project and ensure that you have all required dependencies installed correctly (see [Documentation](https://docs.conterra.de/en/mapapps/latest/developersguide/getting-started/set-up-development-environment.html)).
 
-2. Build properties
-Change the mapapps.remote.base in the build.properties file and run:
-`mvn install -Denv=dev -Dlocal.configfile=%ABSOLUTEPATHTOPROJECTROOT%/build.properties`
+Then run the following commands from the project root directory to start a local development server:
+
+```bash
+# install all required node modules
+$ mvn initialize
+
+# start dev server
+$ mvn compile -Denv=dev -Pinclude-mapapps-deps
+
+# run unit tests
+$ mvn test -P run-js-tests,include-mapapps-deps
+```
