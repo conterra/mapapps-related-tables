@@ -21,7 +21,9 @@ export default class PopupDefinitionFactory {
         if (type !== this._properties.type) {
             throw new Error(`unsupported type ${type}`);
         }
-        return new PopupDefinition(this._popupWidgetFactory, this._queryController, this._mapWidgetModel, this._properties);
+        return new PopupDefinition(
+            this._popupWidgetFactory, this._queryController, this._mapWidgetModel, this._properties
+        );
     }
 
     getTypes() {

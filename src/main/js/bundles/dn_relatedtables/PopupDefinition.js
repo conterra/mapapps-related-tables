@@ -159,7 +159,7 @@ export default class PopupDefinition {
 
         // Use allowlist filtering
         if (filterAttributesList.length && filterAttributesMode === "allow") {
-            for (const [key, value] of Object.entries(clonedAttributes)) {
+            for (const key of Object.entries(clonedAttributes)) {
                 // delete all attributes that are not included in the filterAttributesList
                 if (!filterAttributesList.includes(key)) {
                     delete clonedAttributes[key];
@@ -169,7 +169,7 @@ export default class PopupDefinition {
 
         // Use denylist filtering
         if (filterAttributesList.length && filterAttributesMode === "deny") {
-            for (const [key, value] of Object.entries(clonedAttributes)) {
+            for (const key of Object.entries(clonedAttributes)) {
                 // delete all attributes that are included in the filterAttributesList
                 if (filterAttributesList.includes(key)) {
                     delete clonedAttributes[key];
