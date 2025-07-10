@@ -15,5 +15,31 @@
  */
 module.exports = {
     apptitle: "Related Tables Sample",
-    appInfo: "Diese App zeigt die Funktion des Related Tables Bundles, welches spezielle Popups anbietet, die verwandte Tabellendaten anzeigen."
+    map: {
+        basemaps: {
+            gray: "Stra\xDFenkarte (grau)",
+            streets: "Stra\xDFenkarte",
+            topo: "Topographische Karte",
+            hybrid: "Luftbild (hybrid)"
+        }
+    },
+    tools: {
+        drawerLeft: "Werkzeuge",
+        measuring: "Messwerkzeuge"
+    },
+    common: {
+        number: "Nummer",
+        area: "Fl\xE4che [ha]",
+        totalArea: "Anteil an Gesamtfl\xE4che [%]",
+        name: "Name",
+        provider: "Tr\xE4ger",
+        address: "Adresse",
+        furtherinfo: "Weitere Informationen",
+        precint: "Stadtbezirk",
+        district: "Stadtviertel",
+        private: "private",
+        municipal: "st\xE4dtischer",
+        zip: "PLZ",
+        type: "Art"
+    }
 };

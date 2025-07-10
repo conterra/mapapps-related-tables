@@ -16,7 +16,34 @@
 module.exports = {
     root: {
         apptitle: "Related Tables Sample",
-        appInfo: "This app shows the functionality of the Related Tables bundle that provides a special popup that shows related table data."
+        map: {
+
+            basemaps: {
+                gray: "Street Map (gray)",
+                streets: "Street Map",
+                topo: "Topographical Map",
+                hybrid: "Aerial (hybrid)"
+            }
+        },
+        tools: {
+            drawerLeft: "Tools",
+            measuring: "Measuring Tools"
+        },
+        common: {
+            number: "Number",
+            area: "Area [ha]",
+            totalArea: "Percentage of the total area [%]",
+            name: "Name",
+            provider: "Provider",
+            address: "Address",
+            furtherinfo: "Further Information",
+            precint: "Precint",
+            district: "District",
+            private: "privater",
+            municipal: "municipal",
+            zip: "Zip code",
+            type: "Type"
+        }
     },
     "de": true
 };
