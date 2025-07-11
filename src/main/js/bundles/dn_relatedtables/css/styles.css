@@ -35,7 +35,7 @@
 .ctAppRoot .esri-feature-content .relatedTablesPopup .esri-feature__size-container {
     padding-top: 8px;
     padding-bottom: 8px;
-    border-bottom: 1px grey solid;
+    border-bottom: 1px #6e6e6e solid;
 }
 
 .ctAppRoot .esri-feature-content .relatedTablesPopup .esri-feature__size-container:last-child {
