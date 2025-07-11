@@ -17,37 +17,37 @@
     overflow: auto;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup {
+.ctAppRoot .esri-feature-content .relatedTablesPopup {
     background-color: #fff !important;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .relatedTablesTitle,
-.ctAppRoot .esri-popup__content .relatedTablesPopup .v-text-field .v-input__slot input,
-.ctAppRoot .esri-popup__content .relatedTablesPopup .v-text-field .v-label,
-.ctAppRoot .esri-popup__content .relatedTablesPopup .v-input__control > .v-input__slot:before {
+.ctAppRoot .esri-feature-content .relatedTablesPopup .relatedTablesTitle,
+.ctAppRoot .esri-feature-content .relatedTablesPopup .v-text-field .v-input__slot input,
+.ctAppRoot .esri-feature-content .relatedTablesPopup .v-text-field .v-label,
+.ctAppRoot .esri-feature-content .relatedTablesPopup .v-input__control > .v-input__slot:before {
     color: #6e6e6e;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .v-select .v-icon {
+.ctAppRoot .esri-feature-content .relatedTablesPopup .v-select .v-icon {
     color: #6e6e6e !important;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .esri-feature__size-container {
+.ctAppRoot .esri-feature-content .relatedTablesPopup .esri-feature__size-container {
     padding-top: 8px;
     padding-bottom: 8px;
     border-bottom: 1px grey solid;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .esri-feature__size-container:last-child {
+.ctAppRoot .esri-feature-content .relatedTablesPopup .esri-feature__size-container:last-child {
     border-bottom: none;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .esri-feature__main-container > div {
+.ctAppRoot .esri-feature-content .relatedTablesPopup .esri-feature__main-container > div {
     padding: 0;
 }
 
-.ctAppRoot .esri-popup__content .relatedTablesPopup .relatedRecordsData {
-    max-height: 400px;
+.ctAppRoot .esri-feature-content .relatedTablesPopup .relatedRecordsData {
+    max-height: 300px;
     overflow: auto;
 }
 
@@ -61,10 +61,6 @@ Menu in Popup
 
 .ctAppRoot .vuetify-menues .relatedTableMenu .v-list__tile--link:hover {
     background-color: #ededed !important;
-}
-
-.ctAppRoot.ctEnv_IE_11 .esri-popup__content .relatedTablesPopup .v-tabs__item {
-    flex-basis: auto;
 }
 
 /**
