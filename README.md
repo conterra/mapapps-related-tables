@@ -8,7 +8,7 @@ The Related Tables bundle for Linie 3 can be found in the 3.x branch:
 https://github.com/conterra/mapapps-related-tables/tree/3.x
 
 ## Sample App
-https://demos.conterra.de/mapapps/resources/apps/public_demo_relatedtables/index.htm
+https://demos.conterra.de/mapapps/resources/apps/public_demo_relatedtables/index.html
 
 ## Installation Guide
 **Requirement: map.apps 4.9.0**
