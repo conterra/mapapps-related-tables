@@ -59,6 +59,8 @@
                 {
                     "type": "stoerungen-related",
                     "title": "Störung",
+                    "orderByFields": ["Name"],
+                    "displayedRelationships": [1, 4],
                     "content": [
                         {
                             "type": "fields",
