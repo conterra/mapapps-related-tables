@@ -1,34 +1,49 @@
-/*
- * Copyright (C) 2025 con terra GmbH (info@conterra.de)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+///
+/// Copyright (C) 2025 con terra GmbH (info@conterra.de)
+///
+/// Licensed under the Apache License, Version 2.0 (the "License");
+/// you may not use this file except in compliance with the License.
+/// You may obtain a copy of the License at
+///
+///         http://www.apache.org/licenses/LICENSE-2.0
+///
+/// Unless required by applicable law or agreed to in writing, software
+/// distributed under the License is distributed on an "AS IS" BASIS,
+/// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+/// See the License for the specific language governing permissions and
+/// limitations under the License.
+///
+
 import PopupTemplate from "esri/PopupTemplate";
 import CustomContent from "esri/popup/content/CustomContent";
 import Feature from "esri/widgets/Feature";
 import FeatureLayer from "esri/layers/FeatureLayer";
 import Field from "esri/layers/support/Field";
 
-export default class PopupDefinition {
+import type { PopupWidgetFactory } from "./PopupWidgetFactory";
+import type { QueryController } from "./QueryController";
+import type { MapWidgetModel } from "map-widget/MapWidgetModel";
 
-    constructor(popupWidgetFactory, queryController, mapWidgetModel, properties) {
+export default class PopupDefinition {
+    private popupWidgetFactory: PopupWidgetFactory;
+    private queryController: QueryController;
+    private mapWidgetModel: MapWidgetModel;
+    private properties: Record<string, any>;
+    private objectIdField?: any;
+
+    constructor(
+        popupWidgetFactory: PopupWidgetFactory,
+        queryController: QueryController,
+        mapWidgetModel: MapWidgetModel,
+        properties: Record<string, any>
+    ) {
         this.popupWidgetFactory = popupWidgetFactory;
         this.queryController = queryController;
         this.mapWidgetModel = mapWidgetModel;
         this.properties = properties;
     }
 
-    resolvePopupTemplate(layerOrSublayer) {
+    resolvePopupTemplate(layerOrSublayer: any): Promise<PopupTemplate | undefined> {
         const properties = this.properties;
         let url = layerOrSublayer.url;
         const layerId = layerOrSublayer.layerId;
@@ -39,22 +54,22 @@ export default class PopupDefinition {
         return queryController.getMetadata(url).then((metadata) => {
             if (metadata.fields) {
                 const displayField = metadata.displayField;
-                const objectIdField = this._getObjectIdField(metadata.fields).name;
+                const objectIdField = this.getObjectIdField(metadata.fields).name;
 
-                const customContentWidget = this._getCustomContent(layerOrSublayer, displayField, objectIdField);
+                const customContentWidget = this.getCustomContent(layerOrSublayer, displayField, objectIdField);
 
-                let content = [];
+                let content: any[] = [];
                 if (layerOrSublayer.popupTemplate?.content?.length) {
                     content = [...content, ...layerOrSublayer.popupTemplate.content];
                 }
-                if(properties.content?.length) {
+                if (properties.content?.length) {
                     content = [...content, ...properties.content];
                 }
                 content = [...content, ...[customContentWidget]];
                 if (layerOrSublayer.popupTemplate?.footerContent?.length) {
                     content = [...content, ...layerOrSublayer.popupTemplate.footerContent];
                 }
-                if(properties.footerContent?.length) {
+                if (properties.footerContent?.length) {
                     content = [...content, ...properties.footerContent];
                 }
 
@@ -67,21 +82,22 @@ export default class PopupDefinition {
         });
     }
 
-    _getCustomContent(layerOrSublayer, displayField, objectIdField) {
+    private getCustomContent(layerOrSublayer: any, displayField: string, objectIdField: string): CustomContent {
         return new CustomContent({
             outFields: ["*"],
-            creator: ({ graphic }) => {
-                const widget = this.popupWidgetFactory.getWidget();
+            creator: (event: any) => {
+                const graphic = event.graphic as __esri.Graphic;
+                const widget = this.popupWidgetFactory.getWidget() as any;
                 widget.startup();
 
                 const vm = widget.getVM();
 
-                const sourceLayer = graphic.sourceLayer || layerOrSublayer;
+                const sourceLayer = (graphic as any).sourceLayer || layerOrSublayer;
                 displayField = displayField || sourceLayer.displayField;
                 objectIdField = objectIdField || sourceLayer.objectIdField;
                 const objectId = graphic.attributes[objectIdField];
                 widget.set("relatedRecordsData", []);
-                vm.watch("selectedRelatedRecordsData", async (selectedRelatedRecordsData) => {
+                vm.watch("selectedRelatedRecordsData", async (selectedRelatedRecordsData: any) => {
                     const domNode = vm.$refs.featureWidgets;
                     // remove all children of domNode
                     let child = domNode.lastElementChild;
@@ -89,7 +105,7 @@ export default class PopupDefinition {
                         domNode.removeChild(child);
                         child = domNode.lastElementChild;
                     }
-                    if(selectedRelatedRecordsData.id !== null && selectedRelatedRecordsData.relatedRecords.length) {
+                    if (selectedRelatedRecordsData.id !== null && selectedRelatedRecordsData.relatedRecords.length) {
                         const relationshipId = selectedRelatedRecordsData.id;
                         const relatedRecords = selectedRelatedRecordsData.relatedRecords;
 
@@ -100,16 +116,18 @@ export default class PopupDefinition {
 
                         if (relatedRecordTemplate?.useRelatedLayerTemplate && relatedRecordTemplate?.relatedLayerId) {
                             const relatedLayerId = relatedRecordTemplate.relatedLayerId;
-                            const relatedLayer = this._getLayerById(relatedLayerId);
-                            const content =
-                                relatedLayer.popupTemplate.content.filter((content) => content.type !== "custom");
-                            relatedRecordTemplate = {
-                                title: relatedRecordTemplate.title || relatedLayer.popupTemplate.title,
-                                content: content
-                            };
+                            const relatedLayer = this.getLayerById(relatedLayerId);
+                            if (relatedLayer && (relatedLayer as any).popupTemplate) {
+                                const content =
+                                    (relatedLayer as any).popupTemplate.content.filter((content: any) => content.type !== "custom");
+                                relatedRecordTemplate = {
+                                    title: relatedRecordTemplate.title || (relatedLayer as any).popupTemplate.title,
+                                    content: content
+                                };
+                            }
                         }
-                        relatedRecords.forEach((record) => {
-                            const g = this._getGraphic(record, relatedRecordTemplate);
+                        relatedRecords.forEach((record: any) => {
+                            const g = this.getGraphic(record, relatedRecordTemplate);
                             return new Feature({
                                 graphic: g,
                                 container: domNode
@@ -118,7 +136,7 @@ export default class PopupDefinition {
                     }
                 });
 
-                this._getRelatedRecordsData(sourceLayer, objectId, widget).then((relatedRecordsData) => {
+                this.getRelatedRecordsData(sourceLayer, objectId, widget).then((relatedRecordsData) => {
                     widget.set("relatedRecordsData", relatedRecordsData);
                     const firstRelatedRecordsData = relatedRecordsData[0];
                     widget.set("selectedRelatedRecordsData", firstRelatedRecordsData);
@@ -128,12 +146,12 @@ export default class PopupDefinition {
         });
     }
 
-    _getGraphic(relatedRecord, relatedRecordTemplate) {
+    private getGraphic(relatedRecord: any, relatedRecordTemplate: any): any {
         if (!relatedRecordTemplate) {
             relatedRecordTemplate = {
                 title: relatedRecord.title,
                 content: [{
-                    type: "fields", fieldInfos: relatedRecord.fields.map((field) => {
+                    type: "fields", fieldInfos: relatedRecord.fields.map((field: any) => {
                         return {
                             fieldName: field.name, label: field.alias || field.name
                         };
@@ -145,13 +163,13 @@ export default class PopupDefinition {
             source: [],
             fields: relatedRecord.fields
         });
-        const filteredAttributes = this._filterAttributes(relatedRecord.attributes);
+        const filteredAttributes = this.filterAttributes(relatedRecord.attributes);
         return {
             layer: layer, attributes: filteredAttributes, popupTemplate: relatedRecordTemplate
         };
     }
 
-    _filterAttributes(attributes) {
+    private filterAttributes(attributes: Record<string, any>): Record<string, any> {
         const clonedAttributes = Object.assign({}, attributes);
         const props = this.properties;
         const filterAttributesMode = props.filterAttributesMode;
@@ -159,7 +177,7 @@ export default class PopupDefinition {
 
         // Use allowlist filtering
         if (filterAttributesList.length && filterAttributesMode === "allow") {
-            for (const key of Object.entries(clonedAttributes)) {
+            for (const [key] of Object.entries(clonedAttributes)) {
                 // delete all attributes that are not included in the filterAttributesList
                 if (!filterAttributesList.includes(key)) {
                     delete clonedAttributes[key];
@@ -169,7 +187,7 @@ export default class PopupDefinition {
 
         // Use denylist filtering
         if (filterAttributesList.length && filterAttributesMode === "deny") {
-            for (const key of Object.entries(clonedAttributes)) {
+            for (const [key] of Object.entries(clonedAttributes)) {
                 // delete all attributes that are included in the filterAttributesList
                 if (filterAttributesList.includes(key)) {
                     delete clonedAttributes[key];
@@ -180,7 +198,7 @@ export default class PopupDefinition {
         return clonedAttributes;
     }
 
-    _getRelatedRecordsData(sourceLayer, objectId, widget) {
+    private getRelatedRecordsData(sourceLayer: any, objectId: string | number, widget: any): Promise<any[]> {
         let url = sourceLayer.url;
         const layerId = sourceLayer.layerId;
         if (layerId !== undefined) {
@@ -191,49 +209,53 @@ export default class PopupDefinition {
         const queryController = this.queryController;
         return queryController.getMetadata(url)
             .then((metadata) => queryController.getRelatedMetadata(url, metadata, sourceLayer)
-                .then((relatedMetadata) => queryController
-                    .findRelatedRecords(objectId, url, metadata, sourceLayer)
-                    .then((results) => {
-                        const relatedRecordsData = [];
+                .then((relatedMetadata) => {
+                    const findRelatedResult = queryController.findRelatedRecords(objectId, url, metadata, sourceLayer);
+                    if (!findRelatedResult) {
+                        widget.set("loading", false);
+                        return [];
+                    }
+                    return findRelatedResult.then((results) => {
+                        const relatedRecordsData: any[] = [];
                         if (!results) {
                             widget.set("loading", false);
                             return relatedRecordsData;
                         }
-                        results.forEach((result, i) => {
-                            const relatedRecords = [];
+                        results.forEach((result: any, i: number) => {
+                            const relatedRecords: any[] = [];
                             const metadata = relatedMetadata[i];
-                            const objectIdField = this.objectIdField = this._getObjectIdField(metadata.fields);
+                            const objectIdField = this.objectIdField = this.getObjectIdField(metadata.fields);
 
                             const relatedRecordGroups = result.relatedRecordGroups;
-                            relatedRecordGroups.forEach((relatedRecordGroup) => {
-                                relatedRecordGroup.relatedRecords.forEach((record) => {
+                            relatedRecordGroups.forEach((relatedRecordGroup: any) => {
+                                relatedRecordGroup.relatedRecords.forEach((record: any) => {
                                     const attributes = record.attributes;
                                     relatedRecords.push({
                                         id: metadata.relationshipId + "_" + attributes[objectIdField.name],
                                         title: attributes[metadata.displayField],
                                         attributes: attributes,
-                                        fields: metadata.fields.map((field) => Field.fromJSON(field))
+                                        fields: metadata.fields.map((field: any) => Field.fromJSON(field))
                                     });
                                 });
                             });
                             if (relatedRecords.length) {
                                 relatedRecordsData.push({
                                     id: metadata.relationshipId,
-                                    title: this._replaceRelationName(metadata.name),
+                                    title: this.replaceRelationName(metadata.name),
                                     relatedRecords: relatedRecords
                                 });
                             }
                         });
                         widget.set("loading", false);
                         return relatedRecordsData;
-                    })
-                )
+                    });
+                })
             );
     }
 
-    _replaceRelationName(name) {
+    private replaceRelationName(name: string): string {
         const relationNameReplacer = this.properties.relationNameReplacer;
-        const replacerObject = relationNameReplacer.find((replacer) => replacer.name === name);
+        const replacerObject = relationNameReplacer.find((replacer: any) => replacer.name === name);
         if (replacerObject) {
             return replacerObject.newName;
         } else {
@@ -241,11 +263,11 @@ export default class PopupDefinition {
         }
     }
 
-    _getObjectIdField(fields) {
-        return fields.find((field) => field.type === "esriFieldTypeOID");
+    private getObjectIdField(fields: any[]): any {
+        return fields.find((field: any) => field.type === "esriFieldTypeOID");
     }
 
-    _getLayerById(layerIdPath) {
+    private getLayerById(layerIdPath: string): __esri.Layer | undefined {
         if (typeof layerIdPath !== "string") {
             return undefined;
         }
@@ -261,7 +283,7 @@ export default class PopupDefinition {
             return layer;
         }
 
-        return layer.findSublayerById(parseInt(sublayerId, 10));
+        return (layer as any).findSublayerById(parseInt(sublayerId, 10));
     }
 
 }
