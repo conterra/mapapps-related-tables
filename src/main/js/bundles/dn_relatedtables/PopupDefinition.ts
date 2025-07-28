@@ -306,9 +306,9 @@ export default class PopupDefinition {
                 const aValue = a.attributes[fieldName];
                 const bValue = b.attributes[fieldName];
 
-                if (aValue == null && bValue == null) continue;
-                if (aValue == null) return order.toUpperCase() === 'DESC' ? -1 : 1;
-                if (bValue == null) return order.toUpperCase() === 'DESC' ? 1 : -1;
+                if ((aValue === null || aValue === undefined) && (bValue === null || bValue === undefined)) continue;
+                if (aValue === null || aValue === undefined) return order.toUpperCase() === 'DESC' ? -1 : 1;
+                if (bValue === null || bValue === undefined) return order.toUpperCase() === 'DESC' ? 1 : -1;
 
                 let comparison = 0;
 
