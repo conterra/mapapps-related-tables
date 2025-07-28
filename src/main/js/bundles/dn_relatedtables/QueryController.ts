@@ -31,11 +31,6 @@ export class QueryController {
             relationships = relationships.filter((r: __esri.Relationship) => displayedRelationships.includes(r.id));
         }
 
-        if (sourceLayer?.popupTemplate && (sourceLayer.popupTemplate as any)?.orderByFields) {
-            const orderByFields = (sourceLayer.popupTemplate as any)?.orderByFields;
-            console.info("Using orderByFields from popupTemplate:", orderByFields);
-        }
-
         const requests = relationships.map((relationship: __esri.Relationship) => {
             const relationshipId = relationship && relationship.id;
             return apprt_request(url + "/queryRelatedRecords", {
@@ -45,10 +40,12 @@ export class QueryController {
                     outFields: ["*"],
                     returnGeometry: true,
                     returnCountOnly: false,
-                    orderByFields: ["Name"],
                     f: 'json'
                 },
                 handleAs: 'json'
+            }).then((result) => {
+                result.relationshipId = relationship.id;
+                return result;
             });
         });
         if (requests.length > 0) {
