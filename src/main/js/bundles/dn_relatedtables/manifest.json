@@ -6,7 +6,11 @@
     "vendor": "con terra GmbH",
     "productName": "devnet-mapapps-related-tables",
     "layer": "module",
+    "main": "",
     "dependencies": {
+        "apprt-vue": "^4.9.0",
+        "apprt-request": "^4.9.0",
+        "esri": "^4.9.0",
         "popups": "^4.9.0",
         "resultcenter": "^4.9.0"
     },
