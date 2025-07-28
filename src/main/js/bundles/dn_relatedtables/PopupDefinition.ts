@@ -244,6 +244,17 @@ export default class PopupDefinition {
                                     title: this.replaceRelationName(metadata.name),
                                     relatedRecords: relatedRecords
                                 });
+
+                                if (sourceLayer.popupTemplate?.orderByFields) {
+                                    const orderByFields = sourceLayer.popupTemplate.orderByFields;
+                                    const matchingOrderByFields = orderByFields[metadata.relationshipId];
+
+                                    if (matchingOrderByFields && matchingOrderByFields.length > 0) {
+                                        const lastIndex = relatedRecordsData.length - 1;
+                                        const currentRelatedRecords = relatedRecordsData[lastIndex].relatedRecords;
+                                        this.sortRelatedRecords(currentRelatedRecords, matchingOrderByFields);
+                                    }
+                                }
                             }
                         });
                         widget.set("loading", false);
@@ -286,4 +297,43 @@ export default class PopupDefinition {
         return (layer as any).findSublayerById(parseInt(sublayerId, 10));
     }
 
+    private sortRelatedRecords(relatedRecords: any[], orderByFields: any[]): void {
+        relatedRecords.sort((a: any, b: any) => {
+            for (const orderByField of orderByFields) {
+                const fieldName = orderByField.field || orderByField;
+                const order = orderByField.order || 'ASC';
+
+                const aValue = a.attributes[fieldName];
+                const bValue = b.attributes[fieldName];
+
+                if (aValue == null && bValue == null) continue;
+                if (aValue == null) return order.toUpperCase() === 'DESC' ? -1 : 1;
+                if (bValue == null) return order.toUpperCase() === 'DESC' ? 1 : -1;
+
+                let comparison = 0;
+
+                const aIsNumber = !isNaN(Number(aValue)) && !isNaN(parseFloat(aValue));
+                const bIsNumber = !isNaN(Number(bValue)) && !isNaN(parseFloat(bValue));
+
+                if (aIsNumber && bIsNumber) {
+                    const aNum = parseFloat(aValue);
+                    const bNum = parseFloat(bValue);
+                    comparison = aNum - bNum;
+                } else {
+                    const aStr = String(aValue);
+                    const bStr = String(bValue);
+                    comparison = aStr.localeCompare(bStr, undefined, {
+                        numeric: true,
+                        sensitivity: 'base'
+                    });
+                }
+
+                if (comparison !== 0) {
+                    const result = order.toUpperCase() === 'DESC' ? -comparison : comparison;
+                    return result;
+                }
+            }
+            return 0;
+        });
+    }
 }
