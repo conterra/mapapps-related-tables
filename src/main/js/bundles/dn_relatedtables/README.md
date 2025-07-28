@@ -443,6 +443,30 @@ The relationship templates are now configured via the relationship-IDs and not v
 }
 ```
 
+### Sample Configuration for sorting the related records
+
+```json
+"popupTemplate": {
+    "popupType": "related-tables-popup",
+    "customActions": [
+        "maximize-popup"
+    ],
+    "title": "Test",
+    "orderByFields": {
+        "0": [ //Relationship ID
+            {
+                "field": "Name", // name of the field to sort on
+                "order": "DESC" // sorting direction, here descending
+            },
+            {
+                "field": "Date", // name of the field to sort on
+                "order": "ASC" // sorting direction, here ascending
+            },
+        ]
+    },
+    "content": [...]
+```
+
 ### Configurable Components of dn_relatedtables:
 
 #### Config:
@@ -467,7 +491,7 @@ The relationship templates are now configured via the relationship-IDs and not v
 Filter properties affect only the relational data. These do not have to be configured if you define your own templates via the relationshipTemplates property.
 
 | Property             | Type    | Possible Values                                              | Default    | Description                                                                                                                                                       |
-| -------------------- | ------- | ------------------------------------------------------------ | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|---------|--------------------------------------------------------------|------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | relationNameReplacer | Array   |                                                              | ```[]```   | List of name replacer. "name": Name of the related entity, "newName": Name to be used for the display of the related entity.                                      |
 | filterAttributesMode | Boolean | ```deny``` &#124; ```allow```                                | ```deny``` | Switches between allowlist and denylist filtering. On ```allow```, only listed attributes are displayed. On ```deny```, only listed attributes are not displayed. |
 | filterAttributesList | Array   | ```String``` Name of attributes provided by the used service | ```[]```   | List of attributes used for filtering.                                                                                                                            |
