@@ -25,11 +25,12 @@ export class QueryController {
         metadata: any,
         sourceLayer?: __esri.FeatureLayer
     ): Promise<any[]> | null {
-        let relationships = this.relationships = metadata.relationships;
+        let relationships = metadata.relationships;
         if (sourceLayer?.popupTemplate && (sourceLayer.popupTemplate as any)?.displayedRelationships) {
             const displayedRelationships = (sourceLayer.popupTemplate as any)?.displayedRelationships;
             relationships = relationships.filter((r: __esri.Relationship) => displayedRelationships.includes(r.id));
         }
+        this.relationships = relationships;
 
         const requests = relationships.map((relationship: __esri.Relationship) => {
             const relationshipId = relationship && relationship.id;
@@ -61,11 +62,12 @@ export class QueryController {
         sourceLayer?: __esri.FeatureLayer
     ): Promise<any[]> {
         url = url.substr(0, url.lastIndexOf("/"));
-        let relationships = this.relationships = metadata.relationships;
+        let relationships = metadata.relationships;
         if (sourceLayer?.popupTemplate && (sourceLayer.popupTemplate as any)?.displayedRelationships) {
             const displayedRelationships = (sourceLayer.popupTemplate as any)?.displayedRelationships;
             relationships = relationships.filter((r: __esri.Relationship) => displayedRelationships.includes(r.id));
         }
+        this.relationships = relationships;
         const requests = relationships.map((relationship: __esri.Relationship) => {
             const relatedTableId = relationship && relationship.relatedTableId;
             return apprt_request(url + "/" + relatedTableId, {
