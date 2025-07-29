@@ -26,6 +26,9 @@ export class QueryController {
         sourceLayer?: __esri.FeatureLayer
     ): Promise<any[]> | null {
         let relationships = metadata.relationships;
+        if (!relationships || !Array.isArray(relationships)) {
+            return null;
+        }
         if (sourceLayer?.popupTemplate && (sourceLayer.popupTemplate as any)?.displayedRelationships) {
             const displayedRelationships = (sourceLayer.popupTemplate as any)?.displayedRelationships;
             relationships = relationships.filter((r: __esri.Relationship) => displayedRelationships.includes(r.id));
@@ -63,6 +66,9 @@ export class QueryController {
     ): Promise<any[]> {
         url = url.substr(0, url.lastIndexOf("/"));
         let relationships = metadata.relationships;
+        if (!relationships || !Array.isArray(relationships)) {
+            return Promise.resolve([]);
+        }
         if (sourceLayer?.popupTemplate && (sourceLayer.popupTemplate as any)?.displayedRelationships) {
             const displayedRelationships = (sourceLayer.popupTemplate as any)?.displayedRelationships;
             relationships = relationships.filter((r: __esri.Relationship) => displayedRelationships.includes(r.id));
