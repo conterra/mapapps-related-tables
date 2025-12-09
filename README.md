@@ -1,3 +1,6 @@
+[![devnet-bundle-snapshot](https://github.com/conterra/mapapps-related-tables/actions/workflows/devnet-bundle-snapshot.yml/badge.svg)](https://github.com/conterra/mapapps-related-tables/actions/workflows/devnet-bundle-snapshot.yml)
+![Static Badge](https://img.shields.io/badge/requires_map.apps-4.20.0-e5e5e5?labelColor=%233E464F&logoColor=%23e5e5e5)
+![Static Badge](https://img.shields.io/badge/tested_for_map.apps-4.20.0-%20?labelColor=%233E464F&color=%232FC050)
 # Related Tables
 
 The Related Tables bundle adds a new popup to the app to display data from related tables.
@@ -10,8 +13,7 @@ https://github.com/conterra/mapapps-related-tables/tree/3.x
 ## Sample App
 https://demos.conterra.de/mapapps/resources/apps/public_demo_relatedtables/index.html
 
-## Installation Guide
-**Requirement: map.apps 4.9.0**
+
 
 [dn_relatedtables Documentation](https://github.com/conterra/mapapps-related-tables/tree/master/src/main/js/bundles/dn_relatedtables)
 

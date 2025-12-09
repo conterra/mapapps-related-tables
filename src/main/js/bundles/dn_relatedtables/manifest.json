@@ -8,13 +8,12 @@
     "layer": "module",
     "main": "",
     "dependencies": {
-        "apprt-vue": "^4.9.0",
-        "apprt-request": "^4.9.0",
-        "esri": "^4.9.0",
-        "popups": "^4.9.0",
-        "resultcenter": "^4.9.0"
+        "@arcgis/core": "^4.33.0",
+        "apprt-vue": "^4.20.0",
+        "apprt-fetch": "^4.20.0",
+        "popups": "^4.20.0"
     },
-    "CSS-Themes-Extension": [
+    "cssThemesExtension": [
         {
             "name": "*",
             "files": [
