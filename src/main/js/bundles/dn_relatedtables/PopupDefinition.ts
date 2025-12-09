@@ -14,11 +14,11 @@
 /// limitations under the License.
 ///
 
-import PopupTemplate from "esri/PopupTemplate";
-import CustomContent from "esri/popup/content/CustomContent";
-import Feature from "esri/widgets/Feature";
-import FeatureLayer from "esri/layers/FeatureLayer";
-import Field from "esri/layers/support/Field";
+import PopupTemplate from "@arcgis/core/PopupTemplate";
+import CustomContent from "@arcgis/core/popup/content/CustomContent";
+import Feature from "@arcgis/core/widgets/Feature";
+import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
+import Field from "@arcgis/core/layers/support/Field";
 
 import type { PopupWidgetFactory } from "./PopupWidgetFactory";
 import type { QueryController } from "./QueryController";

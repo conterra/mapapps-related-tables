@@ -14,7 +14,7 @@
 /// limitations under the License.
 ///
 
-import apprt_request from "apprt-request";
+import { apprtFetchJson  } from "apprt-fetch";
 
 export class QueryController {
     private relationships?: __esri.Relationship[];
@@ -37,7 +37,7 @@ export class QueryController {
 
         const requests = relationships.map((relationship: __esri.Relationship) => {
             const relationshipId = relationship && relationship.id;
-            return apprt_request(url + "/queryRelatedRecords", {
+            return apprtFetchJson(url + "/queryRelatedRecords", {
                 query: {
                     objectIds: [objectId],
                     relationshipId: relationshipId,
@@ -45,8 +45,7 @@ export class QueryController {
                     returnGeometry: true,
                     returnCountOnly: false,
                     f: 'json'
-                },
-                handleAs: 'json'
+                }
             }).then((result) => {
                 result.relationshipId = relationship.id;
                 return result;
@@ -76,11 +75,10 @@ export class QueryController {
         this.relationships = relationships;
         const requests = relationships.map((relationship: __esri.Relationship) => {
             const relatedTableId = relationship && relationship.relatedTableId;
-            return apprt_request(url + "/" + relatedTableId, {
+            return apprtFetchJson(url + "/" + relatedTableId, {
                 query: {
                     f: 'json'
-                },
-                handleAs: 'json'
+                }
             }).then((result) => {
                 result.relationshipId = relationship.id;
                 return result;
@@ -90,11 +88,10 @@ export class QueryController {
     }
 
     getMetadata(url: string): Promise<any> {
-        return apprt_request(url, {
+        return apprtFetchJson(url, {
             query: {
                 f: 'json'
-            },
-            handleAs: 'json'
+            }
         });
     }
 }
